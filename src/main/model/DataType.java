@@ -1,5 +1,7 @@
 package model;
 
+import except.InvalidReturnTypeException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,17 +28,17 @@ public class DataType {
     }
 
     // EFFECTS: return data if it's represented as number
-    public int getNumber() {
+    public int getNumber() throws InvalidReturnTypeException {
         return this.number;
     }
 
     // EFFECTS: return data if it's represented as boolean
-    public boolean getBoolean() {
+    public boolean getBoolean() throws InvalidReturnTypeException {
         return this.bool;
     }
 
     // EFFECTS: return data if it's a represented as a stream of data
-    public List<DataType> getResultStream() {
+    public List<DataType> getResultStream() throws InvalidReturnTypeException {
         return new ArrayList<>(this.stream);
     }
 }
