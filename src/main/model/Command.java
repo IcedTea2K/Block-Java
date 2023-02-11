@@ -16,4 +16,10 @@ public interface Command {
     // REQUIRES: only after the command has executed at least once
     // EFFECTS: return the result of the command
     public DataType getResult();
+
+    // EFFECTS: return the constraints specific to this command
+    public String getConstraints();
+
+    // EFFECTS: provide examples on how to use the command
+    public String getExamples();
 }
