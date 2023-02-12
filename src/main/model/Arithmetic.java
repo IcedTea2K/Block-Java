@@ -1,6 +1,7 @@
 package model;
 
 import except.InvalidArgumentException;
+import except.MissingArgumentException;
 
 import java.util.List;
 
@@ -13,5 +14,5 @@ public abstract class Arithmetic extends Operator {
     }
 
     // EFFECTS: return the two inputs that were given to the command
-    public abstract List<DataType> getInputs() throws InvalidArgumentException;
+    public abstract List<DataType> getInputs() throws MissingArgumentException;
 }

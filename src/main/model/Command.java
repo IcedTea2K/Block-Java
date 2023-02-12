@@ -1,6 +1,7 @@
 package model;
 
 import except.InvalidArgumentException;
+import except.MissingArgumentException;
 
 // Interface for Block Java Commands
 public interface Command {
@@ -13,7 +14,7 @@ public interface Command {
     // REQUIRES: valid input have already been stored (with input() that returns true)
     // MODIFIES: this
     // EFFECTS: execute the command with the current
-    public void execute();
+    public void execute() throws MissingArgumentException;
 
     // REQUIRES: only after the command has executed at least once
     // EFFECTS: return the result of the command
@@ -29,5 +30,5 @@ public interface Command {
     public String getExamples();
 
     // EFFECTS: return the Java code representation of this command
-    public String getJava() throws InvalidArgumentException;
+    public String getJava() throws MissingArgumentException;
 }

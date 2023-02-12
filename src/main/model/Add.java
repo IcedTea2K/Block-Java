@@ -1,6 +1,7 @@
 package model;
 
 import except.InvalidArgumentException;
+import except.MissingArgumentException;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class Add extends Arithmetic {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws MissingArgumentException {
 
     }
 
@@ -27,12 +28,12 @@ public class Add extends Arithmetic {
     }
 
     @Override
-    public String getJava() throws InvalidArgumentException {
+    public String getJava() throws MissingArgumentException {
         return null;
     }
 
     @Override
-    public List<DataType> getInputs() throws InvalidArgumentException {
+    public List<DataType> getInputs() throws MissingArgumentException {
         return null;
     }
 }
