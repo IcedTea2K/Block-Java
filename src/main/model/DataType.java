@@ -10,11 +10,11 @@ import java.util.List;
 public class DataType {
     private int number;
     private boolean bool;
-    private List<DataType> stream;
+    private List<DataType> dataStream;
 
     // EFFECTS: store a stream of data
-    public DataType(List<DataType> stream) {
-        this.stream = new ArrayList<>(stream);
+    public DataType(List<DataType> dataStream) {
+        this.dataStream = new ArrayList<>(dataStream);
     }
 
     // EFFECTS: store a number as data
@@ -38,7 +38,7 @@ public class DataType {
     }
 
     // EFFECTS: return data if it's a represented as a stream of data
-    public List<DataType> getResultStream() throws InvalidReturnTypeException {
-        return new ArrayList<>(this.stream);
+    public List<DataType> getDataStream() throws InvalidReturnTypeException {
+        return new ArrayList<>(this.dataStream);
     }
 }
