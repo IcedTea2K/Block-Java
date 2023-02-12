@@ -11,6 +11,6 @@ public class InvalidArgumentException extends Exception {
     // EFFECTS: construct exception due to the invalid argument type
     public InvalidArgumentException(String givenType, String expectedType) {
         super("Invalid argument type:\n"
-                + "Expecting " + expectedType + "Received " + givenType);
+                + "Expecting " + expectedType + " Received " + givenType);
     }
 }
