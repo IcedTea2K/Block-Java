@@ -27,4 +27,7 @@ public interface Command {
 
     // EFFECTS: provide examples on how to use the command
     public String getExamples();
+
+    // EFFECTS: return the Java code representation of this command
+    public String getJava();
 }
