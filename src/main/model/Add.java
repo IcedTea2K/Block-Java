@@ -2,6 +2,8 @@ package model;
 
 import except.InvalidArgumentException;
 
+import java.util.List;
+
 // Add two numbers together
 public class Add extends Arithmetic {
     @Override
@@ -26,6 +28,11 @@ public class Add extends Arithmetic {
 
     @Override
     public String getJava() {
+        return null;
+    }
+
+    @Override
+    public List<DataType> getInputs() {
         return null;
     }
 }
