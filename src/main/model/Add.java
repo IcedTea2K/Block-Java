@@ -27,12 +27,12 @@ public class Add extends Arithmetic {
     }
 
     @Override
-    public String getJava() {
+    public String getJava() throws InvalidArgumentException {
         return null;
     }
 
     @Override
-    public List<DataType> getInputs() {
+    public List<DataType> getInputs() throws InvalidArgumentException {
         return null;
     }
 }

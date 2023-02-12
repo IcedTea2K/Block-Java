@@ -5,6 +5,7 @@ import except.InvalidReturnTypeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -57,13 +58,14 @@ public class AddTest {
 
     @Test
     public void testInputTwoNumbers() {
+        List<DataType> givenInputs = new ArrayList<>();
         try {
             addCommand.input(posNum, negNum);
+            givenInputs = addCommand.getInputs();
         } catch (InvalidArgumentException e) {
             fail("no exception should be raised");
         }
 
-        List<DataType> givenInputs = addCommand.getInputs();
         assertEquals(2, givenInputs.size());
         assertEquals(posNum, givenInputs.get(0));
         assertEquals(posNum, givenInputs.get(1));
