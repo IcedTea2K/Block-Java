@@ -5,8 +5,8 @@ import except.InvalidArgumentException;
 // Add two numbers together
 public class Add extends Arithmetic {
     @Override
-    public boolean input(DataType... inputs) throws InvalidArgumentException {
-        return false;
+    public void input(DataType... inputs) throws InvalidArgumentException {
+        
     }
 
     @Override
