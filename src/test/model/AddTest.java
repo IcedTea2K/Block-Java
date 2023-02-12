@@ -153,8 +153,24 @@ public class AddTest {
     }
 
     @Test
-    public void testGetJava() {
+    public void testGetJavaWithNoInputs() {
+        try {
+            addCommand.getJava();
+            fail("MissingArgumentException should have been raised");
+        } catch (MissingArgumentException e) {
+            // pass the test
+        }
+    }
 
+    @Test
+    public void testGetJavaWithInputs() {
+        checkBehaviour(negNum, posNum, -11 + 123);
+        String msg = "int result = -11 + 123;";
+        try {
+            assertEquals(msg, addCommand.getJava());
+        } catch (MissingArgumentException e) {
+            fail("No exception should be raised");
+        }
     }
 
     @Test
