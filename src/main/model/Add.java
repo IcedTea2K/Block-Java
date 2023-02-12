@@ -1,6 +1,7 @@
 package model;
 
 import except.InvalidArgumentException;
+import except.InvalidReturnTypeException;
 import except.MissingArgumentException;
 import except.NotYetExecutedException;
 
@@ -13,11 +14,12 @@ public class Add extends Arithmetic {
     private DataType result;
 
     @Override
+    // MODIFIES: this
+    // EFFECTS: take in inputs
+    //          If the number of inputs is more than 2 or the type of input is not number,
+    //          InvalidArgumentException will be raised.
     public void input(DataType... inputs) throws InvalidArgumentException {
-        if (inputs.length != 2) {
-            throw new InvalidArgumentException(inputs.length, 2);
-        }
-
+        checkInput(inputs);
         numOne = inputs[0];
         numTwo = inputs[1];
     }
@@ -45,5 +47,18 @@ public class Add extends Arithmetic {
     @Override
     public List<DataType> getInputs() throws MissingArgumentException {
         return null;
+    }
+
+    private void checkInput(DataType[] inputs) throws InvalidArgumentException {
+        if (inputs.length != 2) {
+            throw new InvalidArgumentException(inputs.length, 2);
+        }
+
+        try {
+            int tempNumOne = inputs[0].getNumber();
+            int tempNumTwo = inputs[1].getNumber();
+        } catch (InvalidReturnTypeException e) {
+            throw new InvalidArgumentException("number", e.getMessage());
+        }
     }
 }
