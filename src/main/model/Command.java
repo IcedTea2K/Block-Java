@@ -7,9 +7,9 @@ import except.NotYetExecutedException;
 // Interface for Block Java Commands
 public interface Command {
     // MODIFIES: this
-    // EFFECTS: if the data type fits the constraints specified for
-    //          this particular command, store inputs for the command and return true
-    //          Otherwise, return false and do nothing
+    // EFFECTS: take in inputs
+    //          If the inputs don't match the constraints of the command (e.g, number of inputs
+    //          or type of inputs), InvalidArgumentException will be raised
     public void input(DataType... inputs) throws InvalidArgumentException;
 
     // REQUIRES: valid input have already been stored (with input() that returns true)
