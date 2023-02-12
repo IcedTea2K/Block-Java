@@ -74,6 +74,16 @@ public class AddTest {
     }
 
     @Test
+    public void testGetInputWithNoInputs() {
+        try {
+            addCommand.getInputs();
+            fail("MissingArgumentException should have been raised");
+        } catch (MissingArgumentException e) {
+            // pass the test
+        }
+    }
+
+    @Test
     public void testExecuteWithoutInputs() {
         try {
             addCommand.execute();
