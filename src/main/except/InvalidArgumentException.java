@@ -4,7 +4,7 @@ package except;
 public class InvalidArgumentException extends Exception {
     // EFFECTS: construct exception due to invalid number of inputs
     public InvalidArgumentException(int numberOfInputs, int expectedInputs) {
-        super(numberOfInputs < expectedInputs ? "Too few arguments:\n" : "Exceeds the number of arguments:\n"
+        super((numberOfInputs < expectedInputs ? "Too few arguments:\n" : "Exceeds the number of arguments:\n")
             + "Expecting " + expectedInputs + " Received " + numberOfInputs);
     }
 
