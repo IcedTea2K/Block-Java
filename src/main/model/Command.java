@@ -17,6 +17,9 @@ public interface Command {
     // EFFECTS: return the result of the command
     public DataType getResult();
 
+    // EFFECTS: return the return type of the command
+    public String getReturnType();
+
     // EFFECTS: return the constraints specific to this command
     public String getConstraints();
 
