@@ -2,6 +2,8 @@ package model;
 
 import except.InvalidArgumentException;
 import except.InvalidReturnTypeException;
+import except.MissingArgumentException;
+import except.NotYetExecutedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -62,7 +64,7 @@ public class AddTest {
         try {
             addCommand.input(posNum, negNum);
             givenInputs = addCommand.getInputs();
-        } catch (InvalidArgumentException e) {
+        } catch (InvalidArgumentException | MissingArgumentException e) {
             fail("no exception should be raised");
         }
 
@@ -72,105 +74,43 @@ public class AddTest {
     }
 
     @Test
-    public void testExecutePosPos() {
+    public void testExecuteWithoutInputs() {
         try {
-            addCommand.input(posNum, posNum);
-        } catch (InvalidArgumentException e) {
-            fail("no exception should be raised");
+            addCommand.execute();
+            fail();
+        } catch (MissingArgumentException e) {
+            // The test passes
         }
+    }
 
-        addCommand.execute();
-        DataType result = addCommand.getResult();
-        try {
-            assertEquals(123 + 123, result.getNumber());
-        } catch (InvalidReturnTypeException e) {
-            fail("no exception should be raised");
-        }
+    @Test
+    public void testExecutePosPos() {
+        checkBehaviour(posNum, posNum, 123 + 123);
     }
 
     @Test
     public void testExecutePosNeg() {
-        try {
-            addCommand.input(posNum, negNum);
-        } catch (InvalidArgumentException e) {
-            fail("no exception should be raised");
-        }
-
-        addCommand.execute();
-        DataType result = addCommand.getResult();
-        try {
-            assertEquals(123 - 11, result.getNumber());
-        } catch (InvalidReturnTypeException e) {
-            fail("no exception should be raised");
-        }
+        checkBehaviour(posNum, negNum, 123 -11);
     }
 
     @Test
     public void testExecuteNegNeg() {
-        try {
-            addCommand.input(negNum, negNum);
-        } catch (InvalidArgumentException e) {
-            fail("no exception should be raised");
-        }
-
-        addCommand.execute();
-        DataType result = addCommand.getResult();
-        try {
-            assertEquals(-11 - 11, result.getNumber());
-        } catch (InvalidReturnTypeException e) {
-            fail("no exception should be raised");
-        }
+        checkBehaviour(negNum, negNum, -11 -11);
     }
 
     @Test
     public void testExecutePosZero() {
-        try {
-            addCommand.input(posNum, zero);
-        } catch (InvalidArgumentException e) {
-            fail("no exception should be raised");
-        }
-
-        addCommand.execute();
-        DataType result = addCommand.getResult();
-        try {
-            assertEquals(123, result.getNumber());
-        } catch (InvalidReturnTypeException e) {
-            fail("no exception should be raised");
-        }
+        checkBehaviour(posNum, zero, 123);
     }
 
     @Test
     public void testExecuteZeroNeg() {
-        try {
-            addCommand.input(zero, negNum);
-        } catch (InvalidArgumentException e) {
-            fail("no exception should be raised");
-        }
-
-        addCommand.execute();
-        DataType result = addCommand.getResult();
-        try {
-            assertEquals(-11, result.getNumber());
-        } catch (InvalidReturnTypeException e) {
-            fail("no exception should be raised");
-        }
+        checkBehaviour(zero, negNum, -11);
     }
 
     @Test
     public void testExecuteZeroZero() {
-        try {
-            addCommand.input(zero, zero);
-        } catch (InvalidArgumentException e) {
-            fail("no exception should be raised");
-        }
-
-        addCommand.execute();
-        DataType result = addCommand.getResult();
-        try {
-            assertEquals(0, result.getNumber());
-        } catch (InvalidReturnTypeException e) {
-            fail("no exception should be raised");
-        }
+        checkBehaviour(zero, zero, 0);
     }
 
     @Test
@@ -195,5 +135,19 @@ public class AddTest {
     @Test
     public void testGetJava() {
 
+    }
+
+    @Test
+    // EFFECTS: add two numbers together and comapre to the expected result
+    private void checkBehaviour(DataType numOne, DataType numTwo, int expectedResult) {
+        try {
+            addCommand.input(numOne, numTwo);
+            addCommand.execute();
+            DataType result = addCommand.getResult();
+            assertEquals(expectedResult, result.getNumber());
+        } catch (InvalidArgumentException | MissingArgumentException | NotYetExecutedException |
+                 InvalidReturnTypeException e) {
+            fail("no exception should be raised");
+        }
     }
 }
