@@ -1,12 +1,14 @@
 package model;
 
+import except.InvalidArgumentException;
+
 // Interface for Block Java Commands
 public interface Command {
     // MODIFIES: this
     // EFFECTS: if the data type fits the constraints specified for
     //          this particular command, store inputs for the command and return true
     //          Otherwise, return false and do nothing
-    public boolean input(DataType... inputs);
+    public boolean input(DataType... inputs) throws InvalidArgumentException;
 
     // REQUIRES: valid input have already been stored (with input() that returns true)
     // MODIFIES: this
