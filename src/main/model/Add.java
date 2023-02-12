@@ -2,6 +2,7 @@ package model;
 
 import except.InvalidArgumentException;
 import except.MissingArgumentException;
+import except.NotYetExecutedException;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class Add extends Arithmetic {
     }
 
     @Override
-    public DataType getResult() {
+    public DataType getResult() throws NotYetExecutedException {
         return null;
     }
 

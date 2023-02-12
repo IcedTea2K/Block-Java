@@ -2,6 +2,7 @@ package model;
 
 import except.InvalidArgumentException;
 import except.MissingArgumentException;
+import except.NotYetExecutedException;
 
 // Interface for Block Java Commands
 public interface Command {
@@ -18,7 +19,7 @@ public interface Command {
 
     // REQUIRES: only after the command has executed at least once
     // EFFECTS: return the result of the command
-    public DataType getResult();
+    public DataType getResult() throws NotYetExecutedException;
 
     // EFFECTS: return the return type of the command
     public String getReturnType();
