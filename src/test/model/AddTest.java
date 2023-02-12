@@ -33,7 +33,7 @@ public class AddTest {
             fail("InvalidArgumentException for too few arguments should have been raised");
         } catch (InvalidArgumentException e) {
             assertEquals("Too few arguments:\n"
-                    + "Expecting 2 received 0", e.getMessage());
+                    + "Expecting 2 Received 0", e.getMessage());
         }
 
         try {
@@ -41,20 +41,18 @@ public class AddTest {
             fail("InvalidArgumentException for too few arguments should have been raised");
         } catch (InvalidArgumentException e) {
             assertEquals("Too few arguments:\n"
-                    + "Expecting 2 received 1", e.getMessage());
+                    + "Expecting 2 Received 1", e.getMessage());
         }
     }
 
     @Test
     public void testTooManyInputs() {
         try {
-            for (int i = 0; i < 10; i++) {
-                addCommand.input(new DataType(i));
-            }
+            addCommand.input(negNum, posNum, zero) ;
             fail("InvalidArgumentException for too many arguments should have been raised");
         } catch (InvalidArgumentException e) {
             assertEquals("Exceeds the number of arguments:\n"
-                    + "Expecting 2 received 10", e.getMessage());
+                    + "Expecting 2 Received 3", e.getMessage());
         }
     }
 

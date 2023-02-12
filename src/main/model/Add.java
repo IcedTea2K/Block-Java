@@ -8,9 +8,18 @@ import java.util.List;
 
 // Add two numbers together
 public class Add extends Arithmetic {
+    private DataType numOne;
+    private DataType numTwo;
+    private DataType result;
+
     @Override
     public void input(DataType... inputs) throws InvalidArgumentException {
+        if (inputs.length != 2) {
+            throw new InvalidArgumentException(inputs.length, 2);
+        }
 
+        numOne = inputs[0];
+        numTwo = inputs[1];
     }
 
     @Override
