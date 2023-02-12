@@ -30,7 +30,7 @@ public class AddTest {
     public void testTooFewInputs() {
         try {
             addCommand.input();
-            fail();
+            fail("InvalidArgumentException for too few arguments should have been raised");
         } catch (InvalidArgumentException e) {
             assertEquals("Too few arguments:\n"
                     + "Expecting 2 received 0", e.getMessage());
@@ -38,7 +38,7 @@ public class AddTest {
 
         try {
             addCommand.input(posNum);
-            fail();
+            fail("InvalidArgumentException for too few arguments should have been raised");
         } catch (InvalidArgumentException e) {
             assertEquals("Too few arguments:\n"
                     + "Expecting 2 received 1", e.getMessage());
@@ -51,7 +51,7 @@ public class AddTest {
             for (int i = 0; i < 10; i++) {
                 addCommand.input(new DataType(i));
             }
-            fail();
+            fail("InvalidArgumentException for too many arguments should have been raised");
         } catch (InvalidArgumentException e) {
             assertEquals("Exceeds the number of arguments:\n"
                     + "Expecting 2 received 10", e.getMessage());
@@ -97,7 +97,7 @@ public class AddTest {
     public void testExecuteWithoutInputs() {
         try {
             addCommand.execute();
-            fail();
+            fail("MissingArgumentException should have been raised");
         } catch (MissingArgumentException e) {
             // The test passes
         }
