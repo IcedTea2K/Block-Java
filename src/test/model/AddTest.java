@@ -84,6 +84,16 @@ public class AddTest {
     }
 
     @Test
+    public void testGetResultsWithoutExecution() {
+        try {
+            addCommand.getResult();
+            fail("NotYetExecutedException should have been raised");
+        } catch (NotYetExecutedException e) {
+            // pass the test
+        }
+    }
+
+    @Test
     public void testExecuteWithoutInputs() {
         try {
             addCommand.execute();
