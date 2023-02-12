@@ -58,7 +58,7 @@ public class Add extends Arithmetic {
             int tempNumOne = inputs[0].getNumber();
             int tempNumTwo = inputs[1].getNumber();
         } catch (InvalidReturnTypeException e) {
-            throw new InvalidArgumentException("number", e.getMessage());
+            throw new InvalidArgumentException(e.getMessage(), "number");
         }
     }
 }

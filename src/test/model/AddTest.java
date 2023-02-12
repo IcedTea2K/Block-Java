@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -53,6 +54,25 @@ public class AddTest {
         } catch (InvalidArgumentException e) {
             assertEquals("Exceeds the number of arguments:\n"
                     + "Expecting 2 Received 3", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testInputWrongType() {
+        DataType tempBool = new DataType(true);
+        DataType tempDS = new DataType(new ArrayList<DataType>());
+        try {
+            addCommand.input(tempBool, tempDS);
+            fail("InvalidArgumentException should have been raised");
+        } catch (InvalidArgumentException e) {
+            assertEquals("Invalid argument type:\nExpecting number Received boolean", e.getMessage());
+        }
+
+        try {
+            addCommand.input(tempDS, tempBool);
+            fail("InvalidArgumentException should have been raised");
+        } catch (InvalidArgumentException e) {
+            assertEquals("Invalid argument type:\nExpecting number Received data stream", e.getMessage());
         }
     }
 
