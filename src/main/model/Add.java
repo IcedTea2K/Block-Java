@@ -6,7 +6,7 @@ import except.InvalidArgumentException;
 public class Add extends Arithmetic {
     @Override
     public void input(DataType... inputs) throws InvalidArgumentException {
-        
+
     }
 
     @Override
@@ -21,6 +21,11 @@ public class Add extends Arithmetic {
 
     @Override
     public String getExamples() {
+        return null;
+    }
+
+    @Override
+    public String getJava() {
         return null;
     }
 }
