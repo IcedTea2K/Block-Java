@@ -25,13 +25,27 @@ public class Add extends Arithmetic {
     }
 
     @Override
+    // MODIFIES: this
+    // EFFECTS: add the two given numbers
+    //          If either input is missing, throw MissingArgumentException
     public void execute() throws MissingArgumentException {
+        if (numOne == null | numTwo == null) {
+            throw new MissingArgumentException();
+        }
 
+        int tempNumOne = retrieveNumber(numOne);
+        int tempNumTwo = retrieveNumber(numTwo);
+        result = new DataType(tempNumOne + tempNumTwo);
     }
 
     @Override
+    // EFFECTS: return the result of the addition
+    //          If the command has yet to executed, throw NotYetExecutedException
     public DataType getResult() throws NotYetExecutedException {
-        return null;
+        if (result == null) {
+            throw new NotYetExecutedException();
+        }
+        return result;
     }
 
     @Override
@@ -62,5 +76,16 @@ public class Add extends Arithmetic {
         } catch (InvalidReturnTypeException e) {
             throw new InvalidArgumentException(e.getMessage(), "number");
         }
+    }
+
+    // EFFECTS: return the number the DataType is representing
+    private int retrieveNumber(DataType num) {
+        int tempNum = 0;
+        try {
+            tempNum = num.getNumber();
+        } catch (InvalidReturnTypeException ignore) {
+            // do nothing
+        }
+        return tempNum;
     }
 }
