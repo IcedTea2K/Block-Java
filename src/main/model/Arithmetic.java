@@ -13,6 +13,11 @@ public abstract class Arithmetic extends Operator {
         return "Number";
     }
 
+    @Override
+    public String getConstraints() {
+        return super.getConstraints() +  " They both need to be numbers.";
+    }
+
     // EFFECTS: return the two inputs that were given to the command
     public abstract List<DataType> getInputs() throws MissingArgumentException;
 }
