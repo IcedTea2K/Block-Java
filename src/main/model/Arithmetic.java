@@ -14,6 +14,7 @@ public abstract class Arithmetic extends Operator {
     }
 
     @Override
+    // EFFECTS: return the constraints of this command
     public String getConstraints() {
         return super.getConstraints() +  " They both need to be numbers.";
     }
