@@ -30,9 +30,7 @@ public class Add extends Arithmetic {
     // EFFECTS: add the two given numbers
     //          If either input is missing, throw MissingArgumentException
     public void execute() throws MissingArgumentException {
-        if (numOne == null || numTwo == null) {
-            throw new MissingArgumentException();
-        }
+        checkCurrentInputs();
 
         int tempNumOne = retrieveNumber(numOne);
         int tempNumTwo = retrieveNumber(numTwo);
@@ -60,15 +58,17 @@ public class Add extends Arithmetic {
 
     @Override
     public String getJava() throws MissingArgumentException {
+        checkCurrentInputs();
+
+        String msg = "";
         return null;
     }
 
     @Override
     // EFFECTS: return the inputs of this command
     public List<DataType> getInputs() throws MissingArgumentException {
-        if (numOne == null || numTwo == null) {
-            throw new MissingArgumentException();
-        }
+        checkCurrentInputs();
+
         List<DataType> tempInputs = new ArrayList<>();
         tempInputs.add(numOne);
         tempInputs.add(numTwo);
@@ -99,5 +99,12 @@ public class Add extends Arithmetic {
             // do nothing
         }
         return tempNum;
+    }
+
+    // EFFECTS: verify the current inputs
+    private void checkCurrentInputs() throws MissingArgumentException {
+        if (numOne == null || numTwo == null) {
+            throw new MissingArgumentException();
+        }
     }
 }
