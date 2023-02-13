@@ -5,6 +5,7 @@ import except.InvalidReturnTypeException;
 import except.MissingArgumentException;
 import except.NotYetExecutedException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // Add two numbers together
@@ -63,8 +64,15 @@ public class Add extends Arithmetic {
     }
 
     @Override
+    // EFFECTS: return the inputs of this command
     public List<DataType> getInputs() throws MissingArgumentException {
-        return null;
+        if (numOne == null || numTwo == null) {
+            throw new MissingArgumentException();
+        }
+        List<DataType> tempInputs = new ArrayList<>();
+        tempInputs.add(numOne);
+        tempInputs.add(numTwo);
+        return tempInputs;
     }
 
     // EFFECTS: if there's only two inputs, and they are both numbers, do nothing.
