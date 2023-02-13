@@ -49,6 +49,8 @@ public class Add extends Arithmetic {
         return null;
     }
 
+    // EFFECTS: if there's only two inputs, and they are both numbers, do nothing.
+    //          Otherwise, throw InvalidArgumentException
     private void checkInput(DataType[] inputs) throws InvalidArgumentException {
         if (inputs.length != 2) {
             throw new InvalidArgumentException(inputs.length, 2);
