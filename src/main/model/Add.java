@@ -30,7 +30,7 @@ public class Add extends Arithmetic {
     // EFFECTS: add the two given numbers
     //          If either input is missing, throw MissingArgumentException
     public void execute() throws MissingArgumentException {
-        if (numOne == null | numTwo == null) {
+        if (numOne == null || numTwo == null) {
             throw new MissingArgumentException();
         }
 
