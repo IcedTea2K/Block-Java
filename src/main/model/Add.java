@@ -50,7 +50,10 @@ public class Add extends Arithmetic {
 
     @Override
     public String getExamples() {
-        return null;
+        String msg = "ADD 11 821\n"
+                    + "ADD 21.4 10"
+                    + "ADD -3 -10";;
+        return msg;
     }
 
     @Override
