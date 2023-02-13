@@ -57,11 +57,15 @@ public class Add extends Arithmetic {
     }
 
     @Override
+    // EFFECTS: return the Java code representation of this command
+    //          with the given inputs.
     public String getJava() throws MissingArgumentException {
         checkCurrentInputs();
+        int tempNumOne = retrieveNumber(numOne);
+        int tempNumTwo = retrieveNumber(numTwo);
 
-        String msg = "";
-        return null;
+        String msg = "int result = " + tempNumOne + " + " + tempNumTwo + ";";
+        return msg;
     }
 
     @Override
