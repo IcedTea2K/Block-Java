@@ -88,7 +88,7 @@ public class AddTest {
 
         assertEquals(2, givenInputs.size());
         assertEquals(posNum, givenInputs.get(0));
-        assertEquals(posNum, givenInputs.get(1));
+        assertEquals(negNum, givenInputs.get(1));
     }
 
     @Test
