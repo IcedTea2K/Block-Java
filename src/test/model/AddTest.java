@@ -165,7 +165,7 @@ public class AddTest {
     @Test
     public void testGetExamples() {
         String msg = "ADD 11 821\n" +
-                "ADD 21.4 10" +
+                "ADD 21.4 10\n" +
                 "ADD -3 -10";
         assertEquals(msg, addCommand.getExamples());
     }
