@@ -153,7 +153,7 @@ public class AddTest {
 
     @Test
     public void testGetConstraints() {
-        assertEquals("Operators only accept two inputs. They both need to be numbers",
+        assertEquals("Operators only accept two inputs. They both need to be numbers.",
                 addCommand.getConstraints());
     }
 
