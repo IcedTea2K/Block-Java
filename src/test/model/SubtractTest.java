@@ -129,7 +129,7 @@ public class SubtractTest {
 
     @Test
     public void testExecuteNegPos() {
-        checkBehaviour(posNum, negNum, -11 - 123);
+        checkBehaviour(negNum, posNum, -11 - 123);
     }
 
     @Test
@@ -149,7 +149,7 @@ public class SubtractTest {
 
     @Test
     public void testExecuteNegZero() {
-        checkBehaviour(zero, negNum, -11);
+        checkBehaviour(negNum, zero, -11);
     }
 
     @Test
