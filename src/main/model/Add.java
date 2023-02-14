@@ -1,12 +1,6 @@
 package model;
 
-import except.InvalidArgumentException;
-import except.InvalidReturnTypeException;
 import except.MissingArgumentException;
-import except.NotYetExecutedException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 // A command to add two numbers
 public class Add extends Arithmetic {
