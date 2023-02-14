@@ -8,7 +8,7 @@ import except.NotYetExecutedException;
 import java.util.ArrayList;
 import java.util.List;
 
-// Add two numbers together
+// A command to add two numbers
 public class Add extends Arithmetic {
     @Override
     // MODIFIES: this

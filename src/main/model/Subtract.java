@@ -2,6 +2,7 @@ package model;
 
 import except.MissingArgumentException;
 
+// A command to subtract the second number from the first number
 public class Subtract extends Arithmetic {
     @Override
     // MODIFIES: this
