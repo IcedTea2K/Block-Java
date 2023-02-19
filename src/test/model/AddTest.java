@@ -46,6 +46,7 @@ public class AddTest extends ArithmeticTest {
         checkBehaviour(zero, zero, 0);
     }
 
+    @Override
     @Test
     public void testGetExamples() {
         String msg = "ADD 11 821\n" +
@@ -54,6 +55,7 @@ public class AddTest extends ArithmeticTest {
         assertEquals(msg, command.getExamples());
     }
 
+    @Override
     @Test
     public void testGetJavaWithInputs() {
         checkBehaviour(negNum, posNum, -11 + 123);
