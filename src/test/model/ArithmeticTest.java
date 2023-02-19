@@ -143,6 +143,12 @@ public abstract class ArithmeticTest {
         }
     }
 
+    @Test
+    public abstract void testGetExamples();
+
+    @Test
+    public abstract void testGetJavaWithInputs();
+
     // EFFECTS: add two numbers together and compare to the expected result
     protected void checkBehaviour(DataType numOne, DataType numTwo, int expectedResult) {
         try {
