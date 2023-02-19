@@ -48,6 +48,11 @@ public class Divide extends Arithmetic {
     }
 
     @Override
+    public String getConstraints() {
+        return super.getConstraints() + " The second number (denominator) needs to be other than 0.";
+    }
+
+    @Override
     // EFFECTS: If either of the inputs is not a number, throw WrongArgumentTypeException
     //          If the number of inputs don't match the constraints, throw
     //          UnexpectedNumberOfArgumentsException.
