@@ -79,6 +79,14 @@ public class DivideTest extends ArithmeticTest {
         }
     }
 
+    @Override
+    @Test
+    public void testGetConstraints() {
+        assertEquals("Operators only accept two inputs. They both need to be numbers." +
+                        " The second number (denominator) needs to be other than 0.",
+                command.getConstraints());
+    }
+
     // EFFECTS: try to divide the number by zero and check the raised exception
     private void divideByZero(DataType num) {
         try {
