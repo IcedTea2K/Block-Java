@@ -15,6 +15,9 @@ public class Divide extends Arithmetic {
     }
 
     @Override
+    // MODIFIES: this
+    // EFFECTS: divide the first number by the second number
+    //          If either input is missing, throw MissingArgumentException
     public void execute() throws MissingArgumentException {
         checkCurrentInputs();
 
@@ -24,13 +27,24 @@ public class Divide extends Arithmetic {
     }
 
     @Override
+    // EFFECTS: return some examples of this command
     public String getExamples() {
-        return null;
+        String msg = "DIV 40 20\n"
+                + "DIV -3 80\n"
+                + "DIV 238 12";
+        return msg;
     }
 
     @Override
+    // EFFECTS: return the Java code representation of this command
+    //          with the given inputs.
     public String getJava() throws MissingArgumentException {
-        return null;
+        checkCurrentInputs();
+        int tempNumOne = retrieveNumber(numOne);
+        int tempNumTwo = retrieveNumber(numTwo);
+
+        String msg = "int result = " + tempNumOne + " / " + tempNumTwo + ";";
+        return msg;
     }
 
     @Override
