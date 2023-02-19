@@ -1,9 +1,6 @@
 package model;
 
-import except.InvalidArgumentException;
-import except.InvalidReturnTypeException;
-import except.MissingArgumentException;
-import except.NotYetExecutedException;
+import except.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,14 +58,14 @@ public abstract class Arithmetic extends Operator {
     //          Otherwise, throw InvalidArgumentException
     protected void checkInput(DataType[] inputs) throws InvalidArgumentException {
         if (inputs.length != 2) {
-            throw new InvalidArgumentException(inputs.length, 2);
+            throw new UnexpectedNumberOfArgumentsException(inputs.length, 2);
         }
 
         try {
             int tempNumOne = inputs[0].getNumber();
             int tempNumTwo = inputs[1].getNumber();
         } catch (InvalidReturnTypeException e) {
-            throw new InvalidArgumentException(e.getMessage(), "number");
+            throw new WrongArgumentTypeException(e.getMessage(), "number");
         }
     }
 
