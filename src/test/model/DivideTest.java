@@ -1,5 +1,7 @@
 package model;
 
+import except.DivideByZeroException;
+import except.InvalidArgumentException;
 import except.MissingArgumentException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,22 +20,22 @@ public class DivideTest extends ArithmeticTest {
 
     @Test
     public void testExecutePosPos() {
-        checkBehaviour(posNum, posNum, 123 * 123);
+        checkBehaviour(posNum, posNum, 123 / 123);
     }
 
     @Test
     public void testExecutePosNeg() {
-        checkBehaviour(posNum, negNum, 123 * -11);
+        checkBehaviour(posNum, negNum, 123 / -11);
+    }
+
+    @Test
+    public void testExecuteNegPos() {
+        checkBehaviour(negNum, posNum, -11 / 123);
     }
 
     @Test
     public void testExecuteNegNeg() {
-        checkBehaviour(negNum, negNum, -11 * -11);
-    }
-
-    @Test
-    public void testExecutePosZero() {
-        checkBehaviour(posNum, zero, 0);
+        checkBehaviour(negNum, negNum, -11 / -11);
     }
 
     @Test
@@ -42,16 +44,26 @@ public class DivideTest extends ArithmeticTest {
     }
 
     @Test
+    public void testInputPosZero() {
+        divideByZero(posNum);
+    }
+
+    @Test
+    public void testExecuteNegZero() {
+        divideByZero(negNum);
+    }
+
+    @Test
     public void testExecuteZeroZero() {
-        checkBehaviour(zero, zero, 0);
+        divideByZero(zero);
     }
 
     @Override
     @Test
     public void testGetExamples() {
-        String msg = "MUL 12 29\n" +
-                "MUL 83.1 -12\n" +
-                "MUL -31 -78";
+        String msg = "DIV 40 20\n" +
+                "DIV -3 80\n" +
+                "DIV 238 12";
         assertEquals(msg, command.getExamples());
     }
 
@@ -59,11 +71,24 @@ public class DivideTest extends ArithmeticTest {
     @Test
     public void testGetJavaWithInputs() {
         checkBehaviour(negNum, posNum, -11 * 123);
-        String msg = "int result = -11 * 123;";
+        String msg = "int result = -11 / 123;";
         try {
             assertEquals(msg, command.getJava());
         } catch (MissingArgumentException e) {
             fail("No exception should be raised");
+        }
+    }
+
+    // EFFECTS: try to divide the number by zero and check the raised exception
+    private void divideByZero(DataType num) {
+        try {
+            command.input(num, zero);
+            fail("DivideByZeroException should have been raised");
+        } catch (DivideByZeroException e) {
+            assertEquals("except.DivideByZeroException: " +
+                    "The denominator cannot be zero", e.toString());
+        } catch (InvalidArgumentException e) {
+            fail("DivideByZeroException should have SPECIFICALLY been raised");
         }
     }
 }
