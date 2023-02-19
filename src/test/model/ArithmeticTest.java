@@ -13,24 +13,19 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class ArithmeticTest {
-    private Add addCommand;
-    private DataType posNum;
-    private DataType negNum;
-    private DataType zero;
+public abstract class ArithmeticTest {
+    protected Arithmetic command;
+    protected DataType posNum;
+    protected DataType negNum;
+    protected DataType zero;
 
     @BeforeEach
-    public void setup() {
-        addCommand = new Add();
-        posNum = new DataType(123);
-        negNum = new DataType(-11);
-        zero = new DataType(0);
-    }
+    public abstract void setup();
 
     @Test
     public void testTooFewInputs() {
         try {
-            addCommand.input();
+            command.input();
             fail("InvalidArgumentException for too few arguments should have been raised");
         } catch (InvalidArgumentException e) {
             assertEquals("except.UnexpectedNumberOfArgumentsException:" +
@@ -38,7 +33,7 @@ public class ArithmeticTest {
         }
 
         try {
-            addCommand.input(posNum);
+            command.input(posNum);
             fail("InvalidArgumentException for too few arguments should have been raised");
         } catch (InvalidArgumentException e) {
             assertEquals("except.UnexpectedNumberOfArgumentsException:" +
@@ -49,7 +44,7 @@ public class ArithmeticTest {
     @Test
     public void testTooManyInputs() {
         try {
-            addCommand.input(negNum, posNum, zero) ;
+            command.input(negNum, posNum, zero) ;
             fail("InvalidArgumentException for too many arguments should have been raised");
         } catch (InvalidArgumentException e) {
             assertEquals("except.UnexpectedNumberOfArgumentsException: " +
@@ -62,7 +57,7 @@ public class ArithmeticTest {
         DataType tempBool = new DataType(true);
         DataType tempDS = new DataType(new ArrayList<DataType>());
         try {
-            addCommand.input(tempBool, tempDS);
+            command.input(tempBool, tempDS);
             fail("InvalidArgumentException should have been raised");
         } catch (InvalidArgumentException e) {
             assertEquals("except.WrongArgumentTypeException: " +
@@ -70,7 +65,7 @@ public class ArithmeticTest {
         }
 
         try {
-            addCommand.input(tempDS, tempBool);
+            command.input(tempDS, tempBool);
             fail("InvalidArgumentException should have been raised");
         } catch (InvalidArgumentException e) {
             assertEquals("except.WrongArgumentTypeException: " +
@@ -82,8 +77,8 @@ public class ArithmeticTest {
     public void testInputTwoNumbers() {
         List<DataType> givenInputs = new ArrayList<>();
         try {
-            addCommand.input(posNum, negNum);
-            givenInputs = addCommand.getInputs();
+            command.input(posNum, negNum);
+            givenInputs = command.getInputs();
         } catch (InvalidArgumentException | MissingArgumentException e) {
             fail("no exception should be raised");
         }
@@ -96,7 +91,7 @@ public class ArithmeticTest {
     @Test
     public void testGetInputWithNoInputs() {
         try {
-            addCommand.getInputs();
+            command.getInputs();
             fail("MissingArgumentException should have been raised");
         } catch (MissingArgumentException e) {
             assertEquals("except.MissingArgumentException: " +
@@ -107,7 +102,7 @@ public class ArithmeticTest {
     @Test
     public void testGetResultsWithoutExecution() {
         try {
-            addCommand.getResult();
+            command.getResult();
             fail("NotYetExecutedException should have been raised");
         } catch (NotYetExecutedException e) {
             assertEquals("except.NotYetExecutedException: " +
@@ -118,7 +113,7 @@ public class ArithmeticTest {
     @Test
     public void testExecuteWithoutInputs() {
         try {
-            addCommand.execute();
+            command.execute();
             fail("MissingArgumentException should have been raised");
         } catch (MissingArgumentException e) {
             assertEquals("except.MissingArgumentException: " +
@@ -129,18 +124,18 @@ public class ArithmeticTest {
     @Test
     public void testGetConstraints() {
         assertEquals("Operators only accept two inputs. They both need to be numbers.",
-                addCommand.getConstraints());
+                command.getConstraints());
     }
 
     @Test
     public void testGetReturnType() {
-        assertEquals("Number", addCommand.getReturnType());
+        assertEquals("Number", command.getReturnType());
     }
 
     @Test
     public void testGetJavaWithNoInputs() {
         try {
-            addCommand.getJava();
+            command.getJava();
             fail("MissingArgumentException should have been raised");
         } catch (MissingArgumentException e) {
             assertEquals("except.MissingArgumentException: " +
@@ -151,9 +146,9 @@ public class ArithmeticTest {
     // EFFECTS: add two numbers together and compare to the expected result
     protected void checkBehaviour(DataType numOne, DataType numTwo, int expectedResult) {
         try {
-            addCommand.input(numOne, numTwo);
-            addCommand.execute();
-            DataType result = addCommand.getResult();
+            command.input(numOne, numTwo);
+            command.execute();
+            DataType result = command.getResult();
             assertEquals(expectedResult, result.getNumber());
         } catch (InvalidArgumentException | MissingArgumentException | NotYetExecutedException |
                  InvalidReturnTypeException e) {
