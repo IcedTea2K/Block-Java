@@ -54,8 +54,9 @@ public abstract class Arithmetic extends Operator {
         return tempInputs;
     }
 
-    // EFFECTS: if there's only two inputs, and they are both numbers, do nothing.
-    //          Otherwise, throw InvalidArgumentException
+    // EFFECTS: If either of the inputs is not a number, throw WrongArgumentTypeException
+    //          If the number of inputs don't match the constraints, throw
+    //          UnexpectedNumberOfArgumentsException.
     protected void checkInput(DataType[] inputs) throws InvalidArgumentException {
         if (inputs.length != 2) {
             throw new UnexpectedNumberOfArgumentsException(inputs.length, 2);
