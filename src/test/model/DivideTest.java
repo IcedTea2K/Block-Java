@@ -70,7 +70,7 @@ public class DivideTest extends ArithmeticTest {
     @Override
     @Test
     public void testGetJavaWithInputs() {
-        checkBehaviour(negNum, posNum, -11 * 123);
+        checkBehaviour(negNum, posNum, -11 / 123);
         String msg = "int result = -11 / 123;";
         try {
             assertEquals(msg, command.getJava());
