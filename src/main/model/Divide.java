@@ -2,6 +2,7 @@ package model;
 
 import except.*;
 
+// Divide the first input by the second input
 public class Divide extends Arithmetic {
     @Override
     // MODIFIES: this
