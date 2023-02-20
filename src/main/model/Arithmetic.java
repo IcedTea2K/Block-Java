@@ -44,6 +44,14 @@ public abstract class Arithmetic extends Operator {
         return result;
     }
 
+    @Override
+    // EFFECTS: turn the command into a string
+    public String toString() {
+        String msg = getHeader().split(" ")[0] + " "
+                + retrieveNumber(numOne) + " " + retrieveNumber(numTwo);
+        return msg;
+    }
+
     // EFFECTS: return the inputs of this command
     public List<DataType> getInputs() throws MissingArgumentException {
         checkCurrentInputs();

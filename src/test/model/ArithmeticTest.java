@@ -144,6 +144,17 @@ public abstract class ArithmeticTest {
     }
 
     @Test
+    public void testToString() {
+        try {
+            command.input(negNum, posNum);
+            assertEquals(command.getHeader().split(" ")[0] + " "
+                    + negNum.getNumber() + " " + posNum.getNumber(), command.toString());
+        } catch (InvalidArgumentException | InvalidReturnTypeException e) {
+            fail("No exception should be raised");
+        }
+    }
+
+    @Test
     public abstract void testGetExamples();
 
     @Test
