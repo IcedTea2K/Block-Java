@@ -59,7 +59,7 @@ public class Translator {
 
     // MODIFIES: this
     // EFFECTS: delete the command at index and return the new string of command stream
-    public String deleteCommandAtIndex(int idx) throws CommandNotFoundException {
+    public String deleteCommandAtIndex(int idx) throws CommandNotFoundException, MissingCommandsException {
         return null;
     }
 }

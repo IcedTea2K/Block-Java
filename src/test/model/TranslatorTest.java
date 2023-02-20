@@ -1,9 +1,6 @@
 package model;
 
-import except.CommandNotFoundException;
-import except.InvalidArgumentException;
-import except.MissingCommandsException;
-import except.NotYetExecutedException;
+import except.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -55,7 +52,7 @@ public class TranslatorTest {
             assertEquals("#1| ADD 10 128\n" +
                     "#2| SUB -12 -8391\n" +
                     "#3| MUL 89 -4\n" +
-                    "#5| DIV 1337 7\n", testTranslator.getStream());
+                    "#4| DIV 1337 7\n", testTranslator.getStream());
         } catch (MissingCommandsException e) {
             fail("No exception should be raised");
         }
@@ -189,20 +186,20 @@ public class TranslatorTest {
 
     @Test
     public void testGetStringCommandWithEmptyStream() {
-        checkBehaviorAtOutOfBoundStream(1);
+        checkAccessingBehaviorAtOutOfBoundStream(1);
     }
 
     @Test
     public void testGetStringCommandAtOutOfBound() {
         testTranslator.addCommand(add);
-        checkBehaviorAtOutOfBoundStream(0);
-        checkBehaviorAtOutOfBoundStream(-10);
+        checkAccessingBehaviorAtOutOfBoundStream(0);
+        checkAccessingBehaviorAtOutOfBoundStream(-10);
 
         testTranslator.addCommand(sub);
         testTranslator.addCommand(div);
         testTranslator.addCommand(mul);
-        checkBehaviorAtOutOfBoundStream(5);
-        checkBehaviorAtOutOfBoundStream(2);
+        checkAccessingBehaviorAtOutOfBoundStream(5);
+        checkAccessingBehaviorAtOutOfBoundStream(20);
     }
 
     @Test
@@ -222,7 +219,108 @@ public class TranslatorTest {
         }
     }
 
-    private void checkBehaviorAtOutOfBoundStream(int idx) {
+    @Test
+    public void testDeleteCommandWithEmptyStream() {
+        checkDeletingBehaviorAtOutOfBoundStream(1);
+    }
+
+    @Test
+    public void testDeleteCommandAtOutOfBound() {
+        testTranslator.addCommand(add);
+        checkDeletingBehaviorAtOutOfBoundStream(0);
+        checkDeletingBehaviorAtOutOfBoundStream(-10);
+
+        testTranslator.addCommand(mul);
+        testTranslator.addCommand(div);
+        testTranslator.addCommand(sub);
+        checkDeletingBehaviorAtOutOfBoundStream(5);
+        checkDeletingBehaviorAtOutOfBoundStream(20);
+    }
+
+    @Test
+    public void testDeleteCommandsUntilEmptyInDescendingOrder() {
+        testTranslator.addCommand(sub);
+        testTranslator.addCommand(mul);
+        testTranslator.addCommand(div);
+
+        checkDeletingCommandAtValidIdxBehaviour(3,
+                "#1| SUB -12 -8391\n" +
+                        "#2| MUL 89 -4\n");
+        checkDeletingCommandAtValidIdxBehaviour(2,"#1| SUB -12 -8391\n" );
+        checkDeletingTheLastCommandBehaviour();
+    }
+
+    @Test
+    public void testDeleteCommandsUntilEmptyInAscendingOrder() {
+        testTranslator.addCommand(sub);
+        testTranslator.addCommand(mul);
+        testTranslator.addCommand(div);
+
+        checkDeletingCommandAtValidIdxBehaviour(1,
+                "#1| MUL 89 -4\n" +
+                        "#2| DIV 1337 7\n");
+        checkDeletingCommandAtValidIdxBehaviour(1,"#1| DIV 1337 7\n" );
+        checkDeletingTheLastCommandBehaviour();
+    }
+
+    @Test
+    public void testDeleteCommandsUntilEmptyOutOfOrder() {
+        testTranslator.addCommand(add);
+        checkDeletingTheLastCommandBehaviour();
+
+        testTranslator.addCommand(sub);
+        testTranslator.addCommand(mul);
+        testTranslator.addCommand(div);
+
+        checkDeletingCommandAtValidIdxBehaviour(3,
+                "#1| SUB -12 -8391\n" +
+                        "#2| MUL 89 -4\n");
+        checkDeletingCommandAtValidIdxBehaviour(1,"#1| MUL 89 -4\n" );
+        checkDeletingTheLastCommandBehaviour();
+    }
+    
+    @Test
+    public void testDeleteCommandAtEarlierIdxCausesOutOfBound() {
+        testTranslator.addCommand(add);
+        testTranslator.addCommand(sub);
+        testTranslator.addCommand(mul);
+        checkDeletingCommandAtValidIdxBehaviour(1, "#1| SUB -12 -8391\n" +
+                "#2| MUL 89 -4\n");
+        checkDeletingBehaviorAtOutOfBoundStream(3);
+    }
+
+    private void checkDeletingCommandAtValidIdxBehaviour(int idx, String newExpectedStream) {
+        try {
+            assertEquals(newExpectedStream, testTranslator.deleteCommandAtIndex(idx));
+        } catch (CommandNotFoundException | MissingCommandsException e) {
+            fail("No exception should be raised");
+        }
+    }
+
+    private void checkDeletingTheLastCommandBehaviour() {
+        try {
+            testTranslator.deleteCommandAtIndex(1);
+        } catch (CommandNotFoundException e) {
+            fail("MissingCommandsException shoulve have been raised instead");
+        } catch (MissingCommandsException e) {
+            assertEquals("except.MissingCommandsException: " +
+                    "No argument has been given", e.toString());
+        }
+    }
+
+    private void checkDeletingBehaviorAtOutOfBoundStream(int idx) {
+        try {
+            testTranslator.deleteCommandAtIndex(idx);
+            fail("CommandNotFoundException should have been raised");
+        } catch (CommandNotFoundException e) {
+            assertEquals("except.CommandNotFoundException: " +
+                    "No command is found at index #" + idx, e.toString());
+        } catch (MissingCommandsException e) {
+            fail("CommandNotFoundException should have been raised instead");
+        }
+    }
+
+    private void checkAccessingBehaviorAtOutOfBoundStream(int idx) {
         try {
             testTranslator.getStringCommandAtIndex(idx);
             fail("CommandNotFoundException should have been raised");
