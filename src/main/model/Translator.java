@@ -1,5 +1,6 @@
 package model;
 
+import except.CommandNotFoundException;
 import except.MissingCommandsException;
 import except.NotYetExecutedException;
 
@@ -52,13 +53,13 @@ public class Translator {
     }
 
     // EFFECTS: get the (string) command at index
-    public String getStringCommandAtIndex(int idx) {
+    public String getStringCommandAtIndex(int idx) throws CommandNotFoundException {
         return null;
     }
 
     // MODIFIES: this
     // EFFECTS: delete the command at index and return the new string of command stream
-    public String deleteCommandAtIndex(int idx) {
+    public String deleteCommandAtIndex(int idx) throws CommandNotFoundException {
         return null;
     }
 }
