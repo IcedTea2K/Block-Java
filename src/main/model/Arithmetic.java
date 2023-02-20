@@ -81,11 +81,7 @@ public abstract class Arithmetic extends Operator {
     // EFFECTS: return the number the DataType is representing
     protected int retrieveNumber(DataType num) {
         int tempNum = 0;
-        try {
-            tempNum = num.getNumber();
-        } catch (InvalidReturnTypeException ignore) {
-            // do nothing
-        }
+        tempNum = num.getNumber();
         return tempNum;
     }
 
