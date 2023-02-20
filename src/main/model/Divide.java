@@ -51,7 +51,7 @@ public class Divide extends Arithmetic {
     @Override
     // EFFECTS: get the name of the command
     public String getHeader() {
-        return "ADD Command";
+        return "DIV Command";
     }
 
     @Override
