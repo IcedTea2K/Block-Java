@@ -168,7 +168,7 @@ public class TranslatorTest {
                 " | UnexpectedNumberOfArgumentsException  The number of inputs don't match\n" +
                 " | DivideByZeroException                 Trying to divide by zero\n" +
                 "MissingCommandsException   No commands have been given to the translator\n" +
-                "NotYetExecutedException    The commands have not been executed yet";
+                "NotYetExecutedException    The commands have not been executed yet\n";
         assertEquals(msg, testTranslator.getHelp());
     }
 
