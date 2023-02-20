@@ -41,8 +41,8 @@ public class Translator {
         return null;
     }
     
-    // EFFECTS: get the string result from executing the (command) stream
-    public String getResults() throws NotYetExecutedException {
+    // EFFECTS: get the results from executing the (command) stream
+    public List<DataType> getResults() throws MissingCommandsException, NotYetExecutedException {
         return null;
     }
 
