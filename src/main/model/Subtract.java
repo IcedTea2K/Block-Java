@@ -36,4 +36,10 @@ public class Subtract extends Arithmetic {
         String msg = "int result = " + tempNumOne + " - " + tempNumTwo + ";";
         return msg;
     }
+
+    @Override
+    // EFFECTS: get the name of the command
+    public String getHeader() {
+        return "SUB Command";
+    }
 }

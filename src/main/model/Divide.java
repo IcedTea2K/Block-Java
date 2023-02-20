@@ -49,6 +49,12 @@ public class Divide extends Arithmetic {
     }
 
     @Override
+    // EFFECTS: get the name of the command
+    public String getHeader() {
+        return "ADD Command";
+    }
+
+    @Override
     public String getConstraints() {
         return super.getConstraints() + " The second number (denominator) needs to be other than 0.";
     }
