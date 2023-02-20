@@ -72,4 +72,10 @@ public class MultiplyTest extends ArithmeticTest {
             fail("No exception should be raised");
         }
     }
+
+    @Override
+    @Test
+    public void testGetHeader() {
+        assertEquals("MUL Command", command.getHeader());
+    }
 }

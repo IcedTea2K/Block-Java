@@ -81,6 +81,12 @@ public class DivideTest extends ArithmeticTest {
 
     @Override
     @Test
+    public void testGetHeader() {
+        assertEquals("DIV Command", command.getHeader());
+    }
+
+    @Override
+    @Test
     public void testGetConstraints() {
         assertEquals("Operators only accept two inputs. They both need to be numbers." +
                         " The second number (denominator) needs to be other than 0.",

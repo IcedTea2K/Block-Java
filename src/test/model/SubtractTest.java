@@ -79,4 +79,10 @@ public class SubtractTest extends ArithmeticTest {
             fail("No exception should be raised");
         }
     }
+
+    @Override
+    @Test
+    public void testGetHeader() {
+        assertEquals("SUB Command", command.getHeader());
+    }
 }

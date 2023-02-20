@@ -66,4 +66,10 @@ public class AddTest extends ArithmeticTest {
             fail("No exception should be raised");
         }
     }
+
+    @Override
+    @Test
+    public void testGetHeader() {
+        assertEquals("ADD Command", command.getHeader());
+    }
 }
