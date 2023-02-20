@@ -75,7 +75,8 @@ public class TranslatorTest {
             testTranslator.executeStream();
             fail("MissingComandsException should have been raised");
         } catch (MissingCommandsException e) {
-            assertEquals("except.MissingCommandsException: No commands have been given", e.toString());
+            assertEquals("except.MissingCommandsException: No commands have been provided to the translator",
+                    e.toString());
         }
     }
 
@@ -83,12 +84,9 @@ public class TranslatorTest {
     public void testExecuteWithSingleCommand() {
         testTranslator.addCommand(add);
 
-        List<Command> addedCommands = new LinkedList<>();
-        addedCommands.add(add);
-
         try {
             testTranslator.executeStream();
-            checkResult(addedCommands, testTranslator.getResults());
+            assertEquals("#1| 138\n", testTranslator.getResults());
         } catch (MissingCommandsException | NotYetExecutedException e) {
             fail("No exception should be raised");
         }
@@ -109,7 +107,10 @@ public class TranslatorTest {
 
         try {
             testTranslator.executeStream();
-            checkResult(addedCommands, testTranslator.getResults());
+            assertEquals("#1| 138\n" +
+                    "#2| 8379\n" +
+                    "#3| -356\n" +
+                    "#4| 191\n", testTranslator.getResults());
         } catch (MissingCommandsException | NotYetExecutedException e) {
             fail("No exception should be raised");
         }
