@@ -12,50 +12,50 @@ public class Translator {
     }
 
     // MODIFIES: this
-    // EFFECTS: handle user inputs and return the results from the inputs
-    public String input(String msg) {
-        return null;
+    // EFFECTS: add the command to the translator
+    public void addCommand(Command command) {
+
     }
 
     // MODIFIES: this
     // EFFECTS: execute the (command) stream
-    private void executeStream() {
+    public void executeStream() {
 
     }
 
     // EFFECTS: provide help about a specific command
-    private String help(String strCommand) {
+    public String getHelp(String strCommand) {
         return null;
     }
 
     // EFFECTS: provide the general help about the program
-    private String help() {
+    public String getHelp() {
         return null;
     }
 
     // EFFECTS: get the java representation of the current command stream
-    private String getJava() {
+    public String translateToJava() {
         return null;
     }
     
     // EFFECTS: get the string result from executing the (command) stream
-    private String getResults() {
+    public String getResults() {
         return null;
     }
 
-    // EFFECTS: return the commands of the
-    private String getStream() {
+    // EFFECTS: return the commands in the translator
+    public String getStream() {
         return null;
     }
 
     // EFFECTS: get the (string) command at index
-    private String getStringCommandAtIndex(int idx) {
+    public String getStringCommandAtIndex(int idx) {
         return null;
     }
 
     // MODIFIES: this
     // EFFECTS: delete the command at index and return the new string of command stream
-    private String deleteCommandAtIndex(int idx) {
+    public String deleteCommandAtIndex(int idx) {
         return null;
     }
 }
