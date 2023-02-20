@@ -246,7 +246,7 @@ public class TranslatorTest {
         checkDeletingCommandAtValidIdxBehaviour(3,
                 "#1| SUB -12 -8391\n" +
                         "#2| MUL 89 -4\n");
-        checkDeletingCommandAtValidIdxBehaviour(2,"#1| SUB -12 -8391\n" );
+        checkDeletingCommandAtValidIdxBehaviour(2, "#1| SUB -12 -8391\n");
         checkDeletingTheLastCommandBehaviour();
     }
 
@@ -259,7 +259,7 @@ public class TranslatorTest {
         checkDeletingCommandAtValidIdxBehaviour(1,
                 "#1| MUL 89 -4\n" +
                         "#2| DIV 1337 7\n");
-        checkDeletingCommandAtValidIdxBehaviour(1,"#1| DIV 1337 7\n" );
+        checkDeletingCommandAtValidIdxBehaviour(1, "#1| DIV 1337 7\n");
         checkDeletingTheLastCommandBehaviour();
     }
 
@@ -275,10 +275,10 @@ public class TranslatorTest {
         checkDeletingCommandAtValidIdxBehaviour(3,
                 "#1| SUB -12 -8391\n" +
                         "#2| MUL 89 -4\n");
-        checkDeletingCommandAtValidIdxBehaviour(1,"#1| MUL 89 -4\n" );
+        checkDeletingCommandAtValidIdxBehaviour(1, "#1| MUL 89 -4\n");
         checkDeletingTheLastCommandBehaviour();
     }
-    
+
     @Test
     public void testDeleteCommandAtEarlierIdxCausesOutOfBound() {
         testTranslator.addCommand(add);
@@ -287,6 +287,19 @@ public class TranslatorTest {
         checkDeletingCommandAtValidIdxBehaviour(1, "#1| SUB -12 -8391\n" +
                 "#2| MUL 89 -4\n");
         checkDeletingBehaviorAtOutOfBoundStream(3);
+    }
+
+    @Test
+    public void testDeleteCommandWithLeftOver() {
+        testTranslator.addCommand(add);
+        testTranslator.addCommand(sub);
+        testTranslator.addCommand(mul);
+        testTranslator.addCommand(div);
+        checkDeletingCommandAtValidIdxBehaviour(2, "#1| ADD 10 128\n" +
+                "#2| MUL 89 -4\n" +
+                "#3| DIV 1337 7\n");
+        checkDeletingCommandAtValidIdxBehaviour(3, "#1| ADD 10 128\n" +
+                "#2| MUL 89 -4\n");
     }
 
     private void checkDeletingCommandAtValidIdxBehaviour(int idx, String newExpectedStream) {
