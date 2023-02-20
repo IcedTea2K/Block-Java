@@ -143,6 +143,35 @@ public class TranslatorTest {
         }
     }
 
+    @Test
+    public void testGetGeneralHelp() {
+        String msg = "++++++++++++++++Block Java Available Commands & Exceptions++++++++++++++++\n" +
+                "Built-in Commands:\n" +
+                "ADD numOne numTwo    Add numOne and numTwo together\n" +
+                "SUB numOne numTwo    Subtract numTwo from numOne\n" +
+                "MUL numOne numTwo    Multiply numOne and numTwo together\n" +
+                "DIV numOne numTwo    Divide numTwo from numOne\n" +
+                "\n" +
+                "Supporting Commands:\n" +
+                "HELP           General help about Block Java\n" +
+                "HELP COMMAND   Help for a specific command\n" +
+                "EXEC           Execute the commands and get the result\n" +
+                "JAVA           Get Java code of the commands\n" +
+                "GET Index      Get a command at index (based 1)\n" +
+                "ALL            Display all input commands\n" +
+                "DEL Index      Delete a command at index (based 1)\n" +
+                "RES            Reset the translator and delete all commands\n" +
+                "\n" +
+                "Exceptions:\n" +
+                "InvalidArgumentException   Input for command is invalid\n" +
+                " | WrongArgumentTypeException            Input has the wrong type\n" +
+                " | UnexpectedNumberOfArgumentsException  The number of inputs don't match\n" +
+                " | DivideByZeroException                 Trying to divide by zero\n" +
+                "MissingCommandsException   No commands have been given to the translator\n" +
+                "NotYetExecutedException    The commands have not been executed yet";
+        assertEquals(msg, testTranslator.getHelp());
+    }
+
     private void checkResult(List<Command> addedCommands, List<DataType> result) {
         assertEquals(result.size(), addedCommands.size());
         for (int i = 0; i < result.size(); i++) {
