@@ -10,10 +10,10 @@ There are multiple factors that inspire the project. Firstly, scratch helped me 
 
 ## User Stories
 ### Phase 0
-- As a user, I want to be able to place commands, run them and get the results back.
+- As a user, I want to be able to add commands to the translator, run them and get the results back.
 - As a user, I want to be able to view all the commands that I have input
 - As a user, I want to be able to remove a specific command (using index)
-- As a user, I want to be able to clear all the existing commands
-- As a user, I want to view the list of available commands
+- As a user, I want to be able to clear all the input commands from the translator
+- As a user, I want to view the list of commands the translator supports
 - As a user, I want to get more information about a command
-- As a user, I want to view what the commands represent in Java
+- As a user, I want to the translator to translate the commands into Java. 
