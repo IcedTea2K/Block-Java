@@ -27,7 +27,7 @@ public class Translator {
     }
 
     // EFFECTS: provide help about a specific command
-    public String getHelp(String strCommand) {
+    public String getHelp(Command command) {
         return null;
     }
 
