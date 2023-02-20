@@ -1,5 +1,8 @@
 package model;
 
+import except.MissingCommandsException;
+import except.NotYetExecutedException;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,7 +22,7 @@ public class Translator {
 
     // MODIFIES: this
     // EFFECTS: execute the (command) stream
-    public void executeStream() {
+    public void executeStream() throws MissingCommandsException {
 
     }
 
@@ -34,17 +37,17 @@ public class Translator {
     }
 
     // EFFECTS: get the java representation of the current command stream
-    public String translateToJava() {
+    public String translateToJava() throws MissingCommandsException, NotYetExecutedException {
         return null;
     }
     
     // EFFECTS: get the string result from executing the (command) stream
-    public String getResults() {
+    public String getResults() throws NotYetExecutedException {
         return null;
     }
 
     // EFFECTS: return the commands in the translator
-    public String getStream() {
+    public String getStream() throws MissingCommandsException {
         return null;
     }
 
