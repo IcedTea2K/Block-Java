@@ -172,6 +172,15 @@ public class TranslatorTest {
         assertEquals(msg, testTranslator.getHelp());
     }
 
+    @Test
+    public void testGetHelpAboutCommand() {
+        String msg = add.getHeader() + "\n" +
+                "Constraints   " + add.getConstraints() + "\n" +
+                "Return Type   " + add.getReturnType() + "\n";
+
+        assertEquals(msg, testTranslator.getHelp(add));
+    }
+
     private void checkResult(List<Command> addedCommands, List<DataType> result) {
         assertEquals(result.size(), addedCommands.size());
         for (int i = 0; i < result.size(); i++) {
