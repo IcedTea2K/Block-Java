@@ -43,11 +43,11 @@ public class TranslatorTest {
             assertEquals("#1| ADD 10 128\n", testTranslator.getStream());
             testTranslator.addCommand(sub);
             assertEquals("#1| ADD 10 128\n" +
-                    "#2| SUB -12 -8391", testTranslator.getStream());
+                    "#2| SUB -12 -8391\n", testTranslator.getStream());
             testTranslator.addCommand(mul);
             assertEquals("#1| ADD 10 128\n" +
                     "#2| SUB -12 -8391\n" +
-                    "#3| MUL 89 -4", testTranslator.getStream());
+                    "#3| MUL 89 -4\n", testTranslator.getStream());
             testTranslator.addCommand(div);
             assertEquals("#1| ADD 10 128\n" +
                     "#2| SUB -12 -8391\n" +
@@ -64,7 +64,8 @@ public class TranslatorTest {
             testTranslator.getStream();
             fail("MissingComandsException should have been raised");
         } catch (MissingCommandsException e) {
-            assertEquals("except.MissingCommandsException: No commands have been given", e.toString());
+            assertEquals("except.MissingCommandsException: No commands have been provided to the translator"
+                    , e.toString());
         }
     }
 
