@@ -176,8 +176,13 @@ public class TranslatorTest {
     public void testGetHelpAboutCommand() {
         String msg = add.getHeader() + "\n" +
                 "Constraints   " + add.getConstraints() + "\n" +
-                "Return Type   " + add.getReturnType() + "\n";
-
+                "Return Type   " + add.getReturnType() + "\n" +
+                "Examples:\n";
+        String[] examples = add.getExamples().split("\n");
+        for (String example : examples) {
+            msg += "  " + example + "\n";
+        }
+        
         assertEquals(msg, testTranslator.getHelp(add));
     }
 
