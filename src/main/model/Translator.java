@@ -15,10 +15,11 @@ public class Translator {
         stream = new LinkedList<>();
     }
 
+    // REQUIRES: inputs are already stored in the commands
     // MODIFIES: this
     // EFFECTS: add the command to the translator
     public void addCommand(Command command) {
-
+        stream.add(command);
     }
 
     // MODIFIES: this
@@ -47,9 +48,18 @@ public class Translator {
         return null;
     }
 
-    // EFFECTS: return the commands in the translator
+    // EFFECTS: return the commands in the translator.
+    //          If there are no command currently in the stream, throw MissingCommandsException
     public String getStream() throws MissingCommandsException {
-        return null;
+        if (stream.size() == 0) {
+            throw new MissingCommandsException();
+        }
+        String msg = "";
+        for (int i = 0; i < stream.size(); i++) {
+            msg += "#" + (i + 1) + "| " + stream.get(i).toString() + "\n";
+        }
+
+        return msg;
     }
 
     // EFFECTS: get the (string) command at index
