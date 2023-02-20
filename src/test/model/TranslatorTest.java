@@ -1,5 +1,6 @@
 package model;
 
+import except.CommandNotFoundException;
 import except.InvalidArgumentException;
 import except.MissingCommandsException;
 import except.NotYetExecutedException;
@@ -182,8 +183,36 @@ public class TranslatorTest {
         for (String example : examples) {
             msg += "  " + example + "\n";
         }
-        
+
         assertEquals(msg, testTranslator.getHelp(add));
+    }
+
+    @Test
+    public void testGetStringCommandWithEmptyStream() {
+        checkBehaviorAtOutOfBoundStream(1);
+    }
+
+    @Test
+    public void testGetStringCommandAtOutOfBound() {
+        testTranslator.addCommand(add);
+        checkBehaviorAtOutOfBoundStream(0);
+        checkBehaviorAtOutOfBoundStream(-10);
+
+        testTranslator.addCommand(sub);
+        testTranslator.addCommand(div);
+        testTranslator.addCommand(mul);
+        checkBehaviorAtOutOfBoundStream(5);
+        checkBehaviorAtOutOfBoundStream(2);
+    }
+
+    private void checkBehaviorAtOutOfBoundStream(int idx) {
+        try {
+            testTranslator.getStringCommandAtIndex(idx);
+            fail("CommandNotFoundException should have been raised");
+        } catch (CommandNotFoundException e) {
+            assertEquals("except.CommandNotFoundException: " +
+                    "No command is found at index #" + idx, e.toString());
+        }
     }
 
     private void checkResult(List<Command> addedCommands, List<DataType> result) {
