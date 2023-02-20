@@ -26,7 +26,10 @@ public class Translator {
     // MODIFIES: this
     // EFFECTS: execute the (command) stream
     public void executeStream() throws MissingCommandsException {
-        
+        checkCurrentStream();
+        for (Command c : stream) {
+            c.execute();
+        }
     }
 
     // EFFECTS: provide help about a specific command
@@ -45,8 +48,14 @@ public class Translator {
     }
     
     // EFFECTS: get the results from executing the (command) stream
-    public List<DataType> getResults() throws MissingCommandsException, NotYetExecutedException {
-        return null;
+    public String getResults() throws MissingCommandsException, NotYetExecutedException {
+        checkCurrentStream();
+
+        String msg = "";
+        for (int i = 0; i < stream.size(); i++) {
+            msg += "#" + (i + 1) + "| " + stream.get(i).getResult().getNumber() + "\n";
+        }
+        return msg;
     }
 
     // EFFECTS: return the commands in the translator.
