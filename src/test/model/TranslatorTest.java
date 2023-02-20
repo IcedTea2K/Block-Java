@@ -136,7 +136,7 @@ public class TranslatorTest {
         } catch (MissingCommandsException e) {
             fail("NotYetExecutedException should have been raised instead");
         } catch (NotYetExecutedException e) {
-            assertEquals("except.MissingCommandsException: " +
+            assertEquals("except.NotYetExecutedException: " +
                     "Unable to obtain the result. The command has not been executed yet", e.toString());
         }
     }
@@ -300,6 +300,50 @@ public class TranslatorTest {
                 "#3| DIV 1337 7\n");
         checkDeletingCommandAtValidIdxBehaviour(3, "#1| ADD 10 128\n" +
                 "#2| MUL 89 -4\n");
+    }
+
+    @Test
+    public void testTranslateToJavaWithNoCommands() {
+        try {
+            testTranslator.translateToJava();
+            fail("MissingCommandsException should have been raised");
+        } catch (MissingCommandsException e) {
+            assertEquals("except.MissingCommandsException: " +
+                    "No argument has been given", e.toString());
+        } catch (NotYetExecutedException e) {
+            fail("MissingCommandsException should have been raised instead");
+        }
+    }
+
+    @Test
+    public void testTranslateToJavaWithoutExecutingTheStream() {
+        try {
+            testTranslator.translateToJava();
+            fail("NotYetExecutedException should have been raised");
+        } catch (MissingCommandsException e) {
+            fail("NotYetExecutedException should have been raised instead");
+        } catch (NotYetExecutedException e) {
+            assertEquals("except.NotYetExecutedException: " +
+                    "Unable to obtain the result. The command has not been executed yet", e.toString());
+        }
+    }
+
+    @Test
+    public void testTranslateToJavaWithTheWholeStream() {
+        testTranslator.addCommand(add);
+        testTranslator.addCommand(div);
+        testTranslator.addCommand(sub);
+        testTranslator.addCommand(mul);
+
+        String msg = "#1: int result1 = 10 + 128;\n" +
+                "#2: int result2 = 1337 / 7;\n" +
+                "#3: int result3 = -12 - -8391;\n" +
+                "#4: int result4 = 89 * -4;\n";
+        try {
+            assertEquals(msg, testTranslator.translateToJava());
+        } catch (MissingCommandsException | NotYetExecutedException e) {
+            fail("No exception should be raised");
+        }
     }
 
     private void checkDeletingCommandAtValidIdxBehaviour(int idx, String newExpectedStream) {
