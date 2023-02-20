@@ -28,12 +28,12 @@ public class Subtract extends Arithmetic {
     @Override
     // EFFECTS: return the Java code representation of this command
     //          with the given inputs.
-    public String getJava() throws MissingArgumentException {
+    public String getJava(int idx) throws MissingArgumentException {
         checkCurrentInputs();
         int tempNumOne = retrieveNumber(numOne);
         int tempNumTwo = retrieveNumber(numTwo);
 
-        String msg = "int result = " + tempNumOne + " - " + tempNumTwo + ";";
+        String msg = "int result" + idx + " = " + tempNumOne + " - " + tempNumTwo + ";";
         return msg;
     }
 

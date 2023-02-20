@@ -135,7 +135,7 @@ public abstract class ArithmeticTest {
     @Test
     public void testGetJavaWithNoInputs() {
         try {
-            command.getJava();
+            command.getJava(1);
             fail("MissingArgumentException should have been raised");
         } catch (MissingArgumentException e) {
             assertEquals("except.MissingArgumentException: " +

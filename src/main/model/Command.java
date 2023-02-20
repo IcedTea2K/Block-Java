@@ -31,7 +31,7 @@ public interface Command {
     public String getExamples();
 
     // EFFECTS: return the Java code representation of this command
-    public String getJava() throws MissingArgumentException;
+    public String getJava(int idx) throws MissingArgumentException;
 
     public String getHeader();
 }

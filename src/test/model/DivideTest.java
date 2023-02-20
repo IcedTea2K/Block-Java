@@ -71,9 +71,9 @@ public class DivideTest extends ArithmeticTest {
     @Test
     public void testGetJavaWithInputs() {
         checkBehaviour(negNum, posNum, -11 / 123);
-        String msg = "int result = -11 / 123;";
+        String msg = "int result1 = -11 / 123;";
         try {
-            assertEquals(msg, command.getJava());
+            assertEquals(msg, command.getJava(1));
         } catch (MissingArgumentException e) {
             fail("No exception should be raised");
         }
