@@ -33,20 +33,51 @@ public class Translator {
     }
 
     // EFFECTS: provide help about a specific command
-    public String getHelp(Command command) {
-        return null;
+    public static String getHelp(Command command) {
+        String msg = command.getHeader() + "\n"
+                + "Constraints   " + command.getConstraints() + "\n"
+                + "Return Type   " + command.getReturnType() + "\n"
+                + "Examples:\n";
+
+        String[] examples = command.getExamples().split("\n");
+        for (String example : examples) {
+            msg += "  " + example + "\n";
+        }
+        return msg;
     }
 
     // EFFECTS: provide the general help about the program
-    public String getHelp() {
-        return null;
+    public static String getHelp() {
+        String msg = "++++++++++++++++Block Java Available Commands & Exceptions++++++++++++++++\n"
+                + "Built-in Commands:\n"
+                + "ADD numOne numTwo    Add numOne and numTwo together\n"
+                + "SUB numOne numTwo    Subtract numTwo from numOne\n"
+                + "MUL numOne numTwo    Multiply numOne and numTwo together\n"
+                + "DIV numOne numTwo    Divide numTwo from numOne\n\n"
+                + "Supporting Commands:\n"
+                + "HELP           General help about Block Java\n"
+                + "HELP COMMAND   Help for a specific command\n"
+                + "EXEC           Execute the commands and get the result\n"
+                + "JAVA           Get Java code of the commands\n"
+                + "GET Index      Get a command at index (based 1)\n"
+                + "ALL            Display all input commands\n"
+                + "DEL Index      Delete a command at index (based 1)\n"
+                + "RES            Reset the translator and delete all commands\n\n"
+                + "Exceptions:\n"
+                + "InvalidArgumentException   Input for command is invalid\n"
+                + " | WrongArgumentTypeException            Input has the wrong type\n"
+                + " | UnexpectedNumberOfArgumentsException  The number of inputs don't match\n"
+                + " | DivideByZeroException                 Trying to divide by zero\n"
+                + "MissingCommandsException   No commands have been given to the translator\n"
+                + "NotYetExecutedException    The commands have not been executed yet";
+        return msg;
     }
 
     // EFFECTS: get the java representation of the current command stream
     public String translateToJava() throws MissingCommandsException, NotYetExecutedException {
         return null;
     }
-    
+
     // EFFECTS: get the results from executing the (command) stream
     public String getResults() throws MissingCommandsException, NotYetExecutedException {
         checkCurrentStream();
