@@ -126,6 +126,7 @@ public class ConsoleApplication {
         }
     }
 
+    // MODIFIES: this
     // EFFECTS: execute the commands and print the result
     private void execCommand() {
         try {
