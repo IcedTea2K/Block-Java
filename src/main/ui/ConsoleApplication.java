@@ -19,12 +19,28 @@ public class ConsoleApplication {
 
     // EFFECTS: run the program
     private void run() {
+        boolean isRunning = true;
         startMenu();
+
+        while (isRunning) {
+            System.out.print("> ");
+            String[] inputs = takeInput();
+
+            if (inputs[0].equals("QUIT")) {
+                isRunning = false;
+            }
+        }
     }
 
     // EFFECTS: process the inputs and call the corresponding commands
     private void processInput() {
 
+    }
+
+    // EFFECTS: take in input and return it as an array of string
+    private String[] takeInput() {
+        String input = scanner.nextLine().strip().toUpperCase();
+        return input.split(" ");
     }
 
     // EFFECTS: display the start menu
@@ -39,6 +55,6 @@ public class ConsoleApplication {
                 + "# **Note** BlockJava is still in early development.     #\n"
                 + "# Full version with graphical interface is coming soon. #\n"
                 + "#########################################################\n";
-        System.out.println(menu);
+        System.out.print(menu);
     }
 }
