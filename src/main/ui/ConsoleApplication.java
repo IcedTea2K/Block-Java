@@ -44,7 +44,7 @@ public class ConsoleApplication {
             case "":
                 break;
             case "HELP":
-                break;
+                help(parameters);
             case "EXEC":
                 break;
             case "JAVA":
@@ -79,6 +79,12 @@ public class ConsoleApplication {
         }
     }
 
+    private void help(String[] parameters) {
+        if (parameters.length == 0) {
+            System.out.println(Translator.getHelp());
+        }
+    }
+
     // EFFECTS: take in input and return it as an array of string
     private String[] takeInput() {
         String input = scanner.nextLine().strip().toUpperCase();
@@ -88,15 +94,15 @@ public class ConsoleApplication {
     // EFFECTS: display the start menu
     private void startMenu() {
         String menu = ""
-                + "#########################################################\n"
-                + "#                Welcome to BlockJava                   #\n"
-                + "# This is a program that helps introduce user to        #\n"
-                + "# programming as well as Java. Type 'HELP' to see the   #\n"
-                + "# the available commands.                               #\n"
-                + "#                                                       #\n"
-                + "# **Note** BlockJava is still in early development.     #\n"
-                + "# Full version with graphical interface is coming soon. #\n"
-                + "#########################################################\n";
+                + "##########################################################################\n"
+                + "#                         Welcome to BlockJava                           #\n"
+                + "# This is a program that helps introduce user to programming as well as  #\n"
+                + "# Java. Type 'HELP' to see the  the available commands.                  #\n"
+                + "#                                                                        #\n"
+                + "#                                                                        #\n"
+                + "# **Note** BlockJava is still in early development. Expect full version  #\n"
+                + "# with graphical interface soon!!                                        #\n"
+                + "##########################################################################\n";
         System.out.print(menu);
     }
 
