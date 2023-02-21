@@ -208,14 +208,14 @@ public class TranslatorTest {
     public void testGetStringCommandAtValidIdx() {
         testTranslator.addCommand(add);
         try {
-            assertEquals("#1: " + add.toString(), testTranslator.getStringCommandAtIndex(1));
+            assertEquals("#1| " + add.toString(), testTranslator.getStringCommandAtIndex(1));
 
             testTranslator.addCommand(mul);
             testTranslator.addCommand(div);
             testTranslator.addCommand(sub);
-            assertEquals("#2: " + mul.toString(), testTranslator.getStringCommandAtIndex(2));
-            assertEquals("#3: " + div.toString(), testTranslator.getStringCommandAtIndex(3));
-            assertEquals("#4: " + sub.toString(), testTranslator.getStringCommandAtIndex(4));
+            assertEquals("#2| " + mul.toString(), testTranslator.getStringCommandAtIndex(2));
+            assertEquals("#3| " + div.toString(), testTranslator.getStringCommandAtIndex(3));
+            assertEquals("#4| " + sub.toString(), testTranslator.getStringCommandAtIndex(4));
         } catch (CommandNotFoundException e) {
             fail("No exception should be raised");
         }
