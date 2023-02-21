@@ -75,7 +75,7 @@ public class Translator {
     }
 
     // EFFECTS: get the java representation of the current command stream
-    public String translateToJava() throws MissingCommandsException, NotYetExecutedException {
+    public String translateToJava() throws MissingCommandsException {
         checkCurrentStream();
         String msg = "";
         for (int i = 0; i < stream.size(); i++) {

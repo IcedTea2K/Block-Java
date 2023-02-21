@@ -2,6 +2,7 @@ package ui;
 
 import except.InvalidArgumentException;
 import except.MissingCommandsException;
+import except.NotYetExecutedException;
 import model.*;
 
 import javax.xml.crypto.Data;
@@ -53,7 +54,7 @@ public class ConsoleApplication {
             case "EXEC":
                 execCommand();
             case "JAVA":
-                break;
+                javaCommand();
             case "GET":
                 break;
             case "ALL":
@@ -122,6 +123,14 @@ public class ConsoleApplication {
     private void execCommand() {
         try {
             mainTranslator.executeStream();
+        } catch (MissingCommandsException e) {
+            System.out.println(cleanExceptionMessage(e.toString()));
+        }
+    }
+
+    private void javaCommand() {
+        try {
+            System.out.print(mainTranslator.translateToJava());
         } catch (MissingCommandsException e) {
             System.out.println(cleanExceptionMessage(e.toString()));
         }
