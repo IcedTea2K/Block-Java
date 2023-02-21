@@ -51,7 +51,7 @@ public class ConsoleApplication {
             case "HELP":
                 help(parameters);
             case "EXEC":
-                break;
+                execCommand();
             case "JAVA":
                 break;
             case "GET":
@@ -116,6 +116,14 @@ public class ConsoleApplication {
             System.out.println(Translator.getHelp());
         } else {
             processBuiltInCommands(parameters[0], new String[0], true);
+        }
+    }
+
+    private void execCommand() {
+        try {
+            mainTranslator.executeStream();
+        } catch (MissingCommandsException e) {
+            System.out.println(cleanExceptionMessage(e.toString()));
         }
     }
 
