@@ -130,7 +130,8 @@ public class ConsoleApplication {
     private void execCommand() {
         try {
             mainTranslator.executeStream();
-        } catch (MissingCommandsException e) {
+            System.out.print(mainTranslator.getResults());
+        } catch (MissingCommandsException | NotYetExecutedException e) {
             System.out.println(cleanExceptionMessage(e.toString()));
         }
     }
