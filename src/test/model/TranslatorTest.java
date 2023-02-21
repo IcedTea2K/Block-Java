@@ -311,7 +311,7 @@ public class TranslatorTest {
             fail("MissingCommandsException should have been raised");
         } catch (MissingCommandsException e) {
             assertEquals("except.MissingCommandsException: " +
-                    "No argument has been given", e.toString());
+                    "No commands have been provided to the translator", e.toString());
         } catch (NotYetExecutedException e) {
             fail("MissingCommandsException should have been raised instead");
         }
