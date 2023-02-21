@@ -68,6 +68,7 @@ public class ConsoleApplication {
                 delCommand(parameters);
                 break;
             case "RES":
+                this.mainTranslator = new Translator();
                 break;
             default:
                 processBuiltInCommands(keyWord, parameters, false);
