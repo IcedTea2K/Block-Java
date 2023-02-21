@@ -30,6 +30,8 @@ public class ConsoleApplication {
                 isRunning = false;
             }
         }
+
+        endMenu();
     }
 
     // EFFECTS: process the inputs and call the corresponding commands
@@ -56,5 +58,13 @@ public class ConsoleApplication {
                 + "# Full version with graphical interface is coming soon. #\n"
                 + "#########################################################\n";
         System.out.print(menu);
+    }
+
+    // EFFECTS: display the end menu when the program ends
+    private void endMenu() {
+        String menu = "\n"
+                + "Thank you for using the program\n"
+                + "Hope you learned something new!!";
+        System.out.println(menu);
     }
 }
