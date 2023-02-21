@@ -18,6 +18,7 @@ public class ConsoleApplication {
         run();
     }
 
+    // MODIFIES: this
     // EFFECTS: run the program
     private void run() {
         boolean isRunning = true;
@@ -36,9 +37,12 @@ public class ConsoleApplication {
         endMenu();
     }
 
-    // EFFECTS: process the inputs and call the corresponding commands
+    // MODIFIES: this
+    // EFFECTS: process the input and call the corresponding supporting commands
     private void processSupportingCommands(String keyWord, String[] parameters) {
         switch (keyWord) {
+            case "":
+                break;
             case "HELP":
                 break;
             case "EXEC":
@@ -54,7 +58,24 @@ public class ConsoleApplication {
             case "RES":
                 break;
             default:
+                processBuiltInCommands(keyWord, parameters, false);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: process inputs and call corresponding built-in commands
+    private void processBuiltInCommands(String keyWord, String[] parameters, boolean isInquiring) {
+        switch (keyWord) {
+            case "ADD":
                 break;
+            case "SUB":
+                break;
+            case "MUL":
+                break;
+            case "DIV":
+                break;
+            default:
+                System.out.println("Command not supported. Type 'HELP' for more information.");;
         }
     }
 
