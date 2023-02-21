@@ -87,8 +87,25 @@ public class ConsoleApplication {
                 System.out.println("Command not supported. Type 'HELP' for more information.");
                 return;
         }
+        addCommandToTranslator(command, parameters, isInquiring);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: try to add command to the translator with given parameters.
+    //          If isInquiring is true, then provide help for the specific command
+    private void addCommandToTranslator(Command command, String[] parameters, boolean isInquiring) {
         if (isInquiring) {
             System.out.print(Translator.getHelp(command));
+            return;
+        }
+
+        try {
+            command.input(convertInputsToNumbers(parameters));
+            mainTranslator.addCommand(command);
+        } catch (InvalidArgumentException e) {
+            System.out.println(e.toString().replaceAll("except.", ""));
+        } catch (NumberFormatException e) {
+            System.out.println("WrongArgumentTypeException: Given input is not a number");
         }
     }
 
