@@ -22,8 +22,8 @@ public class Divide extends Arithmetic {
     public void execute() throws MissingArgumentException {
         checkCurrentInputs();
 
-        int tempNumOne = retrieveNumber(numOne);
-        int tempNumTwo = retrieveNumber(numTwo);
+        int tempNumOne = retrieveData(numOne);
+        int tempNumTwo = retrieveData(numTwo);
         result = new DataType(tempNumOne / tempNumTwo);
     }
 
@@ -41,8 +41,8 @@ public class Divide extends Arithmetic {
     //          with the given inputs.
     public String getJava(int idx) throws MissingArgumentException {
         checkCurrentInputs();
-        int tempNumOne = retrieveNumber(numOne);
-        int tempNumTwo = retrieveNumber(numTwo);
+        int tempNumOne = retrieveData(numOne);
+        int tempNumTwo = retrieveData(numTwo);
 
         String msg = "int result" + idx + " = " + tempNumOne + " / " + tempNumTwo + ";";
         return msg;

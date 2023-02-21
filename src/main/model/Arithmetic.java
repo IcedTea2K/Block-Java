@@ -48,7 +48,7 @@ public abstract class Arithmetic extends Operator {
     // EFFECTS: turn the command into a string
     public String toString() {
         String msg = getHeader().split(" ")[0] + " "
-                + retrieveNumber(numOne) + " " + retrieveNumber(numTwo);
+                + retrieveData(numOne) + " " + retrieveData(numTwo);
         return msg;
     }
 
@@ -79,7 +79,7 @@ public abstract class Arithmetic extends Operator {
     }
 
     // EFFECTS: return the number the DataType is representing
-    protected int retrieveNumber(DataType num) {
+    protected int retrieveData(DataType num) {
         int tempNum = 0;
         tempNum = num.getNumber();
         return tempNum;
