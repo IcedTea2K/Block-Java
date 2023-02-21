@@ -126,6 +126,7 @@ public class ConsoleApplication {
         }
     }
 
+    // EFFECTS: execute the commands and print the result
     private void execCommand() {
         try {
             mainTranslator.executeStream();
@@ -134,6 +135,7 @@ public class ConsoleApplication {
         }
     }
 
+    // EFFECTS: print the Java representation of the commands
     private void javaCommand() {
         try {
             System.out.print(mainTranslator.translateToJava());
@@ -142,6 +144,7 @@ public class ConsoleApplication {
         }
     }
 
+    // EFFECTS: print a specific command at the given index
     private void getCommand(String[] parameters) {
         int idx;
         try {
@@ -154,6 +157,7 @@ public class ConsoleApplication {
         }
     }
 
+    // EFFECTS: print all the input command.
     private void allCommand() {
         try {
             System.out.print(mainTranslator.getStream());
