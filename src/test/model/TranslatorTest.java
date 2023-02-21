@@ -324,10 +324,10 @@ public class TranslatorTest {
         testTranslator.addCommand(sub);
         testTranslator.addCommand(mul);
 
-        String msg = "#1: int result1 = 10 + 128;\n" +
-                "#2: int result2 = 1337 / 7;\n" +
-                "#3: int result3 = -12 - -8391;\n" +
-                "#4: int result4 = 89 * -4;\n";
+        String msg = "#1| int result1 = 10 + 128;\n" +
+                "#2| int result2 = 1337 / 7;\n" +
+                "#3| int result3 = -12 - -8391;\n" +
+                "#4| int result4 = 89 * -4;\n";
         try {
             assertEquals(msg, testTranslator.translateToJava());
         } catch (MissingCommandsException | NotYetExecutedException e) {
