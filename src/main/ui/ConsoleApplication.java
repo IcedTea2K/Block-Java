@@ -1,6 +1,6 @@
 package ui;
 
-import model.Translator;
+import model.*;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -67,21 +67,68 @@ public class ConsoleApplication {
     private void processBuiltInCommands(String keyWord, String[] parameters, boolean isInquiring) {
         switch (keyWord) {
             case "ADD":
+                addCommand(keyWord, parameters, isInquiring);
                 break;
             case "SUB":
+                subCommand(keyWord, parameters, isInquiring);
                 break;
             case "MUL":
+                mulCommand(keyWord, parameters, isInquiring);
                 break;
             case "DIV":
+                divCommand(keyWord, parameters, isInquiring);
                 break;
             default:
                 System.out.println("Command not supported. Type 'HELP' for more information.");;
         }
     }
 
+    // EFFECTS: provide help to the user
     private void help(String[] parameters) {
         if (parameters.length == 0) {
             System.out.println(Translator.getHelp());
+        } else {
+            processBuiltInCommands(parameters[0], new String[0], true);
+        }
+    }
+
+    // EFFECTS: if isInquiring is true, provide help specific to ADD
+    //          Otherwise, try to create the command and add to the translator
+    private void addCommand(String keyWord, String[] parameters, boolean isInquiring) {
+        Command command = new Add();
+        if (isInquiring) {
+            System.out.print(Translator.getHelp(command));
+            return;
+        }
+    }
+
+    // EFFECTS: if isInquiring is true, provide help specific to SUB
+    //          Otherwise, try to create the command and add to the translator
+    private void subCommand(String keyWord, String[] parameters, boolean isInquiring) {
+        Command command = new Subtract();
+        if (isInquiring) {
+            System.out.print(Translator.getHelp(command));
+            return;
+        }
+    }
+
+    // EFFECTS: if isInquiring is true, provide help specific to MUL
+    //          Otherwise, try to create the command and add to the translator
+    private void mulCommand(String keyWord, String[] parameters, boolean isInquiring) {
+        Command command = new Multiply();
+        if (isInquiring) {
+            System.out.print(Translator.getHelp(command));
+            return;
+        }
+    }
+
+    // EFFECTS: if isInquiring is true, provide help specific to DIV
+    //          Otherwise, try to create the command and add to the translator
+    private void divCommand(String keyWord, String[] parameters, boolean isInquiring) {
+        Command command = new Divide();
+        if (isInquiring) {
+            System.out.print(Translator.getHelp(command));
+            return;
         }
     }
 
