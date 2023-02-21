@@ -103,7 +103,9 @@ public class Translator {
 
     // EFFECTS: get the (string) command at index
     public String getStringCommandAtIndex(int idx) throws CommandNotFoundException {
-        return null;
+        checkIndex(idx);
+        String msg = "#" + idx + "| " + stream.get(idx - 1).toString();
+        return msg;
     }
 
     // MODIFIES: this
@@ -117,6 +119,16 @@ public class Translator {
     private void checkCurrentStream() throws MissingCommandsException {
         if (stream.size() == 0) {
             throw new MissingCommandsException();
+        }
+    }
+
+    // Effects: if the given index is OutOfBound in stream, throw CommandNotFoundException
+    //          Otherwise, do nothing.
+    private void checkIndex(int idx) throws CommandNotFoundException {
+        try {
+            stream.get(idx - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new CommandNotFoundException(idx);
         }
     }
 }
