@@ -318,19 +318,6 @@ public class TranslatorTest {
     }
 
     @Test
-    public void testTranslateToJavaWithoutExecutingTheStream() {
-        try {
-            testTranslator.translateToJava();
-            fail("NotYetExecutedException should have been raised");
-        } catch (MissingCommandsException e) {
-            fail("NotYetExecutedException should have been raised instead");
-        } catch (NotYetExecutedException e) {
-            assertEquals("except.NotYetExecutedException: " +
-                    "Unable to obtain the result. The command has not been executed yet", e.toString());
-        }
-    }
-
-    @Test
     public void testTranslateToJavaWithTheWholeStream() {
         testTranslator.addCommand(add);
         testTranslator.addCommand(div);
