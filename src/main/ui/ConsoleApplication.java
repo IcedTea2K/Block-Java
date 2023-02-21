@@ -1,6 +1,7 @@
 package ui;
 
 import except.InvalidArgumentException;
+import except.MissingCommandsException;
 import model.*;
 
 import javax.xml.crypto.Data;
@@ -56,7 +57,7 @@ public class ConsoleApplication {
             case "GET":
                 break;
             case "ALL":
-                break;
+                allCommand();
             case "DEL":
                 break;
             case "RES":
@@ -103,7 +104,7 @@ public class ConsoleApplication {
             command.input(convertInputsToNumbers(parameters));
             mainTranslator.addCommand(command);
         } catch (InvalidArgumentException e) {
-            System.out.println(e.toString().replaceAll("except.", ""));
+            System.out.println(cleanExceptionMessage(e.toString()));
         } catch (NumberFormatException e) {
             System.out.println("WrongArgumentTypeException: Given input is not a number");
         }
@@ -118,6 +119,14 @@ public class ConsoleApplication {
         }
     }
 
+    private void allCommand() {
+        try {
+            System.out.print(mainTranslator.getStream());
+        } catch (MissingCommandsException e) {
+            System.out.println(cleanExceptionMessage(e.toString()));
+        }
+    }
+
     // EFFECTS: convert the inputs to numbers. If the input is not a valid number, throw
     //          NumberFormatException
     private DataType[] convertInputsToNumbers(String[] inputs) throws NumberFormatException {
@@ -129,6 +138,11 @@ public class ConsoleApplication {
         }
 
         return convertedInputs.toArray(new DataType[0]);
+    }
+
+    // EFFECTS: clean the exception message to a more readable state
+    private String cleanExceptionMessage(String msg) {
+        return msg.replaceAll("except.", "");
     }
 
     // EFFECTS: take in input and return it as an array of string
