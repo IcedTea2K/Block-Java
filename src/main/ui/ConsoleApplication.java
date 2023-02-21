@@ -6,7 +6,6 @@ import except.MissingCommandsException;
 import except.NotYetExecutedException;
 import model.*;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -66,6 +65,7 @@ public class ConsoleApplication {
                 allCommand();
                 break;
             case "DEL":
+                delCommand(parameters);
                 break;
             case "RES":
                 break;
@@ -108,7 +108,7 @@ public class ConsoleApplication {
         }
 
         try {
-            command.input(convertInputsToNumbers(parameters));
+            command.input(convertInputsToDataType(parameters));
             mainTranslator.addCommand(command);
         } catch (InvalidArgumentException e) {
             System.out.println(cleanExceptionMessage(e.toString()));
@@ -168,9 +168,23 @@ public class ConsoleApplication {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: delete command at a given index and print the new commands
+    private void delCommand(String[] parameters) {
+        int idx;
+        try {
+            idx = Integer.parseInt(parameters[0]);
+            System.out.print(mainTranslator.deleteCommandAtIndex(idx));
+        } catch (NumberFormatException e) {
+            System.out.println("WrongArgumentTypeException: Given input is not a number");
+        } catch (CommandNotFoundException | MissingCommandsException e) {
+            System.out.println(cleanExceptionMessage(e.toString()));
+        }
+    }
+
     // EFFECTS: convert the inputs to numbers. If the input is not a valid number, throw
     //          NumberFormatException
-    private DataType[] convertInputsToNumbers(String[] inputs) throws NumberFormatException {
+    private DataType[] convertInputsToDataType(String[] inputs) throws NumberFormatException {
         List<DataType> convertedInputs = new ArrayList<>();
 
         for (String input : inputs) {
