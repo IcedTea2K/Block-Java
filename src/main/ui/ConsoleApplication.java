@@ -1,8 +1,12 @@
 package ui;
 
+import except.InvalidArgumentException;
 import model.*;
 
+import javax.xml.crypto.Data;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 // UI for Block Java on the console
@@ -65,21 +69,26 @@ public class ConsoleApplication {
     // MODIFIES: this
     // EFFECTS: process inputs and call corresponding built-in commands
     private void processBuiltInCommands(String keyWord, String[] parameters, boolean isInquiring) {
+        Command command;
         switch (keyWord) {
             case "ADD":
-                addCommand(keyWord, parameters, isInquiring);
+                command = new Add();
                 break;
             case "SUB":
-                subCommand(keyWord, parameters, isInquiring);
+                command = new Subtract();
                 break;
             case "MUL":
-                mulCommand(keyWord, parameters, isInquiring);
+                command = new Multiply();
                 break;
             case "DIV":
-                divCommand(keyWord, parameters, isInquiring);
+                command = new Divide();
                 break;
             default:
-                System.out.println("Command not supported. Type 'HELP' for more information.");;
+                System.out.println("Command not supported. Type 'HELP' for more information.");
+                return;
+        }
+        if (isInquiring) {
+            System.out.print(Translator.getHelp(command));
         }
     }
 
@@ -92,44 +101,17 @@ public class ConsoleApplication {
         }
     }
 
-    // EFFECTS: if isInquiring is true, provide help specific to ADD
-    //          Otherwise, try to create the command and add to the translator
-    private void addCommand(String keyWord, String[] parameters, boolean isInquiring) {
-        Command command = new Add();
-        if (isInquiring) {
-            System.out.print(Translator.getHelp(command));
-            return;
-        }
-    }
+    // EFFECTS: convert the inputs to numbers. If the input is not a valid number, throw
+    //          NumberFormatException
+    private DataType[] convertInputsToNumbers(String[] inputs) throws NumberFormatException {
+        List<DataType> convertedInputs = new ArrayList<>();
 
-    // EFFECTS: if isInquiring is true, provide help specific to SUB
-    //          Otherwise, try to create the command and add to the translator
-    private void subCommand(String keyWord, String[] parameters, boolean isInquiring) {
-        Command command = new Subtract();
-        if (isInquiring) {
-            System.out.print(Translator.getHelp(command));
-            return;
+        for (String input : inputs) {
+            int tempNum = Integer.parseInt(input);
+            convertedInputs.add(new DataType(tempNum));
         }
-    }
 
-    // EFFECTS: if isInquiring is true, provide help specific to MUL
-    //          Otherwise, try to create the command and add to the translator
-    private void mulCommand(String keyWord, String[] parameters, boolean isInquiring) {
-        Command command = new Multiply();
-        if (isInquiring) {
-            System.out.print(Translator.getHelp(command));
-            return;
-        }
-    }
-
-    // EFFECTS: if isInquiring is true, provide help specific to DIV
-    //          Otherwise, try to create the command and add to the translator
-    private void divCommand(String keyWord, String[] parameters, boolean isInquiring) {
-        Command command = new Divide();
-        if (isInquiring) {
-            System.out.print(Translator.getHelp(command));
-            return;
-        }
+        return convertedInputs.toArray(new DataType[0]);
     }
 
     // EFFECTS: take in input and return it as an array of string
