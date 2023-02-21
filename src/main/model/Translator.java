@@ -8,6 +8,7 @@ import except.NotYetExecutedException;
 import java.util.LinkedList;
 import java.util.List;
 
+// Translate commands to Java as well as execute them
 public class Translator {
     private List<Command> stream;
 
