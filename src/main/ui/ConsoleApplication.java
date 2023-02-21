@@ -45,6 +45,7 @@ public class ConsoleApplication {
 
     // MODIFIES: this
     // EFFECTS: process the input and call the corresponding supporting commands
+    @SuppressWarnings("methodlength")
     private void processSupportingCommands(String keyWord, String[] parameters) {
         switch (keyWord) {
             case "":
