@@ -1,5 +1,6 @@
 package ui;
 
+import except.CommandNotFoundException;
 import except.InvalidArgumentException;
 import except.MissingCommandsException;
 import except.NotYetExecutedException;
@@ -51,14 +52,19 @@ public class ConsoleApplication {
                 break;
             case "HELP":
                 help(parameters);
+                break;
             case "EXEC":
                 execCommand();
+                break;
             case "JAVA":
                 javaCommand();
+                break;
             case "GET":
+                getCommand(parameters);
                 break;
             case "ALL":
                 allCommand();
+                break;
             case "DEL":
                 break;
             case "RES":
@@ -132,6 +138,18 @@ public class ConsoleApplication {
         try {
             System.out.print(mainTranslator.translateToJava());
         } catch (MissingCommandsException e) {
+            System.out.println(cleanExceptionMessage(e.toString()));
+        }
+    }
+
+    private void getCommand(String[] parameters) {
+        int idx;
+        try {
+            idx = Integer.parseInt(parameters[0]);
+            System.out.println(mainTranslator.getStringCommandAtIndex(idx));
+        } catch (NumberFormatException e) {
+            System.out.println("WrongArgumentTypeException: Given input is not a number");
+        } catch (CommandNotFoundException e) {
             System.out.println(cleanExceptionMessage(e.toString()));
         }
     }
