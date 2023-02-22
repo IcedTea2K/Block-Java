@@ -11,8 +11,8 @@ public class Divide extends Arithmetic {
     //          denominator is 0, InvalidArgumentException will be raised.
     public void input(DataType... inputs) throws InvalidArgumentException {
         checkInput(inputs);
-        numOne = inputs[0];
-        numTwo = inputs[1];
+        operandOne = inputs[0];
+        operandTwo = inputs[1];
     }
 
     @Override
@@ -22,8 +22,8 @@ public class Divide extends Arithmetic {
     public void execute() throws MissingArgumentException {
         checkCurrentInputs();
 
-        int tempNumOne = retrieveData(numOne);
-        int tempNumTwo = retrieveData(numTwo);
+        int tempNumOne = retrieveData(operandOne);
+        int tempNumTwo = retrieveData(operandTwo);
         result = new DataType(tempNumOne / tempNumTwo);
     }
 
@@ -41,8 +41,8 @@ public class Divide extends Arithmetic {
     //          with the given inputs.
     public String getJava(int idx) throws MissingArgumentException {
         checkCurrentInputs();
-        int tempNumOne = retrieveData(numOne);
-        int tempNumTwo = retrieveData(numTwo);
+        int tempNumOne = retrieveData(operandOne);
+        int tempNumTwo = retrieveData(operandTwo);
 
         String msg = "int result" + idx + " = " + tempNumOne + " / " + tempNumTwo + ";";
         return msg;

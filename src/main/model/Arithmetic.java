@@ -7,8 +7,8 @@ import java.util.List;
 
 // Type of commands that perform on numbers and return a number
 public abstract class Arithmetic extends Operator {
-    protected DataType numOne;
-    protected DataType numTwo;
+    protected DataType operandOne;
+    protected DataType operandTwo;
     protected DataType result;
 
     @Override
@@ -30,8 +30,8 @@ public abstract class Arithmetic extends Operator {
     //          InvalidArgumentException will be raised.
     public void input(DataType... inputs) throws InvalidArgumentException {
         checkInput(inputs);
-        numOne = inputs[0];
-        numTwo = inputs[1];
+        operandOne = inputs[0];
+        operandTwo = inputs[1];
     }
 
     @Override
@@ -48,7 +48,7 @@ public abstract class Arithmetic extends Operator {
     // EFFECTS: turn the command into a string
     public String toString() {
         String msg = getHeader().split(" ")[0] + " "
-                + retrieveData(numOne) + " " + retrieveData(numTwo);
+                + retrieveData(operandOne) + " " + retrieveData(operandTwo);
         return msg;
     }
 
@@ -57,8 +57,8 @@ public abstract class Arithmetic extends Operator {
         checkCurrentInputs();
 
         List<DataType> tempInputs = new ArrayList<>();
-        tempInputs.add(numOne);
-        tempInputs.add(numTwo);
+        tempInputs.add(operandOne);
+        tempInputs.add(operandTwo);
         return tempInputs;
     }
 
@@ -87,7 +87,7 @@ public abstract class Arithmetic extends Operator {
 
     // EFFECTS: verify the current inputs
     protected void checkCurrentInputs() throws MissingArgumentException {
-        if (numOne == null || numTwo == null) {
+        if (operandOne == null || operandTwo == null) {
             throw new MissingArgumentException();
         }
     }

@@ -11,8 +11,8 @@ public class Add extends Arithmetic {
     public void execute() throws MissingArgumentException {
         checkCurrentInputs();
 
-        int tempNumOne = retrieveData(numOne);
-        int tempNumTwo = retrieveData(numTwo);
+        int tempNumOne = retrieveData(operandOne);
+        int tempNumTwo = retrieveData(operandTwo);
         result = new DataType(tempNumOne + tempNumTwo);
     }
 
@@ -30,8 +30,8 @@ public class Add extends Arithmetic {
     //          with the given inputs.
     public String getJava(int idx) throws MissingArgumentException {
         checkCurrentInputs();
-        int tempNumOne = retrieveData(numOne);
-        int tempNumTwo = retrieveData(numTwo);
+        int tempNumOne = retrieveData(operandOne);
+        int tempNumTwo = retrieveData(operandTwo);
 
         String msg = "int result" +  idx + " = " + tempNumOne + " + " + tempNumTwo + ";";
         return msg;
