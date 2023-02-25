@@ -204,7 +204,7 @@ public class ConsoleApplication {
 
     // EFFECTS: take in input and return it as an array of string
     private String[] takeInput() {
-        String input = scanner.nextLine().strip().toUpperCase();
+        String input = scanner.nextLine().trim().toUpperCase();
         return input.split(" ");
     }
 
