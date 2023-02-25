@@ -312,8 +312,6 @@ public class TranslatorTest {
         } catch (MissingCommandsException e) {
             assertEquals("except.MissingCommandsException: " +
                     "No commands have been provided to the translator", e.toString());
-        } catch (NotYetExecutedException e) {
-            fail("MissingCommandsException should have been raised instead");
         }
     }
 
@@ -330,7 +328,7 @@ public class TranslatorTest {
                 "#4| int result4 = 89 * -4;\n";
         try {
             assertEquals(msg, testTranslator.translateToJava());
-        } catch (MissingCommandsException | NotYetExecutedException e) {
+        } catch (MissingCommandsException e) {
             fail("No exception should be raised");
         }
     }
