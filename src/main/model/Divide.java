@@ -68,13 +68,9 @@ public class Divide extends Arithmetic {
     protected void checkInput(DataType[] inputs) throws InvalidArgumentException {
         super.checkInput(inputs);
 
-        try {
-            int tempDenominator = inputs[1].getNumber();
-            if (tempDenominator == 0) {
-                throw new DivideByZeroException();
-            }
-        } catch (InvalidReturnTypeException e) {
-            assert true; // no exception should be raised
+        int tempDenominator = inputs[1].getNumber();
+        if (tempDenominator == 0) {
+            throw new DivideByZeroException();
         }
     }
 }
