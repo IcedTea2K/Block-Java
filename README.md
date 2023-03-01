@@ -16,4 +16,8 @@ There are multiple factors that inspire the project. Firstly, scratch helped me 
 - As a user, I want to be able to clear all the input commands from the translator
 - As a user, I want to view the list of commands the translator supports
 - As a user, I want to get more information about a command
-- As a user, I want to the translator to translate the commands into Java. 
+- As a user, I want to the translator to translate the commands into Java.
+### Phase 2
+- As a user, I want to have the option to save my program or not when I quit the Block Java
+- As a user, I want to have the option to load my saved program or create a new one when I start Block Java
+- As a user, I want to have the option to manually fix my saved program when the file is corrupted or discard it completely and create a new one. 
