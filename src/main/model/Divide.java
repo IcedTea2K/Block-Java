@@ -6,17 +6,6 @@ import except.*;
 public class Divide extends Arithmetic {
     @Override
     // MODIFIES: this
-    // EFFECTS: take in inputs
-    //          If the number of inputs is more than 2 or the type of input is not number or the
-    //          denominator is 0, InvalidArgumentException will be raised.
-    public void input(DataType... inputs) throws InvalidArgumentException {
-        checkInput(inputs);
-        operandOne = inputs[0];
-        operandTwo = inputs[1];
-    }
-
-    @Override
-    // MODIFIES: this
     // EFFECTS: divide the first number by the second number
     //          If either input is missing, throw MissingArgumentException
     public void execute() throws MissingArgumentException {
