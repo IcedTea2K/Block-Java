@@ -3,9 +3,10 @@ package model;
 import except.InvalidArgumentException;
 import except.MissingArgumentException;
 import except.NotYetExecutedException;
+import persistence.Savable;
 
 // Interface for Block Java Commands
-public interface Command {
+public interface Command extends Savable {
     // MODIFIES: this
     // EFFECTS: take in inputs
     //          If the inputs don't match the constraints of the command (e.g, number of inputs
