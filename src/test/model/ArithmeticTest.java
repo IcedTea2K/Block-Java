@@ -13,15 +13,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public abstract class ArithmeticTest {
+public abstract class ArithmeticTest extends OperatorTest {
     protected Arithmetic command;
     protected DataType posNum;
     protected DataType negNum;
     protected DataType zero;
 
-    @BeforeEach
-    public abstract void setup();
-
+    @Override
     @Test
     public void testTooFewInputs() {
         try {
@@ -41,6 +39,7 @@ public abstract class ArithmeticTest {
         }
     }
 
+    @Override
     @Test
     public void testTooManyInputs() {
         try {
@@ -52,6 +51,7 @@ public abstract class ArithmeticTest {
         }
     }
 
+    @Override
     @Test
     public void testInputWrongType() {
         DataType tempBool = new DataType(true);
@@ -73,8 +73,9 @@ public abstract class ArithmeticTest {
         }
     }
 
+    @Override
     @Test
-    public void testInputTwoNumbers() {
+    public void testInputTwoOperands() {
         List<DataType> givenInputs = new ArrayList<>();
         try {
             command.input(posNum, negNum);
@@ -88,6 +89,7 @@ public abstract class ArithmeticTest {
         assertEquals(negNum, givenInputs.get(1));
     }
 
+    @Override
     @Test
     public void testGetInputWithNoInputs() {
         try {
@@ -99,6 +101,7 @@ public abstract class ArithmeticTest {
         }
     }
 
+    @Override
     @Test
     public void testGetResultsWithoutExecution() {
         try {
@@ -110,6 +113,7 @@ public abstract class ArithmeticTest {
         }
     }
 
+    @Override
     @Test
     public void testExecuteWithoutInputs() {
         try {
@@ -121,17 +125,20 @@ public abstract class ArithmeticTest {
         }
     }
 
+    @Override
     @Test
     public void testGetConstraints() {
         assertEquals("Operators only accept two inputs. They both need to be numbers.",
                 command.getConstraints());
     }
 
+    @Override
     @Test
     public void testGetReturnType() {
         assertEquals("Number", command.getReturnType());
     }
 
+    @Override
     @Test
     public void testGetJavaWithNoInputs() {
         try {
@@ -143,6 +150,7 @@ public abstract class ArithmeticTest {
         }
     }
 
+    @Override
     @Test
     public void testToString() {
         try {
@@ -154,19 +162,11 @@ public abstract class ArithmeticTest {
         }
     }
 
-    @Test
-    public abstract void testGetExamples();
-
-    @Test
-    public abstract void testGetJavaWithInputs();
-
-    @Test
-    public abstract void testGetHeader();
-
     // EFFECTS: add two numbers together and compare to the expected result
-    protected void checkBehaviour(DataType numOne, DataType numTwo, int expectedResult) {
+    @Override
+    protected void checkBehaviour(DataType operandOne, DataType operandTwo, int expectedResult) {
         try {
-            command.input(numOne, numTwo);
+            command.input(operandOne, operandTwo);
             command.execute();
             DataType result = command.getResult();
             assertEquals(expectedResult, result.getNumber());
