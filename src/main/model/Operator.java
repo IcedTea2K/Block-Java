@@ -1,6 +1,7 @@
 package model;
 
 import except.*;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,12 @@ public abstract class Operator implements Command {
     protected DataType operandOne;
     protected DataType operandTwo;
     protected DataType result;
+
+    @Override
+    // EFFECTS: convert the object to JSONObject
+    public JSONObject toJson() {
+        return null;
+    }
 
     @Override
     // EFFECTS: return the constraints specific to this command
