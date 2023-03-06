@@ -74,8 +74,6 @@ public class SaverTest {
     @Test
     public void testWriteToEmptyFile() {
         executeCommands();
-        List<Command> loadedCommands;
-
         try {
             testSaver.write(helpingCommands, false);
         } catch (FileNotFoundException e) {
@@ -86,8 +84,9 @@ public class SaverTest {
             fail("No exception should be raised");
         }
 
+        List<Command> loadedCommands;
         loadedCommands = helpingLoader.read();
-        compareCommands(helpingCommands, loadedCommands);
+        assertTrue(compareCommands(helpingCommands, loadedCommands));
     }
 
     @Test
@@ -106,13 +105,28 @@ public class SaverTest {
     }
 
     @Test
-    public void testForceWriteToNonEmptyFile() {
+    public void testForcedWriteToNonEmptyFile() {
+        executeCommands();
 
-    }
+        helpingLoader = new Loader("test_data.json");
+        List<Command> beforeLoadingCommands;
+        beforeLoadingCommands = helpingLoader.read();
+        assertFalse(compareCommands(helpingCommands, beforeLoadingCommands));
 
-    @Test
-    public void testForceWriteMultipleTimes() {
+        try {
+            testSaver.write(helpingCommands, true);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (NotYetExecutedException e) {
+            throw new RuntimeException(e);
+        } catch (WarningException e) {
+            throw new RuntimeException(e);
+        }
 
+        helpingLoader = new Loader(targetFile);
+        List<Command> afterLoadingCommands;
+        afterLoadingCommands = helpingLoader.read();
+        assertTrue(compareCommands(helpingCommands, afterLoadingCommands));
     }
 
     private List<Command> addCommands() {
@@ -155,10 +169,13 @@ public class SaverTest {
         }
     }
 
-    private void compareCommands(List<Command> listOne, List<Command> listTwo) {
-        assertTrue(listOne.size() == listTwo.size());
+    private boolean compareCommands(List<Command> listOne, List<Command> listTwo) {
+        if (listOne.size() != listTwo.size())
+            return false;
         for (int i = 0; i < listOne.size(); i++) {
-            assertTrue(listOne.get(i).equals(listTwo.get(i)));
+            if(!listOne.get(i).equals(listTwo.get(i)))
+                return false;
         }
+        return true;
     }
 }
