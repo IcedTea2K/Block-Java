@@ -122,7 +122,7 @@ public class SaverTest {
     public void testForcedWriteToNonEmptyFile() {
         executeCommands();
 
-        helpingLoader = new Loader("test_data.json");
+        helpingLoader = new Loader("example_data.json");
         List<Command> beforeLoadingCommands;
         beforeLoadingCommands = helpingLoader.read();
         assertFalse(compareCommands(helpingCommands, beforeLoadingCommands));
