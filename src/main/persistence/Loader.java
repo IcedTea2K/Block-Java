@@ -4,6 +4,7 @@ import model.Command;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 // An Object to parse specified JSON file to load the commands back into the program
@@ -17,7 +18,7 @@ public class Loader {
     }
 
     // EFFECTS: read from the file and return a list of saved commands
-    public List<Command> read() {
+    public List<Command> read() throws FileNotFoundException {
         return null;
     }
 

@@ -25,16 +25,15 @@ public class SaverTest {
 
     @BeforeEach
     public void setup() {
-        targetFile = "saved_progress.json";
+        targetFile = "./data/saved_progress.json";
         testSaver = new Saver(targetFile);
         helpingCommands = addCommands();
-        helpingLoader = new Loader(targetFile);
     }
 
     @Test
     public void testConstructor() {
         assertEquals(targetFile, testSaver.getFileName());
-        assertFalse("JOJI.json" == testSaver.getFileName());
+        assertFalse("./data/JOJI.json" == testSaver.getFileName());
     }
 
     @Test
@@ -65,8 +64,7 @@ public class SaverTest {
             fail("No exception should be raised");
         }
 
-        List<Command> loadedCommands;
-        loadedCommands = helpingLoader.read();
+        List<Command> loadedCommands = loadCommands(targetFile);
         assertTrue(compareCommands(loadedCommands, emptyCommands));
         assertTrue(loadedCommands.size() == 0);
     }
@@ -98,8 +96,7 @@ public class SaverTest {
             fail("No exception should be raised");
         }
 
-        List<Command> loadedCommands;
-        loadedCommands = helpingLoader.read();
+        List<Command> loadedCommands = loadCommands(targetFile);
         assertTrue(compareCommands(helpingCommands, loadedCommands));
     }
 
@@ -122,9 +119,7 @@ public class SaverTest {
     public void testForcedWriteToNonEmptyFile() {
         executeCommands();
 
-        helpingLoader = new Loader("example_data.json");
-        List<Command> beforeLoadingCommands;
-        beforeLoadingCommands = helpingLoader.read();
+        List<Command> beforeLoadingCommands = loadCommands("./data/example_data_one.json");
         assertFalse(compareCommands(helpingCommands, beforeLoadingCommands));
 
         try {
@@ -137,9 +132,7 @@ public class SaverTest {
             throw new RuntimeException(e);
         }
 
-        helpingLoader = new Loader(targetFile);
-        List<Command> afterLoadingCommands;
-        afterLoadingCommands = helpingLoader.read();
+        List<Command> afterLoadingCommands = loadCommands(targetFile);
         assertTrue(compareCommands(helpingCommands, afterLoadingCommands));
     }
 
@@ -191,5 +184,16 @@ public class SaverTest {
                 return false;
         }
         return true;
+    }
+
+    private List<Command> loadCommands(String fileName) {
+        helpingLoader = new Loader(fileName);
+        List<Command> loadedCommands = null;
+        try {
+            loadedCommands = helpingLoader.read();
+        } catch (FileNotFoundException e) {
+            fail("No exception should be raised");
+        }
+        return loadedCommands;
     }
 }
