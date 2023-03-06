@@ -21,6 +21,11 @@ public class Loader {
         return null;
     }
 
+    // EFFECTS: return the name of the targeted file
+    public String getFileName() {
+        return this.fileName;
+    }
+
     // EFFECTS: parse the JSON entry and turn it into a Command
     private Command parse(JSONObject command) {
         return null;
