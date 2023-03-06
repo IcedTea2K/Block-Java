@@ -54,7 +54,21 @@ public class SaverTest {
 
     @Test
     public void testWriteEmptyCommands() {
+        List<Command> emptyCommands = new LinkedList<>();
+        try {
+            testSaver.write(emptyCommands, true);
+        } catch (FileNotFoundException e) {
+            fail("No exception should be raised");
+        } catch (NotYetExecutedException e) {
+            fail("No exception should be raised");
+        } catch (WarningException e) {
+            fail("No exception should be raised");
+        }
 
+        List<Command> loadedCommands;
+        loadedCommands = helpingLoader.read();
+        assertTrue(compareCommands(loadedCommands, emptyCommands));
+        assertTrue(loadedCommands.size() == 0);
     }
 
     @Test
