@@ -1,6 +1,8 @@
 package persistence;
 
 import model.Command;
+
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.io.PrintWriter;
 
@@ -14,7 +16,7 @@ public class Saver {
     }
 
     // EFFECTS: Save the commands into specified file in JSON format
-    public void write(List<Command> commands) {
+    public void write(List<Command> commands) throws FileNotFoundException {
 
     }
 
