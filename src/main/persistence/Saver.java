@@ -18,6 +18,11 @@ public class Saver {
 
     }
 
+    // EFFECTS: return the target file stored in the Saver
+    public String getFileName() {
+        return this.fileName;
+    }
+
     // MODIFIES: this
     // EFFECTS: initialize PrinterWriter and open the file
     private void open() {
