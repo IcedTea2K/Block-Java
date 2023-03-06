@@ -43,6 +43,36 @@ public class SaverTest {
         }
     }
 
+    @Test
+    public void testWriteEmptyCommands() {
+
+    }
+
+    @Test
+    public void testWriteWithoutExecuting() {
+
+    }
+
+    @Test
+    public void testWriteToEmptyFile() {
+
+    }
+
+    @Test
+    public void testSoftWriteToNonEmptyFile() {
+
+    }
+
+    @Test
+    public void testForceWriteToNonEmptyFile() {
+
+    }
+
+    @Test
+    public void testForceWriteMultipleTimes() {
+
+    }
+
     private List<Command> addCommands() {
         Random numGenerator = new Random(1337);
         List<Command> addedCommands = new LinkedList<>();
