@@ -5,11 +5,10 @@ import except.NotYetExecutedException;
 import except.WarningException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import persistence.Loader;
 import persistence.Saver;
 
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -18,14 +17,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SaverTest {
     private Saver testSaver;
+
     private String targetFile;
     private List<Command> helpingCommands;
+    private Loader helpingLoader;
 
     @BeforeEach
     public void setup() {
         targetFile = "saved_progress.json";
         testSaver = new Saver(targetFile);
         helpingCommands = addCommands();
+        helpingLoader = new Loader(targetFile);
     }
 
     @Test
@@ -56,12 +58,35 @@ public class SaverTest {
 
     @Test
     public void testWriteWithoutExecuting() {
-
+        try {
+            testSaver.write(helpingCommands, false);
+            fail("NotYetExecutedException should be raised");
+        } catch (FileNotFoundException e) {
+            fail("NotYetExecutedException should've been raised instead");
+        } catch (NotYetExecutedException e) {
+            // pass the test
+        } catch (WarningException e) {
+            fail("NotYetExecutedException should've been raised instead");
+        }
     }
 
     @Test
     public void testWriteToEmptyFile() {
+        executeCommands();
+        List<Command> loadedCommands;
 
+        try {
+            testSaver.write(helpingCommands, false);
+        } catch (FileNotFoundException e) {
+            fail("No exception should be raised");
+        } catch (NotYetExecutedException e) {
+            fail("No exception should be raised");
+        } catch (WarningException e) {
+            fail("No exception should be raised");
+        }
+
+        loadedCommands = helpingLoader.read();
+        compareCommands(helpingCommands, loadedCommands);
     }
 
     @Test
@@ -111,5 +136,18 @@ public class SaverTest {
             addedCommands.add(command);
         }
         return addedCommands;
+    }
+
+    private void executeCommands() {
+        for (Command command: helpingCommands) {
+            command.execute();
+        }
+    }
+
+    private void compareCommands(List<Command> listOne, List<Command> listTwo) {
+        assertTrue(listOne.size() == listTwo.size());
+        for (int i = 0; i < listOne.size(); i++) {
+            assertTrue(listOne.get(i).equals(listTwo.get(i)));
+        }
     }
 }
