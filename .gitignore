@@ -1,4 +1,4 @@
 *.class
 workspace.xml
-./data/example_data*
-./data/saved_progress.json
+data/example_data*
+data/saved_progress.json
