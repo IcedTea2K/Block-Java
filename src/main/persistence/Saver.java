@@ -18,7 +18,7 @@ public class Saver {
     }
 
     // EFFECTS: Save the commands into specified file in JSON format
-    public void write(List<Command> commands)
+    public void write(List<Command> commands, boolean isForcedWriting)
             throws FileNotFoundException, NotYetExecutedException, WarningException {
 
     }

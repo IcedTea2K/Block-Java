@@ -38,7 +38,7 @@ public class SaverTest {
     public void testWriteInvalidFile() {
         testSaver = new Saver("./data/Invalid\0File.txt");
         try {
-            testSaver.write(helpingCommands);
+            testSaver.write(helpingCommands, false);
             fail("FileNotFoundException should be raised");
         } catch(FileNotFoundException e) {
             // pass the test
