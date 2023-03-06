@@ -1,6 +1,7 @@
 package model;
 
 import except.InvalidArgumentException;
+import except.LoseProgressWarning;
 import except.NotYetExecutedException;
 import except.WarningException;
 import org.junit.jupiter.api.BeforeEach;
@@ -91,7 +92,17 @@ public class SaverTest {
 
     @Test
     public void testSoftWriteToNonEmptyFile() {
-
+        executeCommands();
+        try {
+            testSaver.write(helpingCommands, false);
+            fail("WarningException should be raised");
+        } catch (FileNotFoundException e) {
+            fail("WarningException should've been raised");
+        } catch (NotYetExecutedException e) {
+            fail("WarningException should've been raised");
+        } catch (WarningException e) {
+            assertTrue(e instanceof LoseProgressWarning);
+        }
     }
 
     @Test
