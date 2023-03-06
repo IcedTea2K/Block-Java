@@ -1,5 +1,7 @@
 package persistence;
 
+import except.NotYetExecutedException;
+import except.WarningException;
 import model.Command;
 
 import java.io.FileNotFoundException;
@@ -16,7 +18,8 @@ public class Saver {
     }
 
     // EFFECTS: Save the commands into specified file in JSON format
-    public void write(List<Command> commands) throws FileNotFoundException {
+    public void write(List<Command> commands)
+            throws FileNotFoundException, NotYetExecutedException, WarningException {
 
     }
 
