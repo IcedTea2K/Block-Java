@@ -89,7 +89,7 @@ public class SaverTest {
     public void testWriteToEmptyFile() {
         executeCommands();
         try {
-            testSaver.write(helpingCommands, false);
+            testSaver.write(helpingCommands, true);
         } catch (FileNotFoundException e) {
             fail("No exception should be raised");
         } catch (NotYetExecutedException e) {
