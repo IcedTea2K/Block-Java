@@ -1,6 +1,8 @@
 package model;
 
 import except.InvalidArgumentException;
+import except.NotYetExecutedException;
+import except.WarningException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import persistence.Saver;
@@ -40,6 +42,10 @@ public class SaverTest {
             fail("FileNotFoundException should be raised");
         } catch(FileNotFoundException e) {
             // pass the test
+        } catch (NotYetExecutedException e) {
+            fail("FileNotFoundException should've been thrown instead");
+        } catch (WarningException e) {
+            fail("FileNotFoundException should've been thrown instead");
         }
     }
 
