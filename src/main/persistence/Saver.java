@@ -20,7 +20,13 @@ public class Saver {
     // EFFECTS: Save the commands into specified file in JSON format
     public void write(List<Command> commands, boolean isForcedWriting)
             throws FileNotFoundException, NotYetExecutedException, WarningException {
+        open();
 
+        for (Command c: commands) {
+            writer.println(c.toJson());
+        }
+
+        close();
     }
 
     // EFFECTS: return the target file stored in the Saver
@@ -30,13 +36,14 @@ public class Saver {
 
     // MODIFIES: this
     // EFFECTS: initialize PrinterWriter and open the file
-    private void open() {
-
+    private void open() throws FileNotFoundException {
+        writer = new PrintWriter(fileName);
     }
 
     // MODIFIES: this
     // EFFECTS: close the file and remove writer
     private void close() {
-
+        writer.close();
+        writer = null;
     }
 }
