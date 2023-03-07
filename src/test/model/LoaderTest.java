@@ -9,7 +9,7 @@ import persistence.Loader;
 import persistence.Saver;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -45,6 +45,106 @@ public class LoaderTest {
             fail("FileNotFoundException should be raised");
         } catch (CorruptedFileWarning e) {
             assertEquals("Warning: The file Invalid Path.json can not be resolved.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testReadInvalidJsonFormatInvalidKeyIndex() {
+        String junk = "{\n" +
+                "   \"9\": {\n" +
+                "        \"operandOne\": \"429993313\",\n" +
+                "        \"operandTwo\": \"1592168621\",\n" +
+                "        \"command\": \"SUB\"\n" +
+                "    },\n" +
+                "    \"10\": {\n" +
+                "        \"operandOne\": \"673194132\",\n" +
+                "        \"operandTwo\": \"-96193699\",\n" +
+                "        \"command\": \"MUL\"\n" +
+                "    }\n" +
+                "}\n";
+        writeMessageDirectly(junk, targetFile);
+        testLoader = new Loader(targetFile);
+        try {
+            List<Command> loadedCommands = testLoader.read();
+            fail("CorruptedFileWarning should have been raised.");
+        } catch (CorruptedFileWarning e) {
+            assertEquals("Warning: Object at position 0 can not be resolved. The file "
+            + targetFile + " might be corrupted.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testReadInvalidJsonFormatInvalidCommand() {
+        String junk = "{\n" +
+                "   \"0\": {\n" +
+                "        \"operandOne\": \"429993313\",\n" +
+                "        \"operandTwo\": \"1592168621\",\n" +
+                "        \"command\": \"SUB\"\n" +
+                "    },\n" +
+                "    \"1\": {\n" +
+                "        \"operandOne\": \"673194132\",\n" +
+                "        \"operandTwo\": \"-96193699\",\n" +
+                "        \"comman\": \"MUL\"\n" +
+                "    }\n" +
+                "}\n";
+        writeMessageDirectly(junk, targetFile);
+        testLoader = new Loader(targetFile);
+        try {
+            List<Command> loadedCommands = testLoader.read();
+            fail("CorruptedFileWarning should have been raised.");
+        } catch (CorruptedFileWarning e) {
+            assertEquals("Warning: Object at position 1 can not be resolved. The file "
+                    + targetFile + " might be corrupted.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testReadInvalidJsonFormatInvalidOperand() {
+        String junk = "{\n" +
+                "   \"0\": {\n" +
+                "        \"operadOne\": \"429993313\",\n" +
+                "        \"operandwo\": \"1592168621\",\n" +
+                "        \"command\": \"SUB\"\n" +
+                "    },\n" +
+                "    \"1\": {\n" +
+                "        \"operandOne\": \"673194132\",\n" +
+                "        \"operandTwo\": \"1\",\n" +
+                "        \"command\": \"DIV\"\n" +
+                "    }\n" +
+                "}\n";
+        writeMessageDirectly(junk, targetFile);
+        testLoader = new Loader(targetFile);
+        try {
+            List<Command> loadedCommands = testLoader.read();
+            fail("CorruptedFileWarning should have been raised.");
+        } catch (CorruptedFileWarning e) {
+            assertEquals("Warning: Object at position 0 can not be resolved. The file "
+                    + targetFile + " might be corrupted.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testReadInvalidJsonFormatImpossibleOperand() {
+        String junk = "{\n" +
+                "   \"0\": {\n" +
+                "        \"operandOne\": \"429993313\",\n" +
+                "        \"operandTwo\": \"1592168621\",\n" +
+                "        \"command\": \"SUB\"\n" +
+                "    },\n" +
+                "    \"1\": {\n" +
+                "        \"operandOne\": \"673194132\",\n" +
+                "        \"operandTwo\": \"0\",\n" +
+                "        \"command\": \"DIV\"\n" +
+                "    }\n" +
+                "}\n";
+        writeMessageDirectly(junk, targetFile);
+        testLoader = new Loader(targetFile);
+        try {
+            List<Command> loadedCommands = testLoader.read();
+            fail("CorruptedFileWarning should have been raised.");
+        } catch (CorruptedFileWarning e) {
+            assertEquals("Warning: Object at position 1 can not be resolved. The file "
+                    + targetFile + " might be corrupted.", e.getMessage());
         }
     }
 
@@ -119,6 +219,18 @@ public class LoaderTest {
             fail("No exception should be raised");
         }
         helpingSaver = null;
+    }
+
+    // EFFECTS: write given message to a file directly
+    private void writeMessageDirectly(String msg, String fileName) {
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter(targetFile);
+        } catch (FileNotFoundException e) {
+            fail("No exception should be thrown.");
+        }
+        writer.print(msg);
+        writer.close();
     }
 
     private boolean compareCommands(List<Command> listOne, List<Command> listTwo) {
