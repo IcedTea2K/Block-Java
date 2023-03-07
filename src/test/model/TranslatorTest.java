@@ -155,6 +155,8 @@ public class TranslatorTest {
                 "Supporting Commands:\n" +
                 "HELP           General help about Block Java\n" +
                 "HELP COMMAND   Help for a specific command\n" +
+                "LOAD           Load saved progress to the program\n" +
+                "SAVE           Save the current progress\n" +
                 "EXEC           Execute the commands and get the result\n" +
                 "JAVA           Get Java code of the commands\n" +
                 "GET Index      Get a command at index (based 1)\n" +
