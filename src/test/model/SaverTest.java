@@ -9,6 +9,7 @@ import persistence.Loader;
 import persistence.Saver;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,15 +21,17 @@ public class SaverTest {
     private Saver testSaver;
 
     private String targetFile;
+    private String junkFile;
     private List<Command> helpingCommands;
     private Loader helpingLoader;
 
     @BeforeEach
     public void setup() {
         targetFile = "./data/test_data.json";
+        junkFile = "./data/example_data_one.json";
         clearTargetFile();
         testSaver = new Saver(targetFile);
-        helpingCommands = addCommands();
+        helpingCommands = addCommands(1337);
     }
 
     @Test
@@ -82,7 +85,7 @@ public class SaverTest {
 
     @Test
     public void testSoftWriteToNonEmptyFile() {
-        writeTargetFile();
+        writeJunk(targetFile, addCommands(780));
         try {
             testSaver.write(helpingCommands, false);
             fail("WarningException should be raised");
@@ -95,9 +98,9 @@ public class SaverTest {
 
     @Test
     public void testForcedWriteToNonEmptyFile() {
-        List<Command> beforeLoadingCommands = loadCommands("./data/example_data_one.json");
+        List<Command> beforeLoadingCommands = addCommands(890);
         assertFalse(compareCommands(helpingCommands, beforeLoadingCommands));
-        writeTargetFile();
+        writeJunk(junkFile, beforeLoadingCommands);
 
         try {
             testSaver.write(helpingCommands, true);
@@ -111,8 +114,8 @@ public class SaverTest {
         assertTrue(compareCommands(helpingCommands, afterLoadingCommands));
     }
 
-    private List<Command> addCommands() {
-        Random numGenerator = new Random(1337);
+    private List<Command> addCommands(int seed) {
+        Random numGenerator = new Random(seed);
         List<Command> addedCommands = new LinkedList<>();
         for (int i = 0; i < 20; i++) {
             DataType numOne = new DataType(numGenerator.nextInt());
@@ -160,7 +163,7 @@ public class SaverTest {
         List<Command> loadedCommands = null;
         try {
             loadedCommands = helpingLoader.read();
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             fail("No exception should be raised");
         }
         return loadedCommands;
@@ -177,13 +180,11 @@ public class SaverTest {
     }
 
     // EFFECTS: write to target file with junk so it will not be empty
-    private void writeTargetFile() {
+    private void writeJunk(String file, List<Command> junk) {
+        Saver junkSaver = new Saver(file);
         try {
-            PrintWriter writer = new PrintWriter(targetFile);
-            writer.println("JOJI is the best");
-            writer.println("To be or not to be. Das is da question.");
-            writer.close();
-        } catch (FileNotFoundException e) {
+            junkSaver.write(junk, true);
+        } catch (FileNotFoundException | WarningException e) {
             fail("No exception should be raised.");
         }
     }
