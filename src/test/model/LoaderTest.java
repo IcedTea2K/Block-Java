@@ -16,25 +16,22 @@ import java.util.Random;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LoaderTest {
-    private String nonEmptyDataFile;
-    private String emptyDataFile;
+    private String targetFile;
     private Loader testLoader;
     private Saver helpingSaver;
     private List<Command> exampleData;
 
     @BeforeEach
     public void setup() {
-        nonEmptyDataFile = "./data/example_data_one.json";
-        emptyDataFile = "./data/example_data_two.json";
+        targetFile = "./data/test_data.json";
         exampleData = createExampleData();
-        writeExampleData(exampleData, nonEmptyDataFile);
-        writeExampleData(new LinkedList<Command>(), emptyDataFile);
+        writeExampleData(exampleData, targetFile);
     }
 
     @Test
     public void testConstructor() {
-        testLoader = new Loader(nonEmptyDataFile);
-        assertEquals(nonEmptyDataFile, testLoader.getFileName());
+        testLoader = new Loader(targetFile);
+        assertEquals(targetFile, testLoader.getFileName());
         assertFalse("JOJI.json" == testLoader.getFileName());
     }
 
@@ -52,7 +49,8 @@ public class LoaderTest {
 
     @Test
     public void testReadEmptyFile() {
-        testLoader = new Loader(emptyDataFile);
+        testLoader = new Loader(targetFile);
+        writeExampleData(new LinkedList<>(), targetFile);
         List<Command> loadedCommands = null;
         try {
             loadedCommands = testLoader.read();
@@ -64,7 +62,7 @@ public class LoaderTest {
 
     @Test
     public void testReadFile() {
-        testLoader = new Loader(nonEmptyDataFile);
+        testLoader = new Loader(targetFile);
         List<Command> loadedCommands = null;
         try {
             loadedCommands = testLoader.read();
@@ -106,7 +104,7 @@ public class LoaderTest {
 
             addedCommands.add(command);
         }
-        writeExampleData(addedCommands, nonEmptyDataFile);
+        writeExampleData(addedCommands, targetFile);
         return addedCommands;
     }
 
