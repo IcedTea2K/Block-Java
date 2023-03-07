@@ -44,8 +44,6 @@ public class SaverTest {
             fail("FileNotFoundException should be raised");
         } catch(FileNotFoundException e) {
             // pass the test
-        } catch (NotYetExecutedException e) {
-            fail("FileNotFoundException should've been thrown instead");
         } catch (WarningException e) {
             fail("FileNotFoundException should've been thrown instead");
         }
@@ -58,8 +56,6 @@ public class SaverTest {
             testSaver.write(emptyCommands, true);
         } catch (FileNotFoundException e) {
             fail("No exception should be raised");
-        } catch (NotYetExecutedException e) {
-            fail("No exception should be raised");
         } catch (WarningException e) {
             fail("No exception should be raised");
         }
@@ -70,27 +66,11 @@ public class SaverTest {
     }
 
     @Test
-    public void testWriteWithoutExecuting() {
-        try {
-            testSaver.write(helpingCommands, false);
-            fail("NotYetExecutedException should be raised");
-        } catch (FileNotFoundException e) {
-            fail("NotYetExecutedException should've been raised instead");
-        } catch (NotYetExecutedException e) {
-            // pass the test
-        } catch (WarningException e) {
-            fail("NotYetExecutedException should've been raised instead");
-        }
-    }
-
-    @Test
     public void testWriteToEmptyFile() {
         executeCommands();
         try {
             testSaver.write(helpingCommands, true);
         } catch (FileNotFoundException e) {
-            fail("No exception should be raised");
-        } catch (NotYetExecutedException e) {
             fail("No exception should be raised");
         } catch (WarningException e) {
             fail("No exception should be raised");
@@ -108,8 +88,6 @@ public class SaverTest {
             fail("WarningException should be raised");
         } catch (FileNotFoundException e) {
             fail("WarningException should've been raised");
-        } catch (NotYetExecutedException e) {
-            fail("WarningException should've been raised");
         } catch (WarningException e) {
             assertTrue(e instanceof LoseProgressWarning);
         }
@@ -125,11 +103,9 @@ public class SaverTest {
         try {
             testSaver.write(helpingCommands, true);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (NotYetExecutedException e) {
-            throw new RuntimeException(e);
+            fail("No exception should be raised");
         } catch (WarningException e) {
-            throw new RuntimeException(e);
+            fail("No exception should be raised");
         }
 
         List<Command> afterLoadingCommands = loadCommands(targetFile);

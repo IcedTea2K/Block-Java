@@ -6,7 +6,6 @@ import except.WarningException;
 import model.Command;
 
 import java.io.*;
-import java.nio.Buffer;
 import java.util.List;
 
 // An object to save the state of the program into a specified file
@@ -20,7 +19,7 @@ public class Saver {
 
     // EFFECTS: Save the commands into specified file in JSON format
     public void write(List<Command> commands, boolean isForcedWriting)
-            throws FileNotFoundException, NotYetExecutedException, WarningException {
+            throws FileNotFoundException, WarningException {
         open();
 
         for (Command c : commands) {
