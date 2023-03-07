@@ -1,11 +1,36 @@
 package model;
 
+import except.InvalidArgumentException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class OperatorTest {
     @BeforeEach
     public abstract void setup();
+
+    @Test
+    public void testToJson() {
+        Command testCommand = new Add();
+        DataType operandOne = new DataType(10);
+        DataType operandTwo = new DataType(200);
+        try {
+            testCommand.input(operandOne, operandTwo);
+        } catch (InvalidArgumentException e) {
+            fail("No exception should be raised.");
+        }
+
+        String expectedJson = "{\n" +
+                "\t\"0\" : [\n" +
+                "\t\t\"command\" : \"ADD\",\n" +
+                "\t\t\"operandOne\" : \"10\",\n" +
+                "\t\t\"operandTwo\" : \"200\"\n" +
+                "\t]\n" +
+                "}";
+        assertEquals(expectedJson, testCommand.toJson(0));
+    }
 
     @Test
     public abstract void testTooFewInputs();
