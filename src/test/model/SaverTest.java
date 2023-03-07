@@ -2,7 +2,6 @@ package model;
 
 import except.InvalidArgumentException;
 import except.LoseProgressWarning;
-import except.NotYetExecutedException;
 import except.WarningException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +9,7 @@ import persistence.Loader;
 import persistence.Saver;
 
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -25,7 +25,8 @@ public class SaverTest {
 
     @BeforeEach
     public void setup() {
-        targetFile = "./data/saved_progress.json";
+        targetFile = "./data/test_data.json";
+        clearTargetFile();
         testSaver = new Saver(targetFile);
         helpingCommands = addCommands();
     }
@@ -171,5 +172,15 @@ public class SaverTest {
             fail("No exception should be raised");
         }
         return loadedCommands;
+    }
+
+    // EFFECTS: clear the data in test file
+    private void clearTargetFile() {
+        try {
+            PrintWriter writer = new PrintWriter(targetFile);
+            writer.close();
+        } catch (FileNotFoundException e) {
+            fail("No exception should be raised.");
+        }
     }
 }
