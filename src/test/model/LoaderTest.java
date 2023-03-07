@@ -213,8 +213,6 @@ public class LoaderTest {
         helpingSaver = new Saver(targetFile);
         try {
             helpingSaver.write(commands, true);
-        } catch (FileNotFoundException e) {
-            fail("No exception should be raised");
         } catch (WarningException e) {
             fail("No exception should be raised");
         }

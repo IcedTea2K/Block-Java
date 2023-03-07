@@ -10,7 +10,6 @@ import persistence.Loader;
 import persistence.Saver;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,14 +42,16 @@ public class SaverTest {
 
     @Test
     public void testWriteInvalidFile() {
-        testSaver = new Saver("./data/Invalid\0File.txt");
+        String invalidName = "./data/Invalid\0File.txt";
+        testSaver = new Saver(invalidName);
         try {
             testSaver.write(helpingCommands, false);
-            fail("FileNotFoundException should be raised");
-        } catch(FileNotFoundException e) {
-            // pass the test
-        } catch (WarningException e) {
-            fail("FileNotFoundException should've been thrown instead");
+            fail("CorruptedFileWarning should be raised");
+        } catch(CorruptedFileWarning e) {
+            assertEquals("Warning: The file " + invalidName + " can not be resolved.",
+                    e.getMessage());
+        } catch (LoseProgressWarning e) {
+            fail("CorruptedFileWarning should've been thrown instead");
         }
     }
 
@@ -59,8 +60,6 @@ public class SaverTest {
         List<Command> emptyCommands = new LinkedList<>();
         try {
             testSaver.write(emptyCommands, true);
-        } catch (FileNotFoundException e) {
-            fail("No exception should be raised");
         } catch (WarningException e) {
             fail("No exception should be raised");
         }
@@ -74,8 +73,6 @@ public class SaverTest {
     public void testWriteToEmptyFile() {
         try {
             testSaver.write(helpingCommands, true);
-        } catch (FileNotFoundException e) {
-            fail("No exception should be raised");
         } catch (WarningException e) {
             fail("No exception should be raised");
         }
@@ -90,10 +87,10 @@ public class SaverTest {
         try {
             testSaver.write(helpingCommands, false);
             fail("WarningException should be raised");
-        } catch (FileNotFoundException e) {
+        } catch (CorruptedFileWarning e) {
             fail("WarningException should've been raised");
-        } catch (WarningException e) {
-            assertTrue(e instanceof LoseProgressWarning);
+        } catch (LoseProgressWarning e) {
+            // pass the test
         }
     }
 
@@ -105,8 +102,6 @@ public class SaverTest {
 
         try {
             testSaver.write(helpingCommands, true);
-        } catch (FileNotFoundException e) {
-            fail("No exception should be raised");
         } catch (WarningException e) {
             fail("No exception should be raised");
         }
@@ -185,7 +180,7 @@ public class SaverTest {
         Saver junkSaver = new Saver(file);
         try {
             junkSaver.write(junk, true);
-        } catch (FileNotFoundException | WarningException e) {
+        } catch (WarningException e) {
             fail("No exception should be raised.");
         }
     }
