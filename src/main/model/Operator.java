@@ -15,15 +15,15 @@ public abstract class Operator implements Command {
 
     @Override
     // EFFECTS: convert information the Operator holds to JSONarray
-    public JSONArray toJson() {
+    public JSONObject toJson() {
         String commandName = getHeader().split(" ")[0];
         String opOne = operandOne.toString();
         String opTwo = operandTwo.toString();
 
-        JSONArray info = new JSONArray();
-        info.put(new JSONObject().put("command", commandName));
-        info.put(new JSONObject().put("operandOne", opOne));
-        info.put(new JSONObject().put("operandTwo", opTwo));
+        JSONObject info = new JSONObject();
+        info.put("command", commandName);
+        info.put("operandOne", opOne);
+        info.put("operandTwo", opTwo);
         return info;
     }
 

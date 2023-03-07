@@ -22,11 +22,11 @@ public abstract class OperatorTest {
             fail("No exception should be raised.");
         }
 
-        String expectedJson = "[\n" +
-                "    {\"command\": \"ADD\"},\n" +
-                "    {\"operandOne\": \"10\"},\n" +
-                "    {\"operandTwo\": \"200\"}\n" +
-                "]";
+        String expectedJson = "{\n" +
+                "    \"operandOne\": \"10\",\n" +
+                "    \"operandTwo\": \"200\",\n" +
+                "    \"command\": \"ADD\"\n" +
+                "}";
         assertEquals(expectedJson, testCommand.toJson().toString(4));
     }
 
