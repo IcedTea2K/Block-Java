@@ -1,5 +1,6 @@
 package model;
 
+import except.CorruptedFileWarning;
 import except.InvalidArgumentException;
 import except.LoseProgressWarning;
 import except.WarningException;
@@ -163,7 +164,7 @@ public class SaverTest {
         List<Command> loadedCommands = null;
         try {
             loadedCommands = helpingLoader.read();
-        } catch (IOException e) {
+        } catch (CorruptedFileWarning e) {
             fail("No exception should be raised");
         }
         return loadedCommands;

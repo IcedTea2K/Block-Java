@@ -1,5 +1,6 @@
 package model;
 
+import except.CorruptedFileWarning;
 import except.InvalidArgumentException;
 import except.WarningException;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,8 +43,8 @@ public class LoaderTest {
         try {
             loadedCommands = testLoader.read();
             fail("FileNotFoundException should be raised");
-        } catch (IOException e) {
-            assertTrue(e instanceof  IOException);
+        } catch (CorruptedFileWarning e) {
+            assertEquals("Warning: The file Invalid Path.json can not be resolved.", e.getMessage());
         }
     }
 
@@ -54,7 +55,7 @@ public class LoaderTest {
         List<Command> loadedCommands = null;
         try {
             loadedCommands = testLoader.read();
-        } catch (IOException e) {
+        } catch (CorruptedFileWarning e) {
             fail("No exception should be raised");
         }
         assertEquals(0, loadedCommands.size());
@@ -66,7 +67,7 @@ public class LoaderTest {
         List<Command> loadedCommands = null;
         try {
             loadedCommands = testLoader.read();
-        } catch (IOException e) {
+        } catch (CorruptedFileWarning e) {
             fail("No exception should be raised");
         }
         assertTrue(compareCommands(exampleData, loadedCommands));
