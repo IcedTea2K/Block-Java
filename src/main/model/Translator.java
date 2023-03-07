@@ -1,7 +1,6 @@
 package model;
 
 import except.CommandNotFoundException;
-import except.MissingArgumentException;
 import except.MissingCommandsException;
 import except.NotYetExecutedException;
 
@@ -97,7 +96,7 @@ public class Translator {
 
     // EFFECTS: return the commands in the translator.
     //          If there are no command currently in the stream, throw MissingCommandsException
-    public String getStream() throws MissingCommandsException {
+    public String getStringStream() throws MissingCommandsException {
         checkCurrentStream();
         String msg = "";
         for (int i = 0; i < stream.size(); i++) {
@@ -119,7 +118,12 @@ public class Translator {
     public String deleteCommandAtIndex(int idx) throws CommandNotFoundException, MissingCommandsException {
         checkIndex(idx);
         stream.remove(idx - 1);
-        return getStream();
+        return getStringStream();
+    }
+
+    // EFFECTS: return a copy of the current commands in the program
+    public List<Command> getStream() {
+        return new LinkedList<>(stream);
     }
 
     // EFFECTS: if there's no command in the stream, throw MissingCommandsException.

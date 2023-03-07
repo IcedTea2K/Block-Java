@@ -164,7 +164,7 @@ public class ConsoleApplication {
     // EFFECTS: print all the input command.
     private void allCommand() {
         try {
-            System.out.print(mainTranslator.getStream());
+            System.out.print(mainTranslator.getStringStream());
         } catch (MissingCommandsException e) {
             System.out.println(cleanExceptionMessage(e.toString()));
         }

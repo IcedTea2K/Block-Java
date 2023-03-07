@@ -40,19 +40,19 @@ public class TranslatorTest {
     public void testAddCommand() {
         try {
             testTranslator.addCommand(add);
-            assertEquals("#1| ADD 10 128\n", testTranslator.getStream());
+            assertEquals("#1| ADD 10 128\n", testTranslator.getStringStream());
             testTranslator.addCommand(sub);
             assertEquals("#1| ADD 10 128\n" +
-                    "#2| SUB -12 -8391\n", testTranslator.getStream());
+                    "#2| SUB -12 -8391\n", testTranslator.getStringStream());
             testTranslator.addCommand(mul);
             assertEquals("#1| ADD 10 128\n" +
                     "#2| SUB -12 -8391\n" +
-                    "#3| MUL 89 -4\n", testTranslator.getStream());
+                    "#3| MUL 89 -4\n", testTranslator.getStringStream());
             testTranslator.addCommand(div);
             assertEquals("#1| ADD 10 128\n" +
                     "#2| SUB -12 -8391\n" +
                     "#3| MUL 89 -4\n" +
-                    "#4| DIV 1337 7\n", testTranslator.getStream());
+                    "#4| DIV 1337 7\n", testTranslator.getStringStream());
         } catch (MissingCommandsException e) {
             fail("No exception should be raised");
         }
@@ -61,7 +61,7 @@ public class TranslatorTest {
     @Test
     public void testGetStreamWithNoCommands() {
         try {
-            testTranslator.getStream();
+            testTranslator.getStringStream();
             fail("MissingComandsException should have been raised");
         } catch (MissingCommandsException e) {
             assertEquals("except.MissingCommandsException: No commands have been provided to the translator"
@@ -331,6 +331,25 @@ public class TranslatorTest {
         } catch (MissingCommandsException e) {
             fail("No exception should be raised");
         }
+    }
+
+    @Test
+    public void testGetEmptyStreamAsCommand() {
+        assertEquals(new LinkedList<Command>(), testTranslator.getStream());
+    }
+
+    @Test
+    public void testGetNonEmptyStreamAsCommands() {
+        List<Command> storedStream = new LinkedList<>();
+        storedStream.add(add);
+        storedStream.add(sub);
+        storedStream.add(mul);
+        storedStream.add(div);
+        testTranslator.addCommand(add);
+        testTranslator.addCommand(sub);
+        testTranslator.addCommand(mul);
+        testTranslator.addCommand(div);
+        assertEquals(storedStream, testTranslator.getStream());
     }
 
     private void checkDeletingCommandAtValidIdxBehaviour(int idx, String newExpectedStream) {
