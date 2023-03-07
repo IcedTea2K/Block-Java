@@ -68,7 +68,6 @@ public class SaverTest {
 
     @Test
     public void testWriteToEmptyFile() {
-        executeCommands();
         try {
             testSaver.write(helpingCommands, true);
         } catch (FileNotFoundException e) {
@@ -83,7 +82,6 @@ public class SaverTest {
 
     @Test
     public void testSoftWriteToNonEmptyFile() {
-        executeCommands();
         try {
             testSaver.write(helpingCommands, false);
             fail("WarningException should be raised");
@@ -96,8 +94,6 @@ public class SaverTest {
 
     @Test
     public void testForcedWriteToNonEmptyFile() {
-        executeCommands();
-
         List<Command> beforeLoadingCommands = loadCommands("./data/example_data_one.json");
         assertFalse(compareCommands(helpingCommands, beforeLoadingCommands));
 
@@ -145,12 +141,6 @@ public class SaverTest {
             addedCommands.add(command);
         }
         return addedCommands;
-    }
-
-    private void executeCommands() {
-        for (Command command: helpingCommands) {
-            command.execute();
-        }
     }
 
     private boolean compareCommands(List<Command> listOne, List<Command> listTwo) {
