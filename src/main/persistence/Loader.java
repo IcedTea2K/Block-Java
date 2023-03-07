@@ -1,6 +1,8 @@
 package persistence;
 
+import except.CorruptedFileWarning;
 import except.InvalidArgumentException;
+import except.WarningException;
 import model.*;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,15 +24,33 @@ public class Loader {
     }
 
     // EFFECTS: read from the file and return a list of saved commands
-    public List<Command> read() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(fileName));
+    public List<Command> read() throws CorruptedFileWarning {
         StringBuilder content = new StringBuilder();
-        String line = reader.readLine();
-        while (line != null) {
-            content.append(line);
-            line = reader.readLine();
+        try {
+            open();
+            String line = reader.readLine();
+            while (line != null) {
+                content.append(line);
+                line = reader.readLine();
+            }
+            close();
+        } catch (IOException e) {
+            throw new CorruptedFileWarning(fileName);
         }
         return parseFile(content.toString());
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initialize reader
+    public void open() throws IOException {
+        reader = new BufferedReader(new FileReader(fileName));
+    }
+
+    // MODIFIES: this
+    // EFFECTS: close and remove the reader
+    public void close() throws IOException {
+        reader.close();
+        reader = null;
     }
 
     // EFFECTS: return the name of the targeted file
@@ -39,7 +59,7 @@ public class Loader {
     }
 
     // EFFECTS: parse the JSON entry and turn it into a Command
-    private Command parseCommand(JSONObject commandJson) throws InvalidArgumentException {
+    private Command parseCommand(JSONObject commandJson) throws InvalidArgumentException, JSONException {
         Command command;
         DataType operandOne = new DataType(commandJson.getInt("operandOne"));
         DataType operandTwo = new DataType(commandJson.getInt("operandTwo"));
@@ -64,15 +84,15 @@ public class Loader {
     }
 
     // EFFECTS: parse JSON file into list of commands
-    private List<Command> parseFile(String fileContent) {
+    private List<Command> parseFile(String fileContent) throws CorruptedFileWarning {
         JSONObject commandsJson = new JSONObject(fileContent);
         List<Command> commands = new LinkedList<>();
         for (int i = 0; i < commandsJson.keySet().size(); i++) {
-            JSONObject commandToBeParsed = commandsJson.getJSONObject(Integer.toString(i));
             try {
+                JSONObject commandToBeParsed = commandsJson.getJSONObject(Integer.toString(i));
                 commands.add(parseCommand(commandToBeParsed));
             } catch (InvalidArgumentException | JSONException e) {
-                throw new RuntimeException(e);
+                throw new CorruptedFileWarning(fileName, i);
             }
         }
         return commands;
