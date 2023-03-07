@@ -57,10 +57,11 @@ public abstract class OperatorTest {
         Command testCommandThree = new Add();
         DataType operandOne = new DataType(10);
         DataType operandTwo = new DataType(200);
+        DataType similarOne = new DataType(10);
         try {
             testCommandOne.input(operandOne, operandTwo);
             testCommandTwo.input(operandOne, operandTwo);
-            testCommandThree.input(operandOne, operandTwo);
+            testCommandThree.input(similarOne, operandTwo);
         } catch (InvalidArgumentException e) {
             fail("No exception should be raised.");
         }
