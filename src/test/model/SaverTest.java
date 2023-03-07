@@ -82,6 +82,7 @@ public class SaverTest {
 
     @Test
     public void testSoftWriteToNonEmptyFile() {
+        writeTargetFile();
         try {
             testSaver.write(helpingCommands, false);
             fail("WarningException should be raised");
@@ -96,6 +97,7 @@ public class SaverTest {
     public void testForcedWriteToNonEmptyFile() {
         List<Command> beforeLoadingCommands = loadCommands("./data/example_data_one.json");
         assertFalse(compareCommands(helpingCommands, beforeLoadingCommands));
+        writeTargetFile();
 
         try {
             testSaver.write(helpingCommands, true);
@@ -168,6 +170,18 @@ public class SaverTest {
     private void clearTargetFile() {
         try {
             PrintWriter writer = new PrintWriter(targetFile);
+            writer.close();
+        } catch (FileNotFoundException e) {
+            fail("No exception should be raised.");
+        }
+    }
+
+    // EFFECTS: write to target file with junk so it will not be empty
+    private void writeTargetFile() {
+        try {
+            PrintWriter writer = new PrintWriter(targetFile);
+            writer.println("JOJI is the best");
+            writer.println("To be or not to be. Das is da question.");
             writer.close();
         } catch (FileNotFoundException e) {
             fail("No exception should be raised.");
