@@ -1,6 +1,7 @@
 package model;
 
 import except.*;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -15,7 +16,17 @@ public abstract class Operator implements Command {
     @Override
     // EFFECTS: convert the object to JSONObject
     public JSONObject toJson(int index) {
-        return null;
+        JSONObject json = new JSONObject();
+        String commandName = getHeader().split(" ")[0];
+        String opOne = operandOne.toString();
+        String opTwo = operandTwo.toString();
+
+        JSONArray info = new JSONArray();
+        info.put(new JSONObject().put("command", commandName));
+        info.put(new JSONObject().put("operandOne", opOne));
+        info.put(new JSONObject().put("operandTwo", opTwo));
+        json.put(Integer.toString(index), info);
+        return json;
     }
 
     @Override
