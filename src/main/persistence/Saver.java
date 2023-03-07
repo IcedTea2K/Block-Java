@@ -4,6 +4,8 @@ import except.LoseProgressWarning;
 import except.NotYetExecutedException;
 import except.WarningException;
 import model.Command;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.List;
 public class Saver {
     private String fileName;
     private PrintWriter writer;
+    private static int TAB = 4;
 
     public Saver(String fileName) {
         this.fileName = fileName;
@@ -21,9 +24,11 @@ public class Saver {
     public void write(List<Command> commands, boolean isForcedWriting)
             throws FileNotFoundException, WarningException {
         open();
+        JSONObject commandsJson = new JSONObject();
         for (int i = 0; i < commands.size(); i++) {
-            writer.println(commands.get(i).toJson());
+            commandsJson.put(Integer.toString(i), commands.get(i).toJson());
         }
+        writer.print(commandsJson.toString(TAB));
         close();
     }
 
@@ -37,7 +42,7 @@ public class Saver {
     //          throw a LoseProgressWarning if the saved file is not empty
     //          throw IOException if the file path is invalid
     private void open() throws LoseProgressWarning, FileNotFoundException {
-        if (isFileEmpty()) {
+        if (!isFileEmpty()) {
             throw new LoseProgressWarning("saved", "save current program.");
         } else {
             writer = new PrintWriter(fileName);
