@@ -21,14 +21,12 @@ public class SaverTest {
     private Saver testSaver;
 
     private String targetFile;
-    private String junkFile;
     private List<Command> helpingCommands;
     private Loader helpingLoader;
 
     @BeforeEach
     public void setup() {
         targetFile = "./data/test_data.json";
-        junkFile = "./data/example_data_one.json";
         clearTargetFile();
         testSaver = new Saver(targetFile);
         helpingCommands = addCommands(1337);
@@ -97,8 +95,9 @@ public class SaverTest {
     @Test
     public void testForcedWriteToNonEmptyFile() {
         List<Command> beforeLoadingCommands = addCommands(890);
+        writeJunk(targetFile, beforeLoadingCommands);
         assertFalse(compareCommands(helpingCommands, beforeLoadingCommands));
-        writeJunk(junkFile, beforeLoadingCommands);
+        assertTrue(compareCommands(beforeLoadingCommands, loadCommands(targetFile)));
 
         try {
             testSaver.write(helpingCommands, true);
@@ -108,6 +107,7 @@ public class SaverTest {
 
         List<Command> afterLoadingCommands = loadCommands(targetFile);
         assertTrue(compareCommands(helpingCommands, afterLoadingCommands));
+        assertFalse(compareCommands(beforeLoadingCommands, afterLoadingCommands));
     }
 
     private List<Command> addCommands(int seed) {
