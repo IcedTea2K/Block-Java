@@ -1,12 +1,13 @@
 package persistence;
 
+import except.LoseProgressWarning;
 import except.NotYetExecutedException;
 import except.WarningException;
 import model.Command;
 
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.nio.Buffer;
 import java.util.List;
-import java.io.PrintWriter;
 
 // An object to save the state of the program into a specified file
 public class Saver {
@@ -22,7 +23,7 @@ public class Saver {
             throws FileNotFoundException, NotYetExecutedException, WarningException {
         open();
 
-        for (Command c: commands) {
+        for (Command c : commands) {
             writer.println(c.toJson());
         }
 
@@ -35,9 +36,16 @@ public class Saver {
     }
 
     // MODIFIES: this
-    // EFFECTS: initialize PrinterWriter and open the file
-    private void open() throws FileNotFoundException {
-        writer = new PrintWriter(fileName);
+    // EFFECTS: initialize PrinterWriter and open the file.
+    //          throw a LoseProgressWarning if the saved file is not empty
+    //          throw IOException if the file path is invalid
+    private void open() throws LoseProgressWarning, FileNotFoundException {
+        if (isFileEmpty()) {
+            throw new LoseProgressWarning("saved", "save current program.");
+        } else {
+            writer = new PrintWriter(fileName);
+        }
+        isFileEmpty();
     }
 
     // MODIFIES: this
@@ -45,5 +53,19 @@ public class Saver {
     private void close() {
         writer.close();
         writer = null;
+    }
+
+    // EFFECTS: check if the targeted file is empty
+    private boolean isFileEmpty() {
+        BufferedReader file;
+        try {
+            file = new BufferedReader(new FileReader(fileName));
+            if (file.readLine() != null) {
+                return false;
+            }
+        } catch (IOException e) {
+            return true;
+        }
+        return true;
     }
 }
