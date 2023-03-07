@@ -21,11 +21,9 @@ public class Saver {
     public void write(List<Command> commands, boolean isForcedWriting)
             throws FileNotFoundException, WarningException {
         open();
-
-        for (Command c : commands) {
-            writer.println(c.toJson());
+        for (int i = 0; i < commands.size(); i++) {
+            writer.println(commands.get(i).toJson(i));
         }
-
         close();
     }
 

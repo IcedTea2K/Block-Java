@@ -14,7 +14,7 @@ public abstract class Operator implements Command {
 
     @Override
     // EFFECTS: convert the object to JSONObject
-    public JSONObject toJson() {
+    public JSONObject toJson(int index) {
         return null;
     }
 
