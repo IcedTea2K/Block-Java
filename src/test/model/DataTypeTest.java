@@ -187,6 +187,8 @@ public class DataTypeTest {
             }
         }
         DataType extraStreamDT = new DataType(temp);
+        assertFalse(testFalseDT.equals(null));
+        assertFalse(testIntDT.equals(11));
         assertFalse(testIntDT.equals(extraIntDT));
         assertFalse(testTrueDT.equals(testFalseDT));
         assertFalse(testFalseDT.equals(testTrueDT));
