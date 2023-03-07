@@ -1,25 +1,24 @@
 package ui;
 
-import except.CommandNotFoundException;
-import except.InvalidArgumentException;
-import except.MissingCommandsException;
-import except.NotYetExecutedException;
+import except.*;
 import model.*;
+import persistence.Loader;
+import persistence.Saver;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 // UI for Block Java on the console
 public class ConsoleApplication {
     private Translator mainTranslator;
     private Scanner scanner;
+    private boolean isRunning;
+    private String savedFileName;
 
     // EFFECTS: construct and run the application
     public ConsoleApplication() {
         this.mainTranslator = new Translator();
         this.scanner = new Scanner(System.in);
+        this.savedFileName = "./data/saved_progress.json";
 
         run();
     }
@@ -27,20 +26,23 @@ public class ConsoleApplication {
     // MODIFIES: this
     // EFFECTS: run the program
     private void run() {
-        boolean isRunning = true;
+        isRunning = true;
         startMenu();
 
         while (isRunning) {
-            System.out.print("> ");
             String[] inputs = takeInput();
 
             if (inputs[0].equals("QUIT")) {
-                isRunning = false;
+                stop();
             }
             processSupportingCommands(inputs[0], Arrays.copyOfRange(inputs, 1, inputs.length));
         }
 
         endMenu();
+    }
+
+    private void stop() {
+        isRunning = false;
     }
 
     // MODIFIES: this
@@ -52,6 +54,12 @@ public class ConsoleApplication {
                 break;
             case "HELP":
                 help(parameters);
+                break;
+            case "LOAD":
+                load();
+                break;
+            case "SAVE":
+                save(false);
                 break;
             case "EXEC":
                 execCommand();
@@ -100,6 +108,23 @@ public class ConsoleApplication {
         addCommandToTranslator(command, parameters, isInquiring);
     }
 
+    // EFFECTS: Process the response to the warning  by calling corresponding functions
+    public void processWarningResponse(String response) {
+        switch (response) {
+            case "YES":
+                save(true);
+                break;
+            case "No":
+                return;
+            case "AUTO":
+                clearSavedFile();
+                break;
+            case "MANUAL":
+                stop();
+                break;
+        }
+    }
+
     // MODIFIES: this
     // EFFECTS: try to add command to the translator with given parameters.
     //          If isInquiring is true, then provide help for the specific command
@@ -126,6 +151,63 @@ public class ConsoleApplication {
         } else {
             processBuiltInCommands(parameters[0], new String[0], true);
         }
+    }
+
+    // EFFECTS: load the saved progress to the program
+    private void load() {
+        System.out.println("Loading saved progress");
+        Loader loader = new Loader(savedFileName);
+        this.mainTranslator = new Translator();
+        try {
+            List<Command> loadedCommands = loader.read();
+            for (Command command: loadedCommands) {
+                mainTranslator.addCommand(command);
+            }
+        } catch (CorruptedFileWarning e) {
+            warn(e);
+        }
+    }
+
+    // EFFECTS: save the current progress to a file
+    private void save(boolean isForcedWriting) {
+        System.out.println("Saving the progress");
+        Saver saver = new Saver(savedFileName);
+        try {
+            saver.write(mainTranslator.getStream(), isForcedWriting);
+        } catch (WarningException e) {
+            warn(e);
+        }
+    }
+
+    // EFFECTS: wipe out the progress in the saved file
+    private void clearSavedFile() {
+        Saver saver = new Saver(savedFileName);
+        try {
+            saver.write(new LinkedList<Command>(), true);
+        } catch (WarningException e) {
+            throw new RuntimeException(e); // no exception should be raised
+        }
+    }
+
+    private void warn(WarningException e) {
+        System.out.println(e.getMessage());
+        List<String> validResponse = new ArrayList<>();
+        if (e instanceof LoseProgressWarning) {
+            System.out.println("Would you like to continue? (Yes/No)");
+            validResponse.add("YES");
+            validResponse.add("NO");
+        } else if (e instanceof CorruptedFileWarning) {
+            System.out.println("Would you like to end the program and recover manually or "
+                    + " wipe out the saved file and recover automatically? (manual/auto)");
+            validResponse.add("MANUAL");
+            validResponse.add("AUTO");
+        }
+        String response = takeInput()[0];
+        while (!validResponse.contains(response)) {
+            System.out.println("Invalid input. Please try again.");
+            response = takeInput()[0];
+        }
+        processWarningResponse(response);
     }
 
     // MODIFIES: this
@@ -204,6 +286,7 @@ public class ConsoleApplication {
 
     // EFFECTS: take in input and return it as an array of string
     private String[] takeInput() {
+        System.out.print("> ");
         String input = scanner.nextLine().trim().toUpperCase();
         return input.split(" ");
     }
