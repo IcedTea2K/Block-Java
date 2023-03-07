@@ -28,6 +28,32 @@ public abstract class Operator implements Command {
     }
 
     @Override
+    // EFFECTS: compare current operator with another operator
+    //          only return true if they are of the same type
+    //          and if they have the same inputs.
+    public boolean equals(Object obj) {
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        final Operator target = (Operator) obj;
+        return target.getHeader() == this.getHeader() && this.getInputs().equals(target.getInputs());
+    }
+
+    @Override
+    // EFFECTS: produce a hash for current operator
+    public int hashCode() {
+        int hash = 11;
+        String commandName = this.getHeader().split(" ")[0];
+        for (int i = 0; i < commandName.length(); i++) {
+            hash *= (int) commandName.charAt(i);
+        }
+        hash += retrieveData(operandOne);
+        hash += retrieveData(operandTwo);
+        return hash;
+    }
+
+    @Override
     // EFFECTS: return the constraints specific to this command
     public String getConstraints() {
         return "Operators only accept two inputs.";
