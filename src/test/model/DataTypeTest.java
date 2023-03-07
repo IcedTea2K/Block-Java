@@ -146,4 +146,12 @@ public class DataTypeTest {
             // pass the test
         }
     }
+
+    @Test
+    public void testToString() {
+        assertEquals("11", testIntDT.toString());
+        assertEquals("false", testFalseDT.toString());
+        assertEquals("true", testTrueDT.toString());
+        assertEquals("[0, 1, 2, 3, 4, false, true, false, true, false]", testStreamDT.toString());
+    }
 }

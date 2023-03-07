@@ -31,6 +31,17 @@ public class DataType {
         this.type = "boolean";
     }
 
+    @Override
+    public String toString() {
+        if (number != null) {
+            return number.toString();
+        } else if (bool != null) {
+            return bool.toString();
+        }
+
+        return dataStream.toString();
+    }
+
     // EFFECTS: return data if it's represented as number
     public int getNumber() throws InvalidReturnTypeException {
         if (this.number == null) {
