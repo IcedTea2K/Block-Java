@@ -55,7 +55,7 @@ public class LoaderTest {
         testLoader = new Loader(emptyDataFile);
         List<Command> loadedCommands = null;
         try {
-            testLoader.read();
+            loadedCommands = testLoader.read();
         } catch (IOException e) {
             fail("No exception should be raised");
         }
@@ -67,7 +67,7 @@ public class LoaderTest {
         testLoader = new Loader(nonEmptyDataFile);
         List<Command> loadedCommands = null;
         try {
-            testLoader.read();
+            loadedCommands = testLoader.read();
         } catch (IOException e) {
             fail("No exception should be raised");
         }
