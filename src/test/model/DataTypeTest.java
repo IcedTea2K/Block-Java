@@ -154,4 +154,50 @@ public class DataTypeTest {
         assertEquals("true", testTrueDT.toString());
         assertEquals("[0, 1, 2, 3, 4, false, true, false, true, false]", testStreamDT.toString());
     }
+
+    @Test
+    public void testEqual() {
+        DataType extraIntDT = new DataType(11);
+        DataType extraTrueDT = new DataType(true);
+        DataType extraFalseDT = new DataType(false);
+        ArrayList<DataType> temp = new ArrayList<DataType>();
+        for(int i = 0; i < 10; i++) {
+            if(i < 5) {
+                temp.add(new DataType(i));
+            } else{
+                temp.add(new DataType(i % 2 == 0));
+            }
+        }
+        DataType extraStreamDT = new DataType(temp);
+        assertTrue(testIntDT.equals(extraIntDT));
+        assertTrue(testTrueDT.equals(extraTrueDT));
+        assertTrue(testFalseDT.equals(extraFalseDT));
+        assertTrue(testStreamDT.equals(extraStreamDT));
+    }
+
+    @Test
+    public void testUnequal() {
+        DataType extraIntDT = new DataType(12);
+        ArrayList<DataType> temp = new ArrayList<DataType>();
+        for(int i = 0; i < 10; i++) {
+            if(i < 5) {
+                temp.add(new DataType(i % 2 == 0));
+            } else{
+                temp.add(new DataType(i));
+            }
+        }
+        DataType extraStreamDT = new DataType(temp);
+        assertFalse(testIntDT.equals(extraIntDT));
+        assertFalse(testTrueDT.equals(testFalseDT));
+        assertFalse(testFalseDT.equals(testTrueDT));
+        assertFalse(testStreamDT.equals(extraStreamDT));
+    }
+
+    @Test
+    public void testHashCode() {
+        assertEquals(4620, testIntDT.hashCode());
+        assertEquals(419, testTrueDT.hashCode());
+        assertEquals(-419, testFalseDT.hashCode());
+        assertEquals(4201, testStreamDT.hashCode());
+    }
 }
