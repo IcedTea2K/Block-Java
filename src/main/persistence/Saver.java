@@ -23,7 +23,7 @@ public class Saver {
     // EFFECTS: Save the commands into specified file in JSON format
     public void write(List<Command> commands, boolean isForcedWriting)
             throws FileNotFoundException, WarningException {
-        open();
+        open(isForcedWriting);
         JSONObject commandsJson = new JSONObject();
         for (int i = 0; i < commands.size(); i++) {
             commandsJson.put(Integer.toString(i), commands.get(i).toJson());
@@ -41,8 +41,8 @@ public class Saver {
     // EFFECTS: initialize PrinterWriter and open the file.
     //          throw a LoseProgressWarning if the saved file is not empty
     //          throw IOException if the file path is invalid
-    private void open() throws LoseProgressWarning, FileNotFoundException {
-        if (!isFileEmpty()) {
+    private void open(boolean isForcedWriting) throws LoseProgressWarning, FileNotFoundException {
+        if (!isFileEmpty() && !isForcedWriting) {
             throw new LoseProgressWarning("saved", "save current program.");
         } else {
             writer = new PrintWriter(fileName);
