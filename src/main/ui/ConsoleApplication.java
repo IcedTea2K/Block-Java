@@ -11,6 +11,8 @@ import java.util.*;
 public class ConsoleApplication {
     private Translator mainTranslator;
     private Scanner scanner;
+    private Saver saver;
+    private Loader loader;
     private boolean isRunning;
     private String savedFileName;
 
@@ -19,6 +21,8 @@ public class ConsoleApplication {
         this.mainTranslator = new Translator();
         this.scanner = new Scanner(System.in);
         this.savedFileName = "./data/saved_progress.json";
+        this.saver = new Saver(savedFileName);
+        this.loader = new Loader(savedFileName);
 
         run();
     }
@@ -34,6 +38,7 @@ public class ConsoleApplication {
 
             if (inputs[0].equals("QUIT")) {
                 stop();
+                break;
             }
             processSupportingCommands(inputs[0], Arrays.copyOfRange(inputs, 1, inputs.length));
         }
@@ -108,23 +113,6 @@ public class ConsoleApplication {
         addCommandToTranslator(command, parameters, isInquiring);
     }
 
-    // EFFECTS: Process the response to the warning  by calling corresponding functions
-    public void processWarningResponse(String response) {
-        switch (response) {
-            case "YES":
-                save(true);
-                break;
-            case "No":
-                return;
-            case "AUTO":
-                clearSavedFile();
-                break;
-            case "MANUAL":
-                stop();
-                break;
-        }
-    }
-
     // MODIFIES: this
     // EFFECTS: try to add command to the translator with given parameters.
     //          If isInquiring is true, then provide help for the specific command
@@ -153,30 +141,49 @@ public class ConsoleApplication {
         }
     }
 
+    // MODIFIES: this
     // EFFECTS: load the saved progress to the program
     private void load() {
         System.out.println("Loading saved progress");
-        Loader loader = new Loader(savedFileName);
         this.mainTranslator = new Translator();
+        boolean isSuccessful = false;
+
         try {
             List<Command> loadedCommands = loader.read();
             for (Command command: loadedCommands) {
                 mainTranslator.addCommand(command);
             }
+            isSuccessful = true;
         } catch (CorruptedFileWarning e) {
-            warn(e);
+            if (warn(e, "Would you like to wipe out the saved file?")) {
+                clearSavedFile();
+            } else if (warn(e, "Would you like to end the program and recover manually?")) {
+                stop();
+            }
+            isSuccessful = false;
         }
+        System.out.println(isSuccessful ? "The program has been loaded successfully" : "Loading has been canceled");
     }
 
     // EFFECTS: save the current progress to a file
     private void save(boolean isForcedWriting) {
         System.out.println("Saving the progress");
-        Saver saver = new Saver(savedFileName);
+        boolean isSuccessful = false;
         try {
             saver.write(mainTranslator.getStream(), isForcedWriting);
-        } catch (WarningException e) {
+            isSuccessful = true;
+        } catch (CorruptedFileWarning e) {
             warn(e);
+            isSuccessful = false;
+        } catch (LoseProgressWarning e) {
+            if (warn(e, "Would you like to continue?")) {
+                save(true);
+                return;
+            } else {
+                isSuccessful = false;
+            }
         }
+        System.out.println(isSuccessful ? "The program has been saved successfully" : "Saving has been canceled.");
     }
 
     // EFFECTS: wipe out the progress in the saved file
@@ -189,25 +196,23 @@ public class ConsoleApplication {
         }
     }
 
+    // EFFECTS: warn the user about a specific issue
     private void warn(WarningException e) {
         System.out.println(e.getMessage());
-        List<String> validResponse = new ArrayList<>();
-        if (e instanceof LoseProgressWarning) {
-            System.out.println("Would you like to continue? (Yes/No)");
-            validResponse.add("YES");
-            validResponse.add("NO");
-        } else if (e instanceof CorruptedFileWarning) {
-            System.out.println("Would you like to end the program and recover manually or "
-                    + " wipe out the saved file and recover automatically? (manual/auto)");
-            validResponse.add("MANUAL");
-            validResponse.add("AUTO");
-        }
+    }
+
+    // EFFECTS: warn the user about a specific issue and take in Yes/No
+    //          input according to caller's course of action.
+    private boolean warn(WarningException e, String action) {
+        System.out.println(e.getMessage());
+        System.out.println(action + " (YES/NO)");
         String response = takeInput()[0];
-        while (!validResponse.contains(response)) {
+        while (!response.equals("YES") && !response.equals("NO")) {
             System.out.println("Invalid input. Please try again.");
             response = takeInput()[0];
         }
-        processWarningResponse(response);
+
+        return response.equals("YES");
     }
 
     // MODIFIES: this
