@@ -14,9 +14,8 @@ public abstract class Operator implements Command {
     protected DataType result;
 
     @Override
-    // EFFECTS: convert the object to JSONObject
-    public JSONObject toJson(int index) {
-        JSONObject json = new JSONObject();
+    // EFFECTS: convert information the Operator holds to JSONarray
+    public JSONArray toJson() {
         String commandName = getHeader().split(" ")[0];
         String opOne = operandOne.toString();
         String opTwo = operandTwo.toString();
@@ -25,8 +24,7 @@ public abstract class Operator implements Command {
         info.put(new JSONObject().put("command", commandName));
         info.put(new JSONObject().put("operandOne", opOne));
         info.put(new JSONObject().put("operandTwo", opTwo));
-        json.put(Integer.toString(index), info);
-        return json;
+        return info;
     }
 
     @Override

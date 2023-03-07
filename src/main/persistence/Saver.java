@@ -22,7 +22,7 @@ public class Saver {
             throws FileNotFoundException, WarningException {
         open();
         for (int i = 0; i < commands.size(); i++) {
-            writer.println(commands.get(i).toJson(i));
+            writer.println(commands.get(i).toJson());
         }
         close();
     }
