@@ -1,7 +1,6 @@
 package model;
 
 import except.InvalidArgumentException;
-import except.NotYetExecutedException;
 import except.WarningException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +8,7 @@ import persistence.Loader;
 import persistence.Saver;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -27,6 +27,7 @@ public class LoaderTest {
         nonEmptyDataFile = "./data/example_data_one.json";
         emptyDataFile = "./data/example_data_two.json";
         exampleData = createExampleData();
+        writeExampleData(exampleData, nonEmptyDataFile);
         writeExampleData(new LinkedList<Command>(), emptyDataFile);
     }
 
@@ -44,8 +45,8 @@ public class LoaderTest {
         try {
             loadedCommands = testLoader.read();
             fail("FileNotFoundException should be raised");
-        } catch (FileNotFoundException e) {
-            // pass the test
+        } catch (IOException e) {
+            assertTrue(e instanceof  IOException);
         }
     }
 
@@ -55,7 +56,7 @@ public class LoaderTest {
         List<Command> loadedCommands = null;
         try {
             testLoader.read();
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             fail("No exception should be raised");
         }
         assertEquals(0, loadedCommands.size());
@@ -67,7 +68,7 @@ public class LoaderTest {
         List<Command> loadedCommands = null;
         try {
             testLoader.read();
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             fail("No exception should be raised");
         }
         assertTrue(compareCommands(exampleData, loadedCommands));
