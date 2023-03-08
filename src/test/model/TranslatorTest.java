@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TranslatorTest {
     private Translator testTranslator;
@@ -352,6 +351,13 @@ public class TranslatorTest {
         testTranslator.addCommand(mul);
         testTranslator.addCommand(div);
         assertEquals(storedStream, testTranslator.getStream());
+    }
+
+    @Test
+    public void testIsStreamEmpty() {
+        assertTrue(testTranslator.isStreamEmpty());
+        testTranslator.addCommand(add);
+        assertFalse(testTranslator.isStreamEmpty());
     }
 
     private void checkDeletingCommandAtValidIdxBehaviour(int idx, String newExpectedStream) {

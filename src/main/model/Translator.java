@@ -129,6 +129,11 @@ public class Translator {
         return new LinkedList<>(stream);
     }
 
+    // EFFECTS: return true if the translator doesn't hold any command
+    public boolean isStreamEmpty() {
+        return this.stream.size() == 0;
+    }
+
     // EFFECTS: if there's no command in the stream, throw MissingCommandsException.
     //          Otherwise, do nothing.
     private void checkCurrentStream() throws MissingCommandsException {
