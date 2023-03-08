@@ -110,6 +110,17 @@ public class SaverTest {
         assertTrue(compareCommands(helpingCommands, afterLoadingCommands));
     }
 
+    @Test
+    public void testCheckEmptyFile() {
+        assertTrue(testSaver.isFileEmpty());
+    }
+
+    @Test
+    public void testCheckNonEmptyFile() {
+        writeJunk(targetFile, helpingCommands);
+        assertFalse(testSaver.isFileEmpty());
+    }
+
     private List<Command> addCommands(int seed) {
         Random numGenerator = new Random(seed);
         List<Command> addedCommands = new LinkedList<>();

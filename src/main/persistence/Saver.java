@@ -58,7 +58,7 @@ public class Saver {
     }
 
     // EFFECTS: check if the targeted file is empty
-    private boolean isFileEmpty() {
+    public boolean isFileEmpty() {
         BufferedReader file;
         try {
             file = new BufferedReader(new FileReader(fileName));
