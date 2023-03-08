@@ -150,7 +150,7 @@ public class ConsoleApplication {
 
         try {
             List<Command> loadedCommands = loader.read();
-            for (Command command: loadedCommands) {
+            for (Command command : loadedCommands) {
                 mainTranslator.addCommand(command);
             }
             isSuccessful = true;
@@ -296,7 +296,8 @@ public class ConsoleApplication {
         return input.split(" ");
     }
 
-    // EFFECTS: display the start menu
+    // MODIFIES: this
+    // EFFECTS: display the start menu. Also prompt use the option to load saved program
     private void startMenu() {
         String menu = ""
                 + "##########################################################################\n"
@@ -309,6 +310,10 @@ public class ConsoleApplication {
                 + "# with graphical interface soon!!                                        #\n"
                 + "##########################################################################\n";
         System.out.print(menu);
+        if (!saver.isFileEmpty()
+                && warn(new WarningException("Saved progress detected"), "Would you like to load it?")) {
+            load();
+        }
     }
 
     // EFFECTS: display the end menu when the program ends
