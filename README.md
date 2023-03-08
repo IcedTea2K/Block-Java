@@ -21,3 +21,12 @@ There are multiple factors that inspire the project. Firstly, scratch helped me 
 - As a user, I want to have the option to save my program or not when I quit the Block Java
 - As a user, I want to have the option to load my saved program or create a new one when I start Block Java
 - As a user, I want to have the option to manually fix my saved program when the file is corrupted or discard it completely and create a new one. 
+## Credits
+- To check whether the empty is empty, I took inspiration from a similar question asked on Stack Overflow
+  - source: https://stackoverflow.com/questions/7190618/most-efficient-way-to-check-if-a-file-is-empty-in-java-on-windows
+- Similarly, I took inspiration from Stack Overflow on how to override `Object.equals(obj)` and `Object.hasCode()`
+  - source: https://stackoverflow.com/questions/8180430/how-to-override-equals-method-in-java
+- Since the autograder does not support Java 7, I had to look for another way to read from the file other than Stream, and Paths. A post on Stack Overflow once again helped me with the process
+  - source: https://stackoverflow.com/questions/4716503/reading-a-plain-text-file-in-java
+- To write to the file, the example code from JsonSerializationDemo helped me get a general idea of the syntax and process.
+  - To be more specific, the code snippet locates in `JsonWriter` which is in the persistence package of the project.
