@@ -135,7 +135,19 @@ public class ConsoleApplication {
     // EFFECTS: provide help to the user
     private void help(String[] parameters) {
         if (parameters.length == 0) {
-            System.out.println(Translator.getHelp());
+            String msg = "++++++++++++++++Block Java Available Commands & Exceptions++++++++++++++++\n"
+                    + "Supporting commands:\n"
+                    + "help           general help about block java\n"
+                    + "help command   help for a specific command\n"
+                    + "load           load saved progress to the program\n"
+                    + "save           save the current progress\n"
+                    + "exec           execute the commands and get the result\n"
+                    + "java           get java code of the commands\n"
+                    + "get index      get a command at index (based 1)\n"
+                    + "all            display all input commands\n"
+                    + "del index      delete a command at index (based 1)\n"
+                    + "res            reset the translator and delete all commands\n\n";
+            System.out.println(msg + Translator.getHelp());
         } else {
             processBuiltInCommands(parameters[0], new String[0], true);
         }
@@ -150,7 +162,7 @@ public class ConsoleApplication {
 
         try {
             List<Command> loadedCommands = loader.read();
-            for (Command command: loadedCommands) {
+            for (Command command : loadedCommands) {
                 mainTranslator.addCommand(command);
             }
             isSuccessful = true;
@@ -296,7 +308,8 @@ public class ConsoleApplication {
         return input.split(" ");
     }
 
-    // EFFECTS: display the start menu
+    // MODIFIES: this
+    // EFFECTS: display the start menu. Also prompt use the option to load saved program
     private void startMenu() {
         String menu = ""
                 + "##########################################################################\n"
@@ -309,10 +322,20 @@ public class ConsoleApplication {
                 + "# with graphical interface soon!!                                        #\n"
                 + "##########################################################################\n";
         System.out.print(menu);
+        if (!saver.isFileEmpty()
+                && warn(new WarningException("Saved progress detected."), "Would you like to load it?")) {
+            load();
+        }
     }
 
-    // EFFECTS: display the end menu when the program ends
+    // EFFECTS: display the end menu when the program ends. Also prompt the user to save the changes
+    //          they made to the program
     private void endMenu() {
+        if (!mainTranslator.isStreamEmpty() && warn(new WarningException("New changes are made to the program"),
+                "Would you like to save it?")) {
+            save(false);
+        }
+
         String menu = "\n"
                 + "Thank you for using the program\n"
                 + "Hope you learned something new!!";

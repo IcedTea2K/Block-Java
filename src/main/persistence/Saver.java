@@ -2,10 +2,7 @@ package persistence;
 
 import except.CorruptedFileWarning;
 import except.LoseProgressWarning;
-import except.NotYetExecutedException;
-import except.WarningException;
 import model.Command;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -61,7 +58,7 @@ public class Saver {
     }
 
     // EFFECTS: check if the targeted file is empty
-    private boolean isFileEmpty() {
+    public boolean isFileEmpty() {
         BufferedReader file;
         try {
             file = new BufferedReader(new FileReader(fileName));

@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TranslatorTest {
     private Translator testTranslator;
@@ -145,24 +144,11 @@ public class TranslatorTest {
 
     @Test
     public void testGetGeneralHelp() {
-        String msg = "++++++++++++++++Block Java Available Commands & Exceptions++++++++++++++++\n" +
-                "Built-in Commands:\n" +
+        String msg = "Built-in Commands:\n" +
                 "ADD numOne numTwo    Add numOne and numTwo together\n" +
                 "SUB numOne numTwo    Subtract numTwo from numOne\n" +
                 "MUL numOne numTwo    Multiply numOne and numTwo together\n" +
                 "DIV numOne numTwo    Divide numTwo from numOne\n" +
-                "\n" +
-                "Supporting Commands:\n" +
-                "HELP           General help about Block Java\n" +
-                "HELP COMMAND   Help for a specific command\n" +
-                "LOAD           Load saved progress to the program\n" +
-                "SAVE           Save the current progress\n" +
-                "EXEC           Execute the commands and get the result\n" +
-                "JAVA           Get Java code of the commands\n" +
-                "GET Index      Get a command at index (based 1)\n" +
-                "ALL            Display all input commands\n" +
-                "DEL Index      Delete a command at index (based 1)\n" +
-                "RES            Reset the translator and delete all commands\n" +
                 "\n" +
                 "Exceptions:\n" +
                 "InvalidArgumentException   Input for command is invalid\n" +
@@ -352,6 +338,13 @@ public class TranslatorTest {
         testTranslator.addCommand(mul);
         testTranslator.addCommand(div);
         assertEquals(storedStream, testTranslator.getStream());
+    }
+
+    @Test
+    public void testIsStreamEmpty() {
+        assertTrue(testTranslator.isStreamEmpty());
+        testTranslator.addCommand(add);
+        assertFalse(testTranslator.isStreamEmpty());
     }
 
     private void checkDeletingCommandAtValidIdxBehaviour(int idx, String newExpectedStream) {

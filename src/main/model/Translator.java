@@ -49,23 +49,11 @@ public class Translator {
     // EFFECTS: provide the general help about the program
     @SuppressWarnings("methodlength")
     public static String getHelp() {
-        String msg = "++++++++++++++++Block Java Available Commands & Exceptions++++++++++++++++\n"
-                + "Built-in Commands:\n"
+        String msg = "Built-in Commands:\n"
                 + "ADD numOne numTwo    Add numOne and numTwo together\n"
                 + "SUB numOne numTwo    Subtract numTwo from numOne\n"
                 + "MUL numOne numTwo    Multiply numOne and numTwo together\n"
                 + "DIV numOne numTwo    Divide numTwo from numOne\n\n"
-                + "Supporting Commands:\n"
-                + "HELP           General help about Block Java\n"
-                + "HELP COMMAND   Help for a specific command\n"
-                + "LOAD           Load saved progress to the program\n"
-                + "SAVE           Save the current progress\n"
-                + "EXEC           Execute the commands and get the result\n"
-                + "JAVA           Get Java code of the commands\n"
-                + "GET Index      Get a command at index (based 1)\n"
-                + "ALL            Display all input commands\n"
-                + "DEL Index      Delete a command at index (based 1)\n"
-                + "RES            Reset the translator and delete all commands\n\n"
                 + "Exceptions:\n"
                 + "InvalidArgumentException   Input for command is invalid\n"
                 + " | WrongArgumentTypeException            Input has the wrong type\n"
@@ -127,6 +115,11 @@ public class Translator {
     // EFFECTS: return a copy of the current commands in the program
     public List<Command> getStream() {
         return new LinkedList<>(stream);
+    }
+
+    // EFFECTS: return true if the translator doesn't hold any command
+    public boolean isStreamEmpty() {
+        return this.stream.size() == 0;
     }
 
     // EFFECTS: if there's no command in the stream, throw MissingCommandsException.
