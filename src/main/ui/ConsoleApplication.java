@@ -311,13 +311,19 @@ public class ConsoleApplication {
                 + "##########################################################################\n";
         System.out.print(menu);
         if (!saver.isFileEmpty()
-                && warn(new WarningException("Saved progress detected"), "Would you like to load it?")) {
+                && warn(new WarningException("Saved progress detected."), "Would you like to load it?")) {
             load();
         }
     }
 
-    // EFFECTS: display the end menu when the program ends
+    // EFFECTS: display the end menu when the program ends. Also prompt the user to save the changes
+    //          they made to the program
     private void endMenu() {
+        if (!mainTranslator.isStreamEmpty() && warn(new WarningException("New changes are made to the program"),
+                "Would you like to save it?")) {
+            save(false);
+        }
+
         String menu = "\n"
                 + "Thank you for using the program\n"
                 + "Hope you learned something new!!";
