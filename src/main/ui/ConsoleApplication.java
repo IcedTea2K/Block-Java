@@ -13,7 +13,9 @@ public class ConsoleApplication {
     private Scanner scanner;
     private Saver saver;
     private Loader loader;
+
     private boolean isRunning;
+    private boolean hasChanged;
     private String savedFileName;
 
     // EFFECTS: construct and run the application
@@ -24,6 +26,8 @@ public class ConsoleApplication {
         this.saver = new Saver(savedFileName);
         this.loader = new Loader(savedFileName);
 
+        this.hasChanged = false;
+        this.isRunning = false;
         run();
     }
 
@@ -125,6 +129,7 @@ public class ConsoleApplication {
         try {
             command.input(convertInputsToDataType(parameters));
             mainTranslator.addCommand(command);
+            hasChanged = true;
         } catch (InvalidArgumentException e) {
             System.out.println(cleanExceptionMessage(e.toString()));
         } catch (NumberFormatException e) {
@@ -147,7 +152,7 @@ public class ConsoleApplication {
                     + "all            display all input commands\n"
                     + "del index      delete a command at index (based 1)\n"
                     + "res            reset the translator and delete all commands\n\n";
-            System.out.println(msg + Translator.getHelp());
+            System.out.print(msg + Translator.getHelp());
         } else {
             processBuiltInCommands(parameters[0], new String[0], true);
         }
@@ -184,6 +189,7 @@ public class ConsoleApplication {
         try {
             saver.write(mainTranslator.getStream(), isForcedWriting);
             isSuccessful = true;
+            hasChanged = false;
         } catch (CorruptedFileWarning e) {
             warn(e);
             isSuccessful = false;
@@ -331,7 +337,8 @@ public class ConsoleApplication {
     // EFFECTS: display the end menu when the program ends. Also prompt the user to save the changes
     //          they made to the program
     private void endMenu() {
-        if (!mainTranslator.isStreamEmpty() && warn(new WarningException("New changes are made to the program"),
+        if (hasChanged && !mainTranslator.isStreamEmpty()
+                && warn(new WarningException("New changes are made to the program"),
                 "Would you like to save it?")) {
             save(false);
         }
