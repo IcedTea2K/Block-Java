@@ -21,7 +21,7 @@ public class Add extends Arithmetic {
     public String getExamples() {
         String msg = "ADD 11 821\n"
                     + "ADD 21.4 10\n"
-                    + "ADD -3 -10";;
+                    + "ADD -3 -10";
         return msg;
     }
 
