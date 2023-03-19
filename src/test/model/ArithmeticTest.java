@@ -81,7 +81,6 @@ public abstract class ArithmeticTest extends OperatorTest {
     }
 
     // EFFECTS: add two numbers together and compare to the expected result
-    @Override
     protected void checkBehaviour(DataType operandOne, DataType operandTwo, int expectedResult) {
         try {
             command.input(operandOne, operandTwo);

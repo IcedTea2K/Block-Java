@@ -194,7 +194,4 @@ public abstract class OperatorTest {
 
     @Test
     public abstract void testGetHeader();
-
-    // EFFECTS: add two numbers together and compare to the expected result
-    protected abstract void checkBehaviour(DataType operandOne, DataType operandTwo, int expectedResult);
 }
