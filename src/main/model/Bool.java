@@ -6,4 +6,5 @@ public abstract class Bool extends Operator {
     public String getReturnType() {
         return "Boolean";
     }
+
 }

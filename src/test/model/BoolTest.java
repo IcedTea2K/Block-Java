@@ -9,8 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class BoolTest extends OperatorTest {
-    protected Bool command;
-
     @Override
     public void testGetReturnType() {
         assertEquals("Boolean", command.getReturnType());

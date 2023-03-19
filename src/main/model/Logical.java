@@ -2,7 +2,6 @@ package model;
 
 import except.InvalidArgumentException;
 import except.InvalidReturnTypeException;
-import except.UnexpectedNumberOfArgumentsException;
 import except.WrongArgumentTypeException;
 
 // Type of commands that take in two booleans and produce a boolean

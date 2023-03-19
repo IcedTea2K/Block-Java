@@ -1,15 +1,17 @@
 package model;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AndTest extends LogicalTest {
     @Override
+    @BeforeEach
     public void setup() {
-        command = new And();
-        trueVal = new DataType(true);
-        falseVal = new DataType(false);
+        this.command = new And();
+        this.trueVal = new DataType(true);
+        this.falseVal = new DataType(false);
     }
 
     @Test
