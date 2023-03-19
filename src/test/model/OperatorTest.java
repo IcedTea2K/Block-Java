@@ -88,9 +88,9 @@ public abstract class OperatorTest {
         } catch (InvalidArgumentException e) {
             fail("No exception should be raised.");
         }
-        assertEquals(3306370, testCommandOne.hashCode());
-        assertEquals(5122140, testCommandTwo.hashCode());
-        assertEquals(3348429, testCommandThree.hashCode());
+        assertEquals(215161, testCommandOne.hashCode());
+        assertEquals(215161, testCommandTwo.hashCode());
+        assertEquals(547823341, testCommandThree.hashCode());
     }
 
     @Test

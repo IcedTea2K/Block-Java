@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 // Type of commands that do computation
 public abstract class Operator implements Command {
@@ -28,29 +29,22 @@ public abstract class Operator implements Command {
     }
 
     @Override
-    // EFFECTS: compare current operator with another operator
-    //          only return true if they are of the same type
-    //          and if they have the same inputs.
-    public boolean equals(Object obj) {
-        if (obj == null || obj.getClass() != this.getClass()) {
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
 
-        final Operator target = (Operator) obj;
-        return target.getHeader() == this.getHeader() && this.getInputs().equals(target.getInputs());
+        Operator operator = (Operator) o;
+        return operandOne.equals(operator.operandOne) && operandTwo.equals(operator.operandTwo);
     }
 
     @Override
-    // EFFECTS: produce a hash for current operator
     public int hashCode() {
-        int hash = 11;
-        String commandName = this.getHeader().split(" ")[0];
-        for (int i = 0; i < commandName.length(); i++) {
-            hash *= (int) commandName.charAt(i);
-        }
-        hash += retrieveData(operandOne);
-        hash += retrieveData(operandTwo);
-        return hash;
+        return Objects.hash(operandOne, operandTwo);
     }
 
     @Override
