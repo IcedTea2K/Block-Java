@@ -10,8 +10,7 @@ public class AndTest extends LogicalTest {
     @BeforeEach
     public void setup() {
         this.command = new And();
-        this.trueVal = new DataType(true);
-        this.falseVal = new DataType(false);
+        super.setup();
     }
 
     @Test

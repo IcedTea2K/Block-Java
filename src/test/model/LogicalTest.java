@@ -11,8 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class LogicalTest extends BoolTest {
-    DataType trueVal;
-    DataType falseVal;
     @Override
     public void testInputWrongType() {
         DataType tempBool = new DataType(true);

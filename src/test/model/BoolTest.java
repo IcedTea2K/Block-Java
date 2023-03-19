@@ -9,6 +9,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class BoolTest extends OperatorTest {
+    DataType trueVal;
+    DataType falseVal;
+
+    @Override
+    public void setup() {
+        trueVal = new DataType(true);
+        falseVal = new DataType(false);
+    }
+
     @Override
     public void testGetReturnType() {
         assertEquals("Boolean", command.getReturnType());
