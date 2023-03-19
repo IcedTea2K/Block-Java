@@ -21,7 +21,7 @@ public abstract class BoolTest extends OperatorTest {
             command.input(operandOne, operandTwo);
             command.execute();
             DataType result = command.getResult();
-            assertEquals(expectedResult, result.getNumber());
+            assertEquals(expectedResult, result.getBoolean());
         } catch (InvalidArgumentException | MissingArgumentException | NotYetExecutedException |
                  InvalidReturnTypeException e) {
             fail("no exception should be raised");
