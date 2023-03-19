@@ -13,42 +13,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class ArithmeticTest extends OperatorTest {
-    protected Arithmetic command;
     protected DataType posNum;
     protected DataType negNum;
     protected DataType zero;
-
-    @Override
-    @Test
-    public void testTooFewInputs() {
-        try {
-            command.input();
-            fail("InvalidArgumentException for too few arguments should have been raised");
-        } catch (InvalidArgumentException e) {
-            assertEquals("except.UnexpectedNumberOfArgumentsException:" +
-                    " Expecting 2 Received 0", e.toString());
-        }
-
-        try {
-            command.input(posNum);
-            fail("InvalidArgumentException for too few arguments should have been raised");
-        } catch (InvalidArgumentException e) {
-            assertEquals("except.UnexpectedNumberOfArgumentsException:" +
-                    " Expecting 2 Received 1", e.toString());
-        }
-    }
-
-    @Override
-    @Test
-    public void testTooManyInputs() {
-        try {
-            command.input(negNum, posNum, zero) ;
-            fail("InvalidArgumentException for too many arguments should have been raised");
-        } catch (InvalidArgumentException e) {
-            assertEquals("except.UnexpectedNumberOfArgumentsException: " +
-                    "Expecting 2 Received 3", e.toString());
-        }
-    }
 
     @Override
     @Test
@@ -90,42 +57,6 @@ public abstract class ArithmeticTest extends OperatorTest {
 
     @Override
     @Test
-    public void testGetInputWithNoInputs() {
-        try {
-            command.getInputs();
-            fail("MissingArgumentException should have been raised");
-        } catch (MissingArgumentException e) {
-            assertEquals("except.MissingArgumentException: " +
-                    "No argument has been given", e.toString());
-        }
-    }
-
-    @Override
-    @Test
-    public void testGetResultsWithoutExecution() {
-        try {
-            command.getResult();
-            fail("NotYetExecutedException should have been raised");
-        } catch (NotYetExecutedException e) {
-            assertEquals("except.NotYetExecutedException: " +
-                    "Unable to obtain the result. The command has not been executed yet", e.toString());
-        }
-    }
-
-    @Override
-    @Test
-    public void testExecuteWithoutInputs() {
-        try {
-            command.execute();
-            fail("MissingArgumentException should have been raised");
-        } catch (MissingArgumentException e) {
-            assertEquals("except.MissingArgumentException: " +
-                    "No argument has been given", e.toString());
-        }
-    }
-
-    @Override
-    @Test
     public void testGetConstraints() {
         assertEquals("Operators only accept two inputs. They both need to be numbers.",
                 command.getConstraints());
@@ -135,18 +66,6 @@ public abstract class ArithmeticTest extends OperatorTest {
     @Test
     public void testGetReturnType() {
         assertEquals("Number", command.getReturnType());
-    }
-
-    @Override
-    @Test
-    public void testGetJavaWithNoInputs() {
-        try {
-            command.getJava(1);
-            fail("MissingArgumentException should have been raised");
-        } catch (MissingArgumentException e) {
-            assertEquals("except.MissingArgumentException: " +
-                    "No argument has been given", e.toString());
-        }
     }
 
     @Override

@@ -1,12 +1,16 @@
 package model;
 
 import except.InvalidArgumentException;
+import except.MissingArgumentException;
+import except.NotYetExecutedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class OperatorTest {
+    protected Operator command;
+
     @BeforeEach
     public abstract void setup();
 
@@ -94,10 +98,34 @@ public abstract class OperatorTest {
     }
 
     @Test
-    public abstract void testTooFewInputs();
+    public void testTooFewInputs() {
+        try {
+            command.input();
+            fail("InvalidArgumentException for too few arguments should have been raised");
+        } catch (InvalidArgumentException e) {
+            assertEquals("except.UnexpectedNumberOfArgumentsException:" +
+                    " Expecting 2 Received 0", e.toString());
+        }
+
+        try {
+            command.input(new DataType(2));
+            fail("InvalidArgumentException for too few arguments should have been raised");
+        } catch (InvalidArgumentException e) {
+            assertEquals("except.UnexpectedNumberOfArgumentsException:" +
+                    " Expecting 2 Received 1", e.toString());
+        }
+    }
 
     @Test
-    public abstract void testTooManyInputs();
+    public void testTooManyInputs() {
+        try {
+            command.input(new DataType(true), new DataType(10), new DataType(false)) ;
+            fail("InvalidArgumentException for too many arguments should have been raised");
+        } catch (InvalidArgumentException e) {
+            assertEquals("except.UnexpectedNumberOfArgumentsException: " +
+                    "Expecting 2 Received 3", e.toString());
+        }
+    }
 
     @Test
     public abstract void testInputWrongType();
@@ -106,13 +134,37 @@ public abstract class OperatorTest {
     public abstract void testInputTwoOperands();
 
     @Test
-    public abstract void testGetInputWithNoInputs();
+    public void testGetInputWithNoInputs() {
+        try {
+            command.getInputs();
+            fail("MissingArgumentException should have been raised");
+        } catch (MissingArgumentException e) {
+            assertEquals("except.MissingArgumentException: " +
+                    "No argument has been given", e.toString());
+        }
+    }
 
     @Test
-    public abstract void testGetResultsWithoutExecution();
+    public void testGetResultsWithoutExecution() {
+        try {
+            command.getResult();
+            fail("NotYetExecutedException should have been raised");
+        } catch (NotYetExecutedException e) {
+            assertEquals("except.NotYetExecutedException: " +
+                    "Unable to obtain the result. The command has not been executed yet", e.toString());
+        }
+    }
 
     @Test
-    public abstract void testExecuteWithoutInputs();
+    public void testExecuteWithoutInputs() {
+        try {
+            command.execute();
+            fail("MissingArgumentException should have been raised");
+        } catch (MissingArgumentException e) {
+            assertEquals("except.MissingArgumentException: " +
+                    "No argument has been given", e.toString());
+        }
+    }
 
     @Test
     public abstract void testGetConstraints();
@@ -121,7 +173,15 @@ public abstract class OperatorTest {
     public abstract void testGetReturnType();
 
     @Test
-    public abstract void testGetJavaWithNoInputs();
+    public void testGetJavaWithNoInputs() {
+        try {
+            command.getJava(1);
+            fail("MissingArgumentException should have been raised");
+        } catch (MissingArgumentException e) {
+            assertEquals("except.MissingArgumentException: " +
+                    "No argument has been given", e.toString());
+        }
+    }
 
     @Test
     public abstract void testToString();
