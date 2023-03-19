@@ -23,4 +23,10 @@ public abstract class Arithmetic extends Operator {
         return msg;
     }
 
+    // EFFECTS: return the number the DataType is representing
+    protected int retrieveData(DataType num) {
+        int tempNum = 0;
+        tempNum = num.getNumber();
+        return tempNum;
+    }
 }

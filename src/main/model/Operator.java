@@ -1,7 +1,6 @@
 package model;
 
 import except.*;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -98,13 +97,6 @@ public abstract class Operator implements Command {
         } catch (InvalidReturnTypeException e) {
             throw new WrongArgumentTypeException(e.getMessage(), "number");
         }
-    }
-
-    // EFFECTS: return the number the DataType is representing
-    protected int retrieveData(DataType num) {
-        int tempNum = 0;
-        tempNum = num.getNumber();
-        return tempNum;
     }
 
     // EFFECTS: verify the current inputs
