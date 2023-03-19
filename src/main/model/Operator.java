@@ -53,17 +53,6 @@ public abstract class Operator implements Command {
     }
 
     @Override
-    // MODIFIES: this
-    // EFFECTS: take in inputs
-    //          If the number of inputs is more than 2 or the type of input is not number,
-    //          InvalidArgumentException will be raised.
-    public void input(DataType... inputs) throws InvalidArgumentException {
-        checkInput(inputs);
-        operandOne = inputs[0];
-        operandTwo = inputs[1];
-    }
-
-    @Override
     // EFFECTS: return the result of the addition
     //          If the command has yet to executed, throw NotYetExecutedException
     public DataType getResult() throws NotYetExecutedException {
@@ -83,26 +72,29 @@ public abstract class Operator implements Command {
         return tempInputs;
     }
 
-    // EFFECTS: If either of the inputs is not a number, throw WrongArgumentTypeException
-    //          If the number of inputs don't match the constraints, throw
-    //          UnexpectedNumberOfArgumentsException.
-    protected void checkInput(DataType[] inputs) throws InvalidArgumentException {
-        if (inputs.length != 2) {
-            throw new UnexpectedNumberOfArgumentsException(inputs.length, 2);
-        }
-
-        try {
-            int tempNumOne = inputs[0].getNumber();
-            int tempNumTwo = inputs[1].getNumber();
-        } catch (InvalidReturnTypeException e) {
-            throw new WrongArgumentTypeException(e.getMessage(), "number");
-        }
-    }
-
     // EFFECTS: verify the current inputs
     protected void checkCurrentInputs() throws MissingArgumentException {
         if (operandOne == null || operandTwo == null) {
             throw new MissingArgumentException();
+        }
+    }
+
+    @Override
+    // MODIFIES: this
+    // EFFECTS: take in inputs
+    //          If the number of inputs is more than 2 or the type of input is not number,
+    //          InvalidArgumentException will be raised.
+    public void input(DataType... inputs) throws InvalidArgumentException {
+        checkInput(inputs);
+        operandOne = inputs[0];
+        operandTwo = inputs[1];
+    }
+
+    // EFFECTS: If the number of inputs don't match the constraints, throw
+    //          UnexpectedNumberOfArgumentsException.
+    protected void checkInput(DataType[] inputs) throws InvalidArgumentException {
+        if (inputs.length != 2) {
+            throw new UnexpectedNumberOfArgumentsException(inputs.length, 2);
         }
     }
 }
