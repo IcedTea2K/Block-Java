@@ -13,8 +13,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class BoolTest extends OperatorTest {
     protected Bool command;
-    protected DataType trueVal;
-    protected DataType falseVal;
 
     @Override
     public void testInputWrongType() {
@@ -39,21 +37,6 @@ public abstract class BoolTest extends OperatorTest {
     }
 
     @Override
-    public void testInputTwoOperands() {
-        List<DataType> givenInputs = new ArrayList<>();
-        try {
-            command.input(trueVal, falseVal);
-            givenInputs = command.getInputs();
-        } catch (InvalidArgumentException | MissingArgumentException e) {
-            fail("no exception should be raised");
-        }
-
-        assertEquals(2, givenInputs.size());
-        assertEquals(trueVal, givenInputs.get(0));
-        assertEquals(falseVal, givenInputs.get(1));
-    }
-
-    @Override
     public void testGetConstraints() {
         assertEquals("Operators only accept two inputs. They both need to be boolean.",
                 command.getConstraints());
@@ -62,17 +45,6 @@ public abstract class BoolTest extends OperatorTest {
     @Override
     public void testGetReturnType() {
         assertEquals("Boolean", command.getReturnType());
-    }
-
-    @Override
-    public void testToString() {
-        try {
-            command.input(falseVal, trueVal);
-            assertEquals(command.getHeader().split(" ")[0] + " "
-                    + falseVal.getBoolean() + " " + trueVal.getBoolean(), command.toString());
-        } catch (InvalidArgumentException e) {
-            fail("No exception should be raised");
-        }
     }
 
     protected void checkBehaviour(DataType operandOne, DataType operandTwo, boolean expectedResult) {
