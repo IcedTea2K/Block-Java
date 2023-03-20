@@ -3,6 +3,7 @@ package model;
 import except.InvalidArgumentException;
 import except.InvalidReturnTypeException;
 import except.MissingArgumentException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -15,6 +16,16 @@ public abstract class ComparorTest extends BoolTest {
     protected DataType negNum;
     protected DataType posNum;
     protected DataType zero;
+
+    @Override
+    @BeforeEach
+    public void setup() {
+        super.setup();
+        this.negNum = new DataType(-11);
+        this.posNum = new DataType(34);
+        this.zero = new DataType(0);
+        command = new Larger();
+    }
 
     @Override
     @Test

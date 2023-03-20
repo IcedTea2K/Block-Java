@@ -28,8 +28,8 @@ public abstract class Comparor extends Bool {
         super.checkInput(inputs);
 
         try {
-            inputs[0].getBoolean();
-            inputs[1].getBoolean();
+            inputs[0].getNumber();
+            inputs[1].getNumber();
         } catch (InvalidReturnTypeException e) {
             throw new WrongArgumentTypeException(e.getMessage(), "number");
         }
