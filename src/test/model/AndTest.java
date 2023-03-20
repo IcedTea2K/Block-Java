@@ -30,6 +30,7 @@ public class AndTest extends LogicalTest {
     }
 
     @Override
+    @Test
     public void testGetExamples() {
         String msg = "AND TRUE FALSE\n"
                 + "AND FALSE FALSE\n"
@@ -38,14 +39,16 @@ public class AndTest extends LogicalTest {
     }
 
     @Override
+    @Test
     public void testGetJavaWithInputs() {
         checkBehaviour(trueVal, falseVal, false);
-        assertEquals("boolean result1 = true && false", command.getJava(1));
+        assertEquals("boolean result1 = true && false;", command.getJava(1));
         checkBehaviour(trueVal, trueVal, true);
-        assertEquals("boolean result1 = true && true", command.getJava(2));
+        assertEquals("boolean result2 = true && true;", command.getJava(2));
     }
 
     @Override
+    @Test
     public void testGetHeader() {
         assertEquals("AND Command", command.getHeader());
     }

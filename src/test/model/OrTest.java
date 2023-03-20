@@ -30,6 +30,7 @@ public class OrTest extends LogicalTest {
     }
 
     @Override
+    @Test
     public void testGetExamples() {
         String msg = "OR TRUE FALSE\n"
                 + "OR FALSE FALSE\n"
@@ -38,14 +39,16 @@ public class OrTest extends LogicalTest {
     }
 
     @Override
+    @Test
     public void testGetJavaWithInputs() {
         checkBehaviour(trueVal, falseVal, true);
-        assertEquals("boolean result1 = true || false", command.getJava(1));
+        assertEquals("boolean result1 = true || false;", command.getJava(1));
         checkBehaviour(falseVal, falseVal, false);
-        assertEquals("boolean result1 = false || false", command.getJava(2));
+        assertEquals("boolean result2 = false || false;", command.getJava(2));
     }
 
     @Override
+    @Test
     public void testGetHeader() {
         assertEquals("OR Command", command.getHeader());
     }

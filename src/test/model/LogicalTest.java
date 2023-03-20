@@ -3,6 +3,7 @@ package model;
 import except.InvalidArgumentException;
 import except.InvalidReturnTypeException;
 import except.MissingArgumentException;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class LogicalTest extends BoolTest {
     @Override
+    @Test
     public void testInputWrongType() {
         DataType tempBool = new DataType(true);
         DataType tempDS = new DataType(new ArrayList<DataType>());
@@ -34,6 +36,7 @@ public abstract class LogicalTest extends BoolTest {
     }
 
     @Override
+    @Test
     public void testInputTwoOperands() {
         List<DataType> givenInputs = new ArrayList<>();
         try {
@@ -49,12 +52,14 @@ public abstract class LogicalTest extends BoolTest {
     }
 
     @Override
+    @Test
     public void testGetConstraints() {
-        assertEquals("Operators only accept two inputs. They both need to be numbers.",
+        assertEquals("Operators only accept two inputs. They both need to be booleans.",
                 command.getConstraints());
     }
 
     @Override
+    @Test
     public void testToString() {
         try {
             command.input(falseVal, trueVal);

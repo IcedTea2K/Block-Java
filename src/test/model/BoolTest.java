@@ -4,6 +4,8 @@ import except.InvalidArgumentException;
 import except.InvalidReturnTypeException;
 import except.MissingArgumentException;
 import except.NotYetExecutedException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -13,12 +15,14 @@ public abstract class BoolTest extends OperatorTest {
     DataType falseVal;
 
     @Override
+    @BeforeEach
     public void setup() {
         trueVal = new DataType(true);
         falseVal = new DataType(false);
     }
 
     @Override
+    @Test
     public void testGetReturnType() {
         assertEquals("Boolean", command.getReturnType());
     }
