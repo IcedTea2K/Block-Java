@@ -64,7 +64,7 @@ public abstract class Operator implements Command {
 
     // EFFECTS: return the inputs of this command
     public List<DataType> getInputs() throws MissingArgumentException {
-        checkCurrentInputs();
+        isMissingInputs();
 
         List<DataType> tempInputs = new ArrayList<>();
         tempInputs.add(operandOne);
@@ -73,7 +73,7 @@ public abstract class Operator implements Command {
     }
 
     // EFFECTS: verify the current inputs
-    protected void checkCurrentInputs() throws MissingArgumentException {
+    protected void isMissingInputs() throws MissingArgumentException {
         if (operandOne == null || operandTwo == null) {
             throw new MissingArgumentException();
         }

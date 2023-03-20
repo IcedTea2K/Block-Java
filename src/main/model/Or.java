@@ -6,7 +6,7 @@ import except.MissingArgumentException;
 public class Or extends Logical {
     @Override
     public void execute() throws MissingArgumentException {
-        checkCurrentInputs();
+        isMissingInputs();
         result = new DataType(operandOne.getBoolean() || operandTwo.getBoolean());
     }
 
@@ -20,7 +20,7 @@ public class Or extends Logical {
 
     @Override
     public String getJava(int idx) throws MissingArgumentException {
-        checkCurrentInputs();
+        isMissingInputs();
         boolean tempBoolOne = operandOne.getBoolean();
         boolean tempBoolTwo = operandTwo.getBoolean();
         String msg = "boolean result" + idx + " = " + tempBoolOne + " || " + tempBoolTwo + ";";

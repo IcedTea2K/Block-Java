@@ -9,7 +9,7 @@ public class Smaller extends Comparor {
     // EFFECTS: compare if the operandOne is smaller than operandTwo
     //          If either input is missing, throw MissingArgumentException
     public void execute() throws MissingArgumentException {
-        checkCurrentInputs();
+        isMissingInputs();
         result = new DataType(operandOne.getNumber() < operandTwo.getNumber());
     }
 
@@ -26,7 +26,7 @@ public class Smaller extends Comparor {
     // EFFECTS: return Java representation of the command
     //          If either of the input is missing, throw MissingArgumentException
     public String getJava(int idx) throws MissingArgumentException {
-        checkCurrentInputs();
+        isMissingInputs();
         int tempNumOne = operandOne.getNumber();
         int tempNumTwo = operandTwo.getNumber();
         String msg = "boolean result" + idx + " = " + tempNumOne + " < " + tempNumTwo + ";";

@@ -9,7 +9,7 @@ public class And extends Logical {
     // EFFECTS: compare two different booleans with and operator
     //          If either input is missing, throw MissingArgumentException
     public void execute() throws MissingArgumentException {
-        checkCurrentInputs();
+        isMissingInputs();
         result = new DataType(operandOne.getBoolean() && operandTwo.getBoolean());
     }
 
@@ -26,7 +26,7 @@ public class And extends Logical {
     // EFFECTS: return Java representation of the command
     //          If either of the input is missing, throw MissingArgumentException
     public String getJava(int idx) throws MissingArgumentException {
-        checkCurrentInputs();
+        isMissingInputs();
         boolean tempBoolOne = operandOne.getBoolean();
         boolean tempBoolTwo = operandTwo.getBoolean();
         String msg = "boolean result" + idx + " = " + tempBoolOne + " && " + tempBoolTwo + ";";

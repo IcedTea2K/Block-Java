@@ -9,7 +9,7 @@ public class Add extends Arithmetic {
     // EFFECTS: add the two given numbers
     //          If either input is missing, throw MissingArgumentException
     public void execute() throws MissingArgumentException {
-        checkCurrentInputs();
+        isMissingInputs();
 
         int tempNumOne = retrieveData(operandOne);
         int tempNumTwo = retrieveData(operandTwo);
@@ -29,7 +29,7 @@ public class Add extends Arithmetic {
     // EFFECTS: return the Java code representation of this command
     //          with the given inputs.
     public String getJava(int idx) throws MissingArgumentException {
-        checkCurrentInputs();
+        isMissingInputs();
         int tempNumOne = retrieveData(operandOne);
         int tempNumTwo = retrieveData(operandTwo);
 
