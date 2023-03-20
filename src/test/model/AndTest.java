@@ -34,7 +34,7 @@ public class AndTest extends LogicalTest {
     public void testGetExamples() {
         String msg = "AND TRUE FALSE\n"
                 + "AND FALSE FALSE\n"
-                + "AND TRUE TRUE\n";
+                + "AND TRUE TRUE";
         assertEquals(msg, command.getExamples());
     }
 

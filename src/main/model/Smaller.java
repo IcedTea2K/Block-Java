@@ -18,7 +18,7 @@ public class Smaller extends Comparor {
     public String getExamples() {
         String msg = "SMALLER 3 4\n"
                 + "SMALLER -23 -20\n"
-                + "SMALLER 80 -48\n";
+                + "SMALLER 80 -48";
         return msg;
     }
 

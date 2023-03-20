@@ -34,7 +34,7 @@ public class OrTest extends LogicalTest {
     public void testGetExamples() {
         String msg = "OR TRUE FALSE\n"
                 + "OR FALSE FALSE\n"
-                + "OR TRUE TRUE\n";
+                + "OR TRUE TRUE";
         assertEquals(msg, command.getExamples());
     }
 

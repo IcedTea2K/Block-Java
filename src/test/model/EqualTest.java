@@ -33,7 +33,7 @@ public class EqualTest extends ComparorTest {
     public void testGetExamples() {
         String msg = "EQUAL -4 -4\n"
                 + "EQUAL 39 120\n"
-                + "EQUAL -59 20\n";
+                + "EQUAL -59 20";
         assertEquals(msg, command.getExamples());
     }
 

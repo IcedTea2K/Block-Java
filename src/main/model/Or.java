@@ -14,7 +14,7 @@ public class Or extends Logical {
     public String getExamples() {
         String msg = "OR TRUE FALSE\n"
                 + "OR FALSE FALSE\n"
-                + "OR TRUE TRUE\n";
+                + "OR TRUE TRUE";
         return msg;
     }
 

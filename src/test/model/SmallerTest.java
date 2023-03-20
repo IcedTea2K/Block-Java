@@ -39,7 +39,7 @@ public class SmallerTest extends ComparorTest {
     public void testGetExamples() {
         String msg = "SMALLER 3 4\n"
                 + "SMALLER -23 -20\n"
-                + "SMALLER 80 -48\n";
+                + "SMALLER 80 -48";
         assertEquals(msg, command.getExamples());
     }
 

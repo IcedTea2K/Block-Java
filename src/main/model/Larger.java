@@ -18,7 +18,7 @@ public class Larger extends Comparor {
     public String getExamples() {
         String msg = "LARGER 30 -2\n"
                 + "LARGER 2 3\n"
-                + "LARGER -3 -54\n";
+                + "LARGER -3 -54";
         return msg;
     }
 

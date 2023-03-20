@@ -18,7 +18,7 @@ public class And extends Logical {
     public String getExamples() {
         String msg = "AND TRUE FALSE\n"
                 + "AND FALSE FALSE\n"
-                + "AND TRUE TRUE\n";
+                + "AND TRUE TRUE";
         return msg;
     }
 

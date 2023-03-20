@@ -39,7 +39,7 @@ public class LargerTest extends ComparorTest {
     public void testGetExamples() {
         String msg = "LARGER 30 -2\n"
                 + "LARGER 2 3\n"
-                + "LARGER -3 -54\n";
+                + "LARGER -3 -54";
         assertEquals(msg, command.getExamples());
     }
 

@@ -18,7 +18,7 @@ public class Equal extends Comparor {
     public String getExamples() {
         String msg = "EQUAL -4 -4\n"
                 + "EQUAL 39 120\n"
-                + "EQUAL -59 20\n";
+                + "EQUAL -59 20";
         return msg;
     }
 
