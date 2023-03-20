@@ -167,7 +167,8 @@ public class ConsoleApplication {
                     + "get index      get a command at index (based 1)\n"
                     + "all            display all input commands\n"
                     + "del index      delete a command at index (based 1)\n"
-                    + "res            reset the translator and delete all commands\n\n";
+                    + "res            reset the translator and delete all commands\n"
+                    + "quit           quit the program\n\n";
             System.out.print(msg + Translator.getHelp());
         } else {
             processBuiltInCommands(parameters[0], new String[0], true);
