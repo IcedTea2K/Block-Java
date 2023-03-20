@@ -182,7 +182,7 @@ public class LoaderTest {
             DataType numTwo = new DataType(numGenerator.nextInt());
             Command command = null;
 
-            switch (i % 4) {
+            switch (i % 9) {
                 case 0:
                     command = new Add();
                     break;
@@ -195,10 +195,29 @@ public class LoaderTest {
                 case 3:
                     command = new Divide();
                     break;
+                case 4:
+                    command = new And();
+                    break;
+                case 5:
+                    command = new Or();
+                    break;
+                case 6:
+                    command = new Larger();
+                    break;
+                case 7:
+                    command = new Smaller();
+                    break;
+                case 8:
+                    command = new Equal();
+                    break;
             }
 
             try {
-                command.input(numOne, numTwo);
+                if (command instanceof And || command instanceof Or) {
+                    command.input(new DataType(true), new DataType(false));
+                } else {
+                    command.input(numOne, numTwo);
+                }
             } catch (InvalidArgumentException e) {
                 fail("No exception should be thrown");
             }

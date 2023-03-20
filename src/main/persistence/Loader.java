@@ -58,10 +58,11 @@ public class Loader {
     }
 
     // EFFECTS: parse the JSON entry and turn it into a Command
+    @SuppressWarnings("methodlength")
     private Command parseCommand(JSONObject commandJson) throws InvalidArgumentException, JSONException {
         Command command;
-        DataType operandOne = new DataType(commandJson.getInt("operandOne"));
-        DataType operandTwo = new DataType(commandJson.getInt("operandTwo"));
+        DataType operandOne = obtainOperand(commandJson, "operandOne");
+        DataType operandTwo = obtainOperand(commandJson, "operandTwo");
         switch (commandJson.getString("command")) {
             case "ADD":
                 command = new Add();
@@ -75,11 +76,38 @@ public class Loader {
             case "DIV":
                 command = new Divide();
                 break;
+            case "AND":
+                command = new And();
+                break;
+            case "OR":
+                command = new Or();
+                break;
+            case "LARGER":
+                command = new Larger();
+                break;
+            case "SMALLER":
+                command = new Smaller();
+                break;
+            case "EQUAL":
+                command = new Equal();
+                break;
             default:
                 throw new JSONException("Command not found");
         }
         command.input(operandOne, operandTwo);
         return command;
+    }
+
+    // EFFECTS: obtain the operand value with given operandName
+    //          Only throw JSONException is the return type is neither int or boolean
+    private DataType obtainOperand(JSONObject commandJson, String opName) throws JSONException {
+        DataType operand = null;
+        try {
+            operand = new DataType(commandJson.getInt(opName));
+        } catch (JSONException e) {
+            operand = new DataType(commandJson.getBoolean(opName));
+        }
+        return operand;
     }
 
     // EFFECTS: parse JSON file into list of commands
