@@ -15,12 +15,13 @@ public abstract class LogicalTest extends BoolTest {
     public void testInputWrongType() {
         DataType tempBool = new DataType(true);
         DataType tempDS = new DataType(new ArrayList<DataType>());
+        DataType tempNum = new DataType(10);
         try {
-            command.input(new DataType(10), tempDS);
+            command.input(tempNum, tempDS);
             fail("InvalidArgumentException should have been raised");
         } catch (InvalidArgumentException e) {
             assertEquals("except.WrongArgumentTypeException: " +
-                    "Expecting boolean Received boolean", e.toString());
+                    "Expecting boolean Received number", e.toString());
         }
 
         try {
