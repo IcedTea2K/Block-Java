@@ -2,6 +2,7 @@ package model;
 
 import except.MissingArgumentException;
 
+// Command that compares two booleans using and operator
 public class And extends Logical {
     @Override
     // MODIFIES: this
