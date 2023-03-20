@@ -144,19 +144,23 @@ public class TranslatorTest {
 
     @Test
     public void testGetGeneralHelp() {
-        String msg = "Built-in Commands:\n" +
-                "ADD numOne numTwo    Add numOne and numTwo together\n" +
-                "SUB numOne numTwo    Subtract numTwo from numOne\n" +
-                "MUL numOne numTwo    Multiply numOne and numTwo together\n" +
-                "DIV numOne numTwo    Divide numTwo from numOne\n" +
-                "\n" +
-                "Exceptions:\n" +
-                "InvalidArgumentException   Input for command is invalid\n" +
-                " | WrongArgumentTypeException            Input has the wrong type\n" +
-                " | UnexpectedNumberOfArgumentsException  The number of inputs don't match\n" +
-                " | DivideByZeroException                 Trying to divide by zero\n" +
-                "MissingCommandsException   No commands have been given to the translator\n" +
-                "NotYetExecutedException    The commands have not been executed yet\n";
+        String msg = "Built-in Commands:\n"
+                + "ADD     numOne numTwo      Add numOne and numTwo together\n"
+                + "SUB     numOne numTwo      Subtract numTwo from numOne\n"
+                + "MUL     numOne numTwo      Multiply numOne and numTwo together\n"
+                + "DIV     numOne numTwo      Divide numTwo from numOne\n"
+                + "AND     boolOne boolTwo    Perform logical and operator\n"
+                + "OR      boolOne boolTwo    Perform logical or operator\n"
+                + "LARGER  numOne numTwo      Check if numOne is larger\n"
+                + "SMALLER numOne numTwo      Check if numOne is smaller\n"
+                + "EQUAL   numOne numTwo      Check if the two numbers are equal\n\n"
+                + "Exceptions:\n"
+                + "InvalidArgumentException   Input for command is invalid\n"
+                + " | WrongArgumentTypeException            Input has the wrong type\n"
+                + " | UnexpectedNumberOfArgumentsException  The number of inputs don't match\n"
+                + " | DivideByZeroException                 Trying to divide by zero\n"
+                + "MissingCommandsException   No commands have been given to the translator\n"
+                + "NotYetExecutedException    The commands have not been executed yet\n";
         assertEquals(msg, testTranslator.getHelp());
     }
 

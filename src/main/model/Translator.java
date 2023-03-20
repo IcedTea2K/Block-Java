@@ -1,6 +1,7 @@
 package model;
 
 import except.CommandNotFoundException;
+import except.InvalidReturnTypeException;
 import except.MissingCommandsException;
 import except.NotYetExecutedException;
 
@@ -47,13 +48,17 @@ public class Translator {
     }
 
     // EFFECTS: provide the general help about the program
-    @SuppressWarnings("methodlength")
     public static String getHelp() {
         String msg = "Built-in Commands:\n"
-                + "ADD numOne numTwo    Add numOne and numTwo together\n"
-                + "SUB numOne numTwo    Subtract numTwo from numOne\n"
-                + "MUL numOne numTwo    Multiply numOne and numTwo together\n"
-                + "DIV numOne numTwo    Divide numTwo from numOne\n\n"
+                + "ADD     numOne numTwo      Add numOne and numTwo together\n"
+                + "SUB     numOne numTwo      Subtract numTwo from numOne\n"
+                + "MUL     numOne numTwo      Multiply numOne and numTwo together\n"
+                + "DIV     numOne numTwo      Divide numTwo from numOne\n"
+                + "AND     boolOne boolTwo    Perform logical and operator\n"
+                + "OR      boolOne boolTwo    Perform logical or operator\n"
+                + "LARGER  numOne numTwo      Check if numOne is larger\n"
+                + "SMALLER numOne numTwo      Check if numOne is smaller\n"
+                + "EQUAL   numOne numTwo      Check if the two numbers are equal\n\n"
                 + "Exceptions:\n"
                 + "InvalidArgumentException   Input for command is invalid\n"
                 + " | WrongArgumentTypeException            Input has the wrong type\n"
@@ -80,7 +85,13 @@ public class Translator {
 
         String msg = "";
         for (int i = 0; i < stream.size(); i++) {
-            msg += "#" + (i + 1) + "| " + stream.get(i).getResult().getNumber() + "\n";
+            msg += "#" + (i + 1) + "| ";
+            try {
+                msg += stream.get(i).getResult().getNumber();
+            } catch (InvalidReturnTypeException e) {
+                msg += stream.get(i).getResult().getBoolean();
+            }
+            msg += "\n";
         }
         return msg;
     }

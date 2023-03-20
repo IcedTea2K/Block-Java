@@ -95,6 +95,7 @@ public class ConsoleApplication {
 
     // MODIFIES: this
     // EFFECTS: process inputs and call corresponding built-in commands
+    @SuppressWarnings("methodlength")
     private void processBuiltInCommands(String keyWord, String[] parameters, boolean isInquiring) {
         Command command;
         switch (keyWord) {
@@ -109,6 +110,21 @@ public class ConsoleApplication {
                 break;
             case "DIV":
                 command = new Divide();
+                break;
+            case "AND":
+                command = new And();
+                break;
+            case "OR":
+                command = new Or();
+                break;
+            case "LARGER":
+                command = new Larger();
+                break;
+            case "SMALLER":
+                command = new Smaller();
+                break;
+            case "EQUAL":
+                command = new Equal();
                 break;
             default:
                 System.out.println("Command not supported. Type 'HELP' for more information.");
@@ -130,10 +146,10 @@ public class ConsoleApplication {
             command.input(convertInputsToDataType(parameters));
             mainTranslator.addCommand(command);
             hasChanged = true;
+        } catch (WrongArgumentTypeException e) {
+            System.out.println(cleanExceptionMessage(e.toString()));
         } catch (InvalidArgumentException e) {
             System.out.println(cleanExceptionMessage(e.toString()));
-        } catch (NumberFormatException e) {
-            System.out.println("WrongArgumentTypeException: Given input is not a number");
         }
     }
 
@@ -289,14 +305,27 @@ public class ConsoleApplication {
         }
     }
 
-    // EFFECTS: convert the inputs to numbers. If the input is not a valid number, throw
-    //          NumberFormatException
-    private DataType[] convertInputsToDataType(String[] inputs) throws NumberFormatException {
+    // EFFECTS: convert the inputs to numbers. If the input is not a valid number or boolean, throw
+    //          WrongArgumentTypeException
+    private DataType[] convertInputsToDataType(String[] inputs) throws WrongArgumentTypeException {
         List<DataType> convertedInputs = new ArrayList<>();
 
         for (String input : inputs) {
-            int tempNum = Integer.parseInt(input);
-            convertedInputs.add(new DataType(tempNum));
+            Integer tempNum = null;
+            Boolean tempBool = null;
+
+            try {
+                tempNum = Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                if (input.equals("TRUE")) {
+                    tempBool = true;
+                } else if (input.equals("FALSE")) {
+                    tempBool = false;
+                } else {
+                    throw new WrongArgumentTypeException("Input type is not recognized");
+                }
+            }
+            convertedInputs.add(tempNum != null ? new DataType(tempNum) : new DataType(tempBool));
         }
 
         return convertedInputs.toArray(new DataType[0]);
