@@ -39,6 +39,7 @@ public class GraphicalApplication extends JFrame {
         JPanel sidePane = new JPanel();
         sidePane.setLayout(new BoxLayout(sidePane, BoxLayout.Y_AXIS));
         sidePane.setBackground(new Color(10597848));
+        sidePane.setPreferredSize(new Dimension(WIDTH / 8, HEIGHT));
         addCommandPane(sidePane);
         addButtonPane(sidePane);
         mainPane.add(sidePane, BorderLayout.WEST);
@@ -88,7 +89,7 @@ public class GraphicalApplication extends JFrame {
     // EFFECTS: add the terminal pane
     private void addTerminalPane(JPanel container) {
         JPanel terminalPane = new JPanel();
-        terminalPane.setPreferredSize(new Dimension(300, 300));
+        terminalPane.setPreferredSize(new Dimension(450, 380));
         terminalPane.setBackground(new Color(4607316));
 
         terminalPane.add(new JLabel("Terminal"));
@@ -111,7 +112,6 @@ public class GraphicalApplication extends JFrame {
     private void addCommandPane(JPanel container) {
         JPanel commandPane = new JPanel();
         commandPane.setPreferredSize(new Dimension(300, 300));
-//        commandPane.setBackground(Color.RED);
 
         commandPane.add(new JLabel("Commands"));
         container.add(commandPane, BorderLayout.NORTH);
@@ -122,7 +122,6 @@ public class GraphicalApplication extends JFrame {
     private void addButtonPane(JPanel container) {
         JPanel buttonPane = new JPanel();
         buttonPane.setPreferredSize(new Dimension(300, 300));
-//        buttonPane.setBackground(Color.CYAN);
 
         buttonPane.add(new JLabel("Buttons"));
         container.add(buttonPane, BorderLayout.NORTH);
