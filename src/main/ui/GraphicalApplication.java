@@ -1,5 +1,8 @@
 package ui;
 
+import model.Translator;
+import ui.tools.CommandTool;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,8 +12,23 @@ public class GraphicalApplication extends JFrame {
     public static final int HEIGHT = 750;
     private JPanel mainPane;
 
+    private Translator translator;
+
     // EFFECTS: initialize the GUI
     public GraphicalApplication() {
+        initializeGraphics();
+        initializeFields();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initialize the necessary fields
+    private void initializeFields() {
+        translator = new Translator();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initialize the graphics for the program
+    private void initializeGraphics() {
         setLayout(new BorderLayout());
         setSize(WIDTH, HEIGHT);
         setResizable(false);
@@ -112,8 +130,10 @@ public class GraphicalApplication extends JFrame {
     private void addCommandPane(JPanel container) {
         JPanel commandPane = new JPanel();
         commandPane.setPreferredSize(new Dimension(300, 300));
-
         commandPane.add(new JLabel("Commands"));
+
+        commandPane.add(new CommandTool(true, CommandTool.CommandType.ADD));
+
         container.add(commandPane, BorderLayout.NORTH);
     }
 
