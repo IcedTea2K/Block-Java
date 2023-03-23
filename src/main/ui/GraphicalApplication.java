@@ -38,6 +38,7 @@ public class GraphicalApplication extends JFrame {
     private void setSideBar() {
         JPanel sidePane = new JPanel();
         sidePane.setLayout(new BoxLayout(sidePane, BoxLayout.Y_AXIS));
+        sidePane.setBackground(new Color(10597848));
         addCommandPane(sidePane);
         addButtonPane(sidePane);
         mainPane.add(sidePane, BorderLayout.WEST);
@@ -77,7 +78,7 @@ public class GraphicalApplication extends JFrame {
     private void addTranslatorPane(JPanel container) {
         JPanel translatorPane = new JPanel();
         translatorPane.setPreferredSize(new Dimension(300, 300));
-        translatorPane.setBackground(Color.gray);
+        translatorPane.setBackground(new Color(16776439));
 
         translatorPane.add(new JLabel("Translator"));
         container.add(translatorPane, BorderLayout.WEST);
@@ -88,7 +89,7 @@ public class GraphicalApplication extends JFrame {
     private void addTerminalPane(JPanel container) {
         JPanel terminalPane = new JPanel();
         terminalPane.setPreferredSize(new Dimension(300, 300));
-        terminalPane.setBackground(Color.yellow);
+        terminalPane.setBackground(new Color(4607316));
 
         terminalPane.add(new JLabel("Terminal"));
         container.add(terminalPane, BorderLayout.EAST);
@@ -99,7 +100,7 @@ public class GraphicalApplication extends JFrame {
     private void addJavaPane(JPanel container) {
         JPanel javaPane = new JPanel();
         javaPane.setPreferredSize(new Dimension(300, 300));
-        javaPane.setBackground(Color.BLUE);
+        javaPane.setBackground(new Color(7570064));
 
         javaPane.add(new JLabel("Java View"));
         container.add(javaPane, BorderLayout.EAST);
@@ -110,7 +111,7 @@ public class GraphicalApplication extends JFrame {
     private void addCommandPane(JPanel container) {
         JPanel commandPane = new JPanel();
         commandPane.setPreferredSize(new Dimension(300, 300));
-        commandPane.setBackground(Color.RED);
+//        commandPane.setBackground(Color.RED);
 
         commandPane.add(new JLabel("Commands"));
         container.add(commandPane, BorderLayout.NORTH);
@@ -121,7 +122,7 @@ public class GraphicalApplication extends JFrame {
     private void addButtonPane(JPanel container) {
         JPanel buttonPane = new JPanel();
         buttonPane.setPreferredSize(new Dimension(300, 300));
-        buttonPane.setBackground(Color.CYAN);
+//        buttonPane.setBackground(Color.CYAN);
 
         buttonPane.add(new JLabel("Buttons"));
         container.add(buttonPane, BorderLayout.NORTH);
