@@ -35,7 +35,7 @@ public class CommandLabel extends JPanel {
     }
 
     // EFFECTS: set the command in this tool
-    private Command createCommand() {
+    protected Command createCommand() {
         Command createdCommand = null;
         switch (commandType) {
             case ADD:

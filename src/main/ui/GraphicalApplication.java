@@ -2,7 +2,6 @@ package ui;
 
 import model.Translator;
 import ui.tools.CommandLabel;
-import ui.tools.CommandTool;
 
 import javax.swing.*;
 import java.awt.*;
