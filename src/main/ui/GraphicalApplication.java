@@ -1,6 +1,7 @@
 package ui;
 
 import model.Translator;
+import ui.tools.CommandLabel;
 import ui.tools.CommandTool;
 
 import javax.swing.*;
@@ -132,7 +133,10 @@ public class GraphicalApplication extends JFrame {
         commandPane.setPreferredSize(new Dimension(300, 300));
         commandPane.add(new JLabel("Commands"));
 
-        commandPane.add(new CommandTool(true, CommandTool.CommandType.ADD));
+        commandPane.add(new CommandLabel(CommandLabel.CommandType.ADD));
+        commandPane.add(new CommandLabel(CommandLabel.CommandType.SUB));
+        commandPane.add(new CommandLabel(CommandLabel.CommandType.DIV));
+        commandPane.add(new CommandLabel(CommandLabel.CommandType.MUL));
 
         container.add(commandPane, BorderLayout.NORTH);
     }
