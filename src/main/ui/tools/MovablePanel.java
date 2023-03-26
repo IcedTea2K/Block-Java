@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.DragGestureRecognizer;
 import java.io.IOException;
 
 // Define which type of panel can be moved/transfered
@@ -15,7 +16,7 @@ public class MovablePanel implements Transferable {
     public MovablePanel(JPanel panel) {
         this.panel = panel;
     }
-    
+
     // EFFECTS: return the panel this class is holding/representing
     public JPanel getPanel() {
         return panel;
