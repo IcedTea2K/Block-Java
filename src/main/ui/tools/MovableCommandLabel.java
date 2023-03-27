@@ -25,7 +25,7 @@ public class MovableCommandLabel extends CommandLabel {
     public void addNotify() {
         super.addNotify();
 
-        if (dragRecognizer != null) {
+        if (dragRecognizer == null) {
             dragHandler = new DragGestureHandler(this);
             dragRecognizer = DragSource.getDefaultDragSource().createDefaultDragGestureRecognizer(
                     this, DnDConstants.ACTION_MOVE, dragHandler);

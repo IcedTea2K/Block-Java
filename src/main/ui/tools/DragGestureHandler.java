@@ -41,13 +41,13 @@ public class DragGestureHandler implements DragGestureListener, DragSourceListen
     // EFFECTS: begin the drag and drop operation
     public void dragGestureRecognized(DragGestureEvent dge) {
         this.container = this.content.getParent();
-        this.container.remove(content);
-
-        updateContainer();
 
         Transferable transferable = new MovablePanel(content);
         DragSource dragSource = dge.getDragSource();
         dragSource.startDrag(dge, Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR), transferable, this);
+        this.container.remove(content);
+
+        updateContainer();
     }
 
     @Override

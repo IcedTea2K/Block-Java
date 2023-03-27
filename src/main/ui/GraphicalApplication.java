@@ -2,6 +2,8 @@ package ui;
 
 import model.Translator;
 import ui.tools.CommandLabel;
+import ui.tools.MovableCommandLabel;
+import ui.tools.ViewPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -95,11 +97,8 @@ public class GraphicalApplication extends JFrame {
     // MODIFIES: this
     // EFFECTS: add the translator pane
     private void addTranslatorPane(JPanel container) {
-        JPanel translatorPane = new JPanel();
-        translatorPane.setPreferredSize(new Dimension(300, 300));
-        translatorPane.setBackground(new Color(16776439));
-
-        translatorPane.add(new JLabel("Translator"));
+        JPanel translatorPane = new ViewPanel(new Dimension(300, 300), new Color(16776439),
+                "Translator");
         container.add(translatorPane, BorderLayout.WEST);
     }
 
@@ -132,10 +131,10 @@ public class GraphicalApplication extends JFrame {
         commandPane.setPreferredSize(new Dimension(300, 300));
         commandPane.add(new JLabel("Commands"));
 
-        commandPane.add(new CommandLabel(CommandLabel.CommandType.ADD));
-        commandPane.add(new CommandLabel(CommandLabel.CommandType.SUB));
-        commandPane.add(new CommandLabel(CommandLabel.CommandType.DIV));
-        commandPane.add(new CommandLabel(CommandLabel.CommandType.MUL));
+        commandPane.add(new MovableCommandLabel(CommandLabel.CommandType.ADD));
+        commandPane.add(new MovableCommandLabel(CommandLabel.CommandType.SUB));
+        commandPane.add(new MovableCommandLabel(CommandLabel.CommandType.DIV));
+        commandPane.add(new MovableCommandLabel(CommandLabel.CommandType.MUL));
 
         container.add(commandPane, BorderLayout.NORTH);
     }
@@ -157,4 +156,5 @@ public class GraphicalApplication extends JFrame {
         int height = Toolkit.getDefaultToolkit().getScreenSize().height;
         setLocation((width - getWidth()) / 2, (height - getHeight()) / 2);
     }
+
 }
