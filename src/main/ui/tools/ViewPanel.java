@@ -19,14 +19,13 @@ public class ViewPanel extends JPanel {
     @Override
     public void addNotify() {
         super.addNotify();
-        this.dropTarget = new DropTarget(this, DnDConstants.ACTION_MOVE, dropHandler, true);
         this.dropHandler = new DropHandler();
+        this.dropTarget = new DropTarget(this, DnDConstants.ACTION_MOVE, dropHandler, true);
     }
 
     @Override
     public void removeNotify() {
         super.removeNotify();
-        this.dropTarget = null;
-        this.dropHandler = null;
+        dropTarget.removeDropTargetListener(dropHandler);
     }
 }

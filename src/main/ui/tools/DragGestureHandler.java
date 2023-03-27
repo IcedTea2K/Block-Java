@@ -79,7 +79,6 @@ public class DragGestureHandler implements DragGestureListener, DragSourceListen
         if (!dsde.getDropSuccess()) {
             this.container.add(this.content);
             this.content.addCommand();
-            System.out.println(container);
             updateContainer();
         }
     }

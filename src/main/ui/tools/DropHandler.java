@@ -39,7 +39,6 @@ public class DropHandler implements DropTargetListener {
     // EFFECTS: drop the content at the drop site
     public void drop(DropTargetDropEvent dtde) {
         boolean success = false;
-
         if (dtde.isDataFlavorSupported(MovableCommandLabel.MetaData)) {
             Transferable transferable = dtde.getTransferable();
 
@@ -74,11 +73,10 @@ public class DropHandler implements DropTargetListener {
         Container oldContainer = content.getParent();
         if (oldContainer != null) {
             oldContainer.remove(content);
+            updateComponent(oldContainer);
         }
         newContainer.add(content);
-
         updateComponent(newContainer);
-        updateComponent(oldContainer);
     }
 
     // MODIFIES: component
