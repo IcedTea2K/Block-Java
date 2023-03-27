@@ -10,11 +10,12 @@ import java.awt.event.MouseListener;
 // Label that stays in the command pane area
 public class CommandLabel extends JPanel {
     private CommandType commandType;
-    private Command exampleCommand;
+    protected Command command;
 
     public CommandLabel(CommandType commandType) {
         this.commandType = commandType;
-        exampleCommand = createCommand();
+
+        addCommand();
         initializeTool();
     }
 
@@ -23,35 +24,43 @@ public class CommandLabel extends JPanel {
     private void initializeTool() {
         addMouseListener(new CommandToolListener());
         setPreferredSize(new Dimension(100, 30));
-        add(new JLabel(exampleCommand.getHeader()));
+        add(new JLabel(command.getHeader()));
         setBackground(Color.gray);
-
-        createCommand();
     }
 
     // EFFECTS: get the label (as a string)
     public String getLabel() {
-        return exampleCommand.getHeader();
+        return command.getHeader();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: remove the command
+    public void removeCommand() {
+        command = null;
+    }
+
+    // EFFECTS: return true if the label is currently holding a command
+    //          return false otherwise
+    public boolean hasCommand() {
+        return this.command != null;
     }
 
     // EFFECTS: set the command in this tool
-    protected Command createCommand() {
-        Command createdCommand = null;
+    public void addCommand() {
         switch (commandType) {
             case ADD:
-                createdCommand = new Add();
+                this.command = new Add();
                 break;
             case SUB:
-                createdCommand = new Subtract();
+                this.command = new Subtract();
                 break;
             case MUL:
-                createdCommand = new Multiply();
+                this.command = new Multiply();
                 break;
             case DIV:
-                createdCommand = new Divide();
+                this.command = new Divide();
                 break;
         }
-        return createdCommand;
     }
 
     public static enum CommandType {

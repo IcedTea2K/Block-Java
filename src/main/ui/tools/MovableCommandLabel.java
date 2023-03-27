@@ -11,7 +11,6 @@ import java.awt.dnd.DragSource;
 public class MovableCommandLabel extends CommandLabel {
     public static final DataFlavor MetaData = new DataFlavor(MovableCommandLabel.class,
             "Movable Commands");
-    private Command command;
     private DragGestureRecognizer dragRecognizer;
     private DragGestureHandler dragHandler;
 
