@@ -12,7 +12,7 @@ import java.awt.dnd.DragSource;
 public class CommandLabel extends JPanel {
     protected CommandType commandType;
     protected String label;
-    protected static GraphicalApplication gui;
+    protected GraphicalApplication gui;
     protected DragGestureRecognizer dragRecognizer;
     protected DragGestureHandler dragHandler;
 
@@ -34,6 +34,10 @@ public class CommandLabel extends JPanel {
         setBackground(Color.gray);
     }
 
+    public MovableCommandLabel generateMovableLabel() {
+        return new MovableCommandLabel(this.label, this.commandType, this.gui);
+    }
+
     @Override
     // MODIFIES: this
     // EFFECTS: initialize drag handler when the panel has a container
@@ -41,7 +45,7 @@ public class CommandLabel extends JPanel {
         super.addNotify();
 
         if (dragRecognizer == null) {
-            dragHandler = new DragGestureHandler(null);
+            dragHandler = new DragGestureHandler(this);
             dragRecognizer = DragSource.getDefaultDragSource().createDefaultDragGestureRecognizer(
                     this, DnDConstants.ACTION_MOVE, dragHandler);
         }
