@@ -3,9 +3,11 @@ package ui;
 import model.Translator;
 import ui.tools.CommandLabel;
 import ui.tools.MovableCommandLabel;
+import ui.tools.InteractivePanel;
 import ui.tools.ViewPanel;
 
 import javax.swing.*;
+import javax.swing.text.View;
 import java.awt.*;
 
 // Main class for controlling the GUI
@@ -97,7 +99,7 @@ public class GraphicalApplication extends JFrame {
     // MODIFIES: this
     // EFFECTS: add the translator pane
     private void addTranslatorPane(JPanel container) {
-        JPanel translatorPane = new ViewPanel(new Dimension(300, 300), new Color(16776439),
+        JPanel translatorPane = new InteractivePanel(new Dimension(300, 300), new Color(16776439),
                 "Translator");
         container.add(translatorPane, BorderLayout.WEST);
     }
@@ -105,31 +107,24 @@ public class GraphicalApplication extends JFrame {
     // MODIFIES: this
     // EFFECTS: add the terminal pane
     private void addTerminalPane(JPanel container) {
-        JPanel terminalPane = new JPanel();
-        terminalPane.setPreferredSize(new Dimension(450, 380));
-        terminalPane.setBackground(new Color(4607316));
-
-        terminalPane.add(new JLabel("Terminal"));
+        JPanel terminalPane = new ViewPanel(new Dimension(450, 380), new Color(4607316),
+                "Terminal");
         container.add(terminalPane, BorderLayout.EAST);
     }
 
     // MODIFIES: this
     // EFFECTS: add the java pane
     private void addJavaPane(JPanel container) {
-        JPanel javaPane = new JPanel();
-        javaPane.setPreferredSize(new Dimension(300, 300));
-        javaPane.setBackground(new Color(7570064));
-
-        javaPane.add(new JLabel("Java View"));
+        JPanel javaPane = new ViewPanel(new Dimension(300, 300), new Color(7570064),
+                "Java View");
         container.add(javaPane, BorderLayout.EAST);
     }
 
     // MODIFIES: this
     // EFFECTS: add area that contains all the commands
     private void addCommandPane(JPanel container) {
-        JPanel commandPane = new JPanel();
-        commandPane.setPreferredSize(new Dimension(300, 300));
-        commandPane.add(new JLabel("Commands"));
+        JPanel commandPane = new ViewPanel(new Dimension(300, 300), null,
+                "Commands");
 
         commandPane.add(new MovableCommandLabel(CommandLabel.CommandType.ADD));
         commandPane.add(new MovableCommandLabel(CommandLabel.CommandType.SUB));
@@ -142,10 +137,9 @@ public class GraphicalApplication extends JFrame {
     // MODIFIES: this
     // EFFECTS: add area that contains all the buttons
     private void addButtonPane(JPanel container) {
-        JPanel buttonPane = new JPanel();
-        buttonPane.setPreferredSize(new Dimension(300, 300));
+        JPanel buttonPane = new ViewPanel(new Dimension(300, 300), null,
+                "Buttons");
 
-        buttonPane.add(new JLabel("Buttons"));
         container.add(buttonPane, BorderLayout.NORTH);
     }
 
