@@ -1,6 +1,7 @@
 package ui.tools;
 
 import model.*;
+import ui.GraphicalApplication;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.dnd.DnDConstants;
@@ -14,8 +15,8 @@ public class MovableCommandLabel extends CommandLabel {
     private DragGestureRecognizer dragRecognizer;
     private DragGestureHandler dragHandler;
 
-    public MovableCommandLabel(CommandType commandType) {
-        super(commandType);
+    public MovableCommandLabel(CommandType commandType, GraphicalApplication gui) {
+        super(commandType, gui);
     }
 
     @Override

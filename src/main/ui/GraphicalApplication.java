@@ -4,16 +4,17 @@ import model.Translator;
 import ui.tools.*;
 
 import javax.swing.*;
-import javax.swing.text.View;
 import java.awt.*;
+import java.io.Serializable;
 
 // Main class for controlling the GUI
-public class GraphicalApplication extends JFrame {
+public class GraphicalApplication extends JFrame implements Serializable {
     public static final int WIDTH = 980;
     public static final int HEIGHT = 750;
     private JPanel mainPane;
 
     private Translator translator;
+    private DeleteTool deleteTool;
 
     // EFFECTS: initialize the GUI
     public GraphicalApplication() {
@@ -123,10 +124,10 @@ public class GraphicalApplication extends JFrame {
         JPanel commandPane = new ViewPanel(new Dimension(300, 300), null,
                 "Commands");
 
-        commandPane.add(new MovableCommandLabel(CommandLabel.CommandType.ADD));
-        commandPane.add(new MovableCommandLabel(CommandLabel.CommandType.SUB));
-        commandPane.add(new MovableCommandLabel(CommandLabel.CommandType.DIV));
-        commandPane.add(new MovableCommandLabel(CommandLabel.CommandType.MUL));
+        commandPane.add(new MovableCommandLabel(CommandLabel.CommandType.ADD, this));
+        commandPane.add(new MovableCommandLabel(CommandLabel.CommandType.SUB, this));
+        commandPane.add(new MovableCommandLabel(CommandLabel.CommandType.DIV, this));
+        commandPane.add(new MovableCommandLabel(CommandLabel.CommandType.MUL, this));
 
         container.add(commandPane, BorderLayout.NORTH);
     }
@@ -136,8 +137,14 @@ public class GraphicalApplication extends JFrame {
     private void addButtonPane(JPanel container) {
         JPanel buttonPane = new ViewPanel(new Dimension(300, 300), null,
                 "Buttons");
-        buttonPane.add(new DeleteTool());
+        deleteTool = new DeleteTool();
+        buttonPane.add(deleteTool);
         container.add(buttonPane, BorderLayout.NORTH);
+    }
+
+    // EFFECTS: return true if the it's in delete mode
+    public boolean isInDeleteMode() {
+        return deleteTool.isActive();
     }
 
     // MODIFIES: this

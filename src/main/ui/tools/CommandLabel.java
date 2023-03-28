@@ -1,6 +1,7 @@
 package ui.tools;
 
 import model.*;
+import ui.GraphicalApplication;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,18 +12,20 @@ import java.awt.event.MouseListener;
 public class CommandLabel extends JPanel {
     private CommandType commandType;
     protected Command command;
+    private static GraphicalApplication gui;
+    private MouseListener mouseListener;
 
-    public CommandLabel(CommandType commandType) {
+    public CommandLabel(CommandType commandType, GraphicalApplication gui) {
         this.commandType = commandType;
+        this.gui = gui;
 
-        addCommand();
-        initializeTool();
+        initializeLabel();
     }
 
     // MODIFIES: this
     // EFFECTS: create all the necessary components
-    private void initializeTool() {
-        addMouseListener(new CommandToolListener());
+    private void initializeLabel() {
+        activateLabel();
         setPreferredSize(new Dimension(150, 50));
         add(new JTextField(3), BorderLayout.WEST);
         add(new JLabel(command.getHeader().split(" ")[0]), BorderLayout.CENTER);
@@ -36,9 +39,19 @@ public class CommandLabel extends JPanel {
     }
 
     // MODIFIES: this
-    // EFFECTS: remove the command
-    public void removeCommand() {
-        command = null;
+    // EFFECTS: remove the command and the mouse listener
+    public void deactivateLabel() {
+        removeMouseListener(this.mouseListener);
+        this.command = null;
+        this.mouseListener = null;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: activate the label
+    public void activateLabel() {
+        this.mouseListener = new CommandToolListener();
+        addMouseListener(this.mouseListener);
+        addCommand();
     }
 
     // EFFECTS: return true if the label is currently holding a command
@@ -79,7 +92,12 @@ public class CommandLabel extends JPanel {
          */
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println(getLabel());
+            if (gui.isInDeleteMode()) {
+                Container tempParent = getParent();
+                tempParent.remove(CommandLabel.this);
+                tempParent.invalidate();
+                tempParent.repaint();
+            }
         }
 
         /**

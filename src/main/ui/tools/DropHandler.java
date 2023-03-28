@@ -47,8 +47,9 @@ public class DropHandler implements DropTargetListener {
                 DropTargetContext dropTargetContext = dtde.getDropTargetContext();
                 Component dropTarget = dropTargetContext.getComponent();
 
-                if (content instanceof JPanel && dropTarget instanceof Container) {
+                if (content instanceof CommandLabel && dropTarget instanceof Container) {
                     swapParent((JPanel) content, (Container) dropTarget);
+                    ((CommandLabel) content).activateLabel();
 
                     success = true;
                     dtde.acceptDrop(DnDConstants.ACTION_MOVE);
