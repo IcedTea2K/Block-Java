@@ -1,10 +1,7 @@
 package ui;
 
 import model.Translator;
-import ui.tools.CommandLabel;
-import ui.tools.MovableCommandLabel;
-import ui.tools.InteractivePanel;
-import ui.tools.ViewPanel;
+import ui.tools.*;
 
 import javax.swing.*;
 import javax.swing.text.View;
@@ -139,7 +136,7 @@ public class GraphicalApplication extends JFrame {
     private void addButtonPane(JPanel container) {
         JPanel buttonPane = new ViewPanel(new Dimension(300, 300), null,
                 "Buttons");
-
+        buttonPane.add(new DeleteTool());
         container.add(buttonPane, BorderLayout.NORTH);
     }
 
