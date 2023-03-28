@@ -23,8 +23,10 @@ public class CommandLabel extends JPanel {
     // EFFECTS: create all the necessary components
     private void initializeTool() {
         addMouseListener(new CommandToolListener());
-        setPreferredSize(new Dimension(100, 30));
-        add(new JLabel(command.getHeader()));
+        setPreferredSize(new Dimension(150, 50));
+        add(new JTextField(3), BorderLayout.WEST);
+        add(new JLabel(command.getHeader().split(" ")[0]), BorderLayout.CENTER);
+        add(new JTextField(3), BorderLayout.EAST);
         setBackground(Color.gray);
     }
 
