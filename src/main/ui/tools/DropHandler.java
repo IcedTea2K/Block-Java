@@ -49,7 +49,7 @@ public class DropHandler implements DropTargetListener {
 
                 if (content instanceof CommandLabel && dropTarget instanceof Container) {
                     swapParent((JPanel) content, (Container) dropTarget);
-                    ((CommandLabel) content).activateLabel();
+                    ((MovableCommandLabel) content).activateLabel();
 
                     success = true;
                     dtde.acceptDrop(DnDConstants.ACTION_MOVE);

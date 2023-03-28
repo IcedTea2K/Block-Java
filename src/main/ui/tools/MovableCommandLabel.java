@@ -3,45 +3,113 @@ package ui.tools;
 import model.*;
 import ui.GraphicalApplication;
 
+import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
-import java.awt.dnd.DnDConstants;
-import java.awt.dnd.DragGestureRecognizer;
-import java.awt.dnd.DragSource;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 // Movable command label
 public class MovableCommandLabel extends CommandLabel {
     public static final DataFlavor MetaData = new DataFlavor(MovableCommandLabel.class,
             "Movable Commands");
-    private DragGestureRecognizer dragRecognizer;
-    private DragGestureHandler dragHandler;
+    protected Command command;
+    private MouseListener mouseListener;
 
-    public MovableCommandLabel(CommandType commandType, GraphicalApplication gui) {
-        super(commandType, gui);
+    public MovableCommandLabel(String label, CommandType commandType, GraphicalApplication gui) {
+        super(label, commandType, gui);
     }
 
-    @Override
     // MODIFIES: this
-    // EFFECTS: initialize drag handler when the panel has a container
-    public void addNotify() {
-        super.addNotify();
+    // EFFECTS: remove the command and the mouse listener
+    public void deactivateLabel() {
+        removeMouseListener(this.mouseListener);
+        this.command = null;
+        this.mouseListener = null;
+    }
 
-        if (dragRecognizer == null) {
-            dragHandler = new DragGestureHandler(this);
-            dragRecognizer = DragSource.getDefaultDragSource().createDefaultDragGestureRecognizer(
-                    this, DnDConstants.ACTION_MOVE, dragHandler);
+    // MODIFIES: this
+    // EFFECTS: activate the label
+    public void activateLabel() {
+        this.mouseListener = new CommandLabelListener();
+        addMouseListener(this.mouseListener);
+        addCommand();
+    }
+
+    // EFFECTS: return true if the label is currently holding a command
+    //          return false otherwise
+    public boolean hasCommand() {
+        return this.command != null;
+    }
+
+    // EFFECTS: set the command in this tool
+    public void addCommand() {
+        switch (commandType) {
+            case ADD:
+                this.command = new Add();
+                break;
+            case SUB:
+                this.command = new Subtract();
+                break;
+            case MUL:
+                this.command = new Multiply();
+                break;
+            case DIV:
+                this.command = new Divide();
+                break;
         }
     }
 
-    @Override
-    // MODIFIES: this
-    // EFFECTS: remove drag handlers when the panel is removed from a container
-    public void removeNotify() {
-        if (dragRecognizer != null) {
-            dragRecognizer.removeDragGestureListener(dragHandler);
-            dragHandler = null;
+    // EFFECTS: custom class for mouse listener
+    private class CommandLabelListener implements MouseListener {
+        @Override
+        // EFFECTS: if the program is in delete mode, when clicked, the command will be removed
+        public void mouseClicked(MouseEvent e) {
+            if (gui.isInDeleteMode()) {
+                Container tempParent = getParent();
+                tempParent.remove(MovableCommandLabel.this);
+                tempParent.invalidate();
+                tempParent.repaint();
+            }
         }
-        dragRecognizer = null;
 
-        super.removeNotify();
+        /**
+         * Invoked when a mouse button has been pressed on a component.
+         *
+         * @param e the event to be processed
+         */
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        /**
+         * Invoked when a mouse button has been released on a component.
+         *
+         * @param e the event to be processed
+         */
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        /**
+         * Invoked when the mouse enters a component.
+         *
+         * @param e the event to be processed
+         */
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        /**
+         * Invoked when the mouse exits a component.
+         *
+         * @param e the event to be processed
+         */
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
     }
 }

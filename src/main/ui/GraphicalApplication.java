@@ -124,10 +124,10 @@ public class GraphicalApplication extends JFrame implements Serializable {
         JPanel commandPane = new ViewPanel(new Dimension(300, 300), null,
                 "Commands");
 
-        commandPane.add(new MovableCommandLabel(CommandLabel.CommandType.ADD, this));
-        commandPane.add(new MovableCommandLabel(CommandLabel.CommandType.SUB, this));
-        commandPane.add(new MovableCommandLabel(CommandLabel.CommandType.DIV, this));
-        commandPane.add(new MovableCommandLabel(CommandLabel.CommandType.MUL, this));
+        commandPane.add(new CommandLabel("ADD", CommandLabel.CommandType.ADD, this));
+        commandPane.add(new CommandLabel("SUB", CommandLabel.CommandType.SUB, this));
+        commandPane.add(new CommandLabel("DIV", CommandLabel.CommandType.DIV, this));
+        commandPane.add(new CommandLabel("MUL", CommandLabel.CommandType.MUL, this));
 
         container.add(commandPane, BorderLayout.NORTH);
     }
