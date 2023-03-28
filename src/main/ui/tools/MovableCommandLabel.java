@@ -32,31 +32,13 @@ public class MovableCommandLabel extends CommandLabel {
     public void activateLabel() {
         this.mouseListener = new CommandLabelListener();
         addMouseListener(this.mouseListener);
-        addCommand();
+        this.command = CommandType.createCommand(this.commandType);
     }
 
     // EFFECTS: return true if the label is currently holding a command
     //          return false otherwise
     public boolean hasCommand() {
         return this.command != null;
-    }
-
-    // EFFECTS: set the command in this tool
-    public void addCommand() {
-        switch (commandType) {
-            case ADD:
-                this.command = new Add();
-                break;
-            case SUB:
-                this.command = new Subtract();
-                break;
-            case MUL:
-                this.command = new Multiply();
-                break;
-            case DIV:
-                this.command = new Divide();
-                break;
-        }
     }
 
     // EFFECTS: custom class for mouse listener

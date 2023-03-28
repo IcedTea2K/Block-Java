@@ -59,9 +59,4 @@ public class CommandLabel extends JPanel {
 
         super.removeNotify();
     }
-
-    // Different command types represented as an enum
-    public static enum CommandType {
-        ADD, SUB, MUL, DIV, EQUAL, LARGER, SMALLER, AND, OR
-    }
 }
