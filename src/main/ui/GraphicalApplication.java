@@ -9,6 +9,8 @@ import ui.tools.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 // Main class for controlling the GUI
 public class GraphicalApplication extends JFrame {
@@ -21,6 +23,7 @@ public class GraphicalApplication extends JFrame {
 
     private DeleteTool deleteTool;
     Translator translator;
+    private String fileName = "./data/saved_progress.json";
 
     // EFFECTS: initialize the GUI
     public GraphicalApplication() {
@@ -39,6 +42,18 @@ public class GraphicalApplication extends JFrame {
         } catch (MissingCommandsException | MissingArgumentException | NotYetExecutedException e) {
             reportException(e);
         }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: return the commands that are being held by the translator
+    public List<Command> getTranslatorCommands() {
+        addCommandsToTranslator();
+        try {
+            this.translator.executeStream();
+        } catch (MissingCommandsException e) {
+            return new ArrayList<>();
+        }
+        return this.translator.getStream();
     }
 
     // MODIFIES: this
@@ -70,7 +85,7 @@ public class GraphicalApplication extends JFrame {
         }
     }
 
-    private void reportException(Exception e) {
+    public void reportException(Exception e) {
         terminalView.print(e.toString().replaceAll("except.", "") + "\n", true);
     }
 
@@ -199,6 +214,8 @@ public class GraphicalApplication extends JFrame {
         buttonPane.add(deleteTool);
         buttonPane.add(new ExecuteTool(this));
         buttonPane.add(new JavaTool(this));
+        buttonPane.add(new SaveTool(this));
+
         container.add(buttonPane, BorderLayout.NORTH);
     }
 
@@ -215,4 +232,8 @@ public class GraphicalApplication extends JFrame {
         setLocation((width - getWidth()) / 2, (height - getHeight()) / 2);
     }
 
+    // EFFECTS: return the file name that contains saved data
+    public String getSavedFileName() {
+        return this.fileName;
+    }
 }
