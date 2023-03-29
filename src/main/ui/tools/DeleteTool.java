@@ -10,8 +10,6 @@ public class DeleteTool extends Tool {
     public DeleteTool() {
         super("Delete");
         state = false;
-        setBorderPainted(false);
-        setOpaque(true);
         changeColor();
     }
 
