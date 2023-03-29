@@ -17,8 +17,10 @@ public class GraphicalApplication extends JFrame {
     private JPanel mainPane;
     private TerminalView terminalView;
     private TranslatorView translatorView;
+    private JavaView javaView;
 
     private DeleteTool deleteTool;
+    Translator translator;
 
     // EFFECTS: initialize the GUI
     public GraphicalApplication() {
@@ -28,7 +30,7 @@ public class GraphicalApplication extends JFrame {
     // MODIFIES: this
     // EFFECTS: execute the commands in the translator
     public void executeTranslator() {
-        Translator translator = new Translator();
+        translator = new Translator();
         Component[] components = translatorView.getComponents();
         for (Component component : components) {
             if (component instanceof MovableCommandLabel) {
@@ -41,8 +43,26 @@ public class GraphicalApplication extends JFrame {
             terminalView.clearTerminal();
             terminalView.print(translator.getResults(), false);
         } catch (MissingCommandsException | MissingArgumentException | NotYetExecutedException e) {
-            terminalView.print(e.toString().replaceAll("except.", "") + "\n", true);
+            reportException(e);
         }
+    }
+
+    // EFFECTS: add the java representation to the Java view
+    public void javify() {
+        if (translator == null) {
+            javaView.printJava("");
+            return;
+        }
+
+        try {
+            javaView.printJava(translator.translateToJava());
+        } catch (MissingCommandsException e) {
+            reportException(e);
+        }
+    }
+
+    private void reportException(Exception e) {
+        terminalView.print(e.toString().replaceAll("except.", "") + "\n", true);
     }
 
     // EFFECTS: print log message to terminal
@@ -135,9 +155,9 @@ public class GraphicalApplication extends JFrame {
     // MODIFIES: this
     // EFFECTS: add the java pane
     private void addJavaPane(JPanel container) {
-        JPanel javaPane = new ViewPanel(new Dimension(300, 300), new Color(7570064),
+        javaView = new JavaView(new Dimension(300, 300), new Color(7570064),
                 "Java View");
-        container.add(javaPane, BorderLayout.EAST);
+        container.add(javaView, BorderLayout.EAST);
     }
 
     // MODIFIES: this
@@ -162,6 +182,7 @@ public class GraphicalApplication extends JFrame {
         deleteTool = new DeleteTool();
         buttonPane.add(deleteTool);
         buttonPane.add(new ExecuteTool(this));
+        buttonPane.add(new JavaTool(this));
         container.add(buttonPane, BorderLayout.NORTH);
     }
 

@@ -20,6 +20,7 @@ public class ExecuteTool extends Tool {
         addActionListener(new ExecuteToolHandler());
     }
 
+    // handler for the execute button
     private class ExecuteToolHandler implements ActionListener {
         @Override
         // MODIFIES: gui
