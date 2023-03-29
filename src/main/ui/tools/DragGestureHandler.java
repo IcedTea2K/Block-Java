@@ -6,6 +6,7 @@ import java.awt.datatransfer.Transferable;
 import java.awt.dnd.*;
 import java.io.Serializable;
 
+// Handler for drag operation
 public class DragGestureHandler implements DragGestureListener, DragSourceListener, Serializable {
     private MovableCommandLabel content;
     private CommandLabel commandLabel;
@@ -18,7 +19,6 @@ public class DragGestureHandler implements DragGestureListener, DragSourceListen
     // MODIFIES: this
     // EFFECTS: begin the drag and drop operation
     public void dragGestureRecognized(DragGestureEvent dge) {
-        System.out.println("label deactivated");
         this.content = this.commandLabel.generateMovableLabel();
         this.content.deactivateLabel();
 

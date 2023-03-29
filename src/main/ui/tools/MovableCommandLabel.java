@@ -20,11 +20,9 @@ public class MovableCommandLabel extends CommandLabel {
     private Command command;
     private DataType leftOperand;
     private DataType rightOperand;
-    private Integer index;
 
     public MovableCommandLabel(String label, CommandType commandType) {
         super(label, commandType, CommandLabel.gui);
-        this.index = null;
     }
 
     public MovableCommandLabel(Command command) {
@@ -74,25 +72,14 @@ public class MovableCommandLabel extends CommandLabel {
             this.isLeft = side;
         }
 
-        /**
-         * Gives notification that there was an insert into the document.  The
-         * range given by the DocumentEvent bounds the freshly inserted region.
-         *
-         * @param e the document event
-         */
         @Override
+        // EFFECTS: is invoked when the user is inserting something new
         public void insertUpdate(DocumentEvent e) {
             notifyNewInput(isLeft);
         }
 
-        /**
-         * Gives notification that a portion of the document has been
-         * removed.  The range is given in terms of what the view last
-         * saw (that is, before updating sticky positions).
-         *
-         * @param e the document event
-         */
         @Override
+        // EFFECTS: is invoked when the user is removing something
         public void removeUpdate(DocumentEvent e) {
             notifyNewInput(isLeft);
         }

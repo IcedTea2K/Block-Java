@@ -7,7 +7,7 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.DragGestureRecognizer;
 import java.io.IOException;
 
-// Define which type of panel can be moved/transfered
+// Define which type of panel can be moved/transferred
 // Can also be used as a wrapper class for the moving panel
 public class MovablePanel implements Transferable {
     private DataFlavor[] flavors = new DataFlavor[] {MovableCommandLabel.MetaData};

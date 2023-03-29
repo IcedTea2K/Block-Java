@@ -10,8 +10,6 @@ import ui.GraphicalApplication;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 // Button for saving the application
 public class SaveTool extends Tool {

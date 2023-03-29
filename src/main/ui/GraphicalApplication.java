@@ -85,6 +85,7 @@ public class GraphicalApplication extends JFrame {
         }
     }
 
+    // EFFECTS: print the exception message to the terminal view
     public void reportException(Exception e) {
         terminalView.print(e.toString().replaceAll("except.", "") + "\n", true);
     }

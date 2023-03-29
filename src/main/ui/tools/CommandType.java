@@ -2,6 +2,7 @@ package ui.tools;
 
 import model.*;
 
+// Enum class for each of the Command
 public enum CommandType {
     ADD, SUB, MUL, DIV, EQUAL, LARGER, SMALLER, AND, OR;
 

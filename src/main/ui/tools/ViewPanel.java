@@ -1,7 +1,6 @@
 package ui.tools;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 // A view in the application. It's non-interactive by default

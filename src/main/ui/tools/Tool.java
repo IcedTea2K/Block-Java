@@ -2,7 +2,6 @@ package ui.tools;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 // Tools that are used in the application
 public abstract class Tool extends JButton {

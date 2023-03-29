@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// delete button and its functionality
 public class DeleteTool extends Tool {
     private boolean state;
 
