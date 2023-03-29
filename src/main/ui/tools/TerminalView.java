@@ -10,6 +10,9 @@ public class TerminalView extends  ViewPanel {
     public TerminalView(Dimension size, Color color, String label) {
         super(size, color, label);
         terminal = new JTextArea();
+        terminal.setOpaque(true);
+        terminal.setEditable(false);
+        terminal.setBackground(color);
         add(terminal);
     }
 
