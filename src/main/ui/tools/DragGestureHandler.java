@@ -52,9 +52,8 @@ public class DragGestureHandler implements DragGestureListener, DragSourceListen
     // EFFECTS: drop the content in the new container.
     //          If the drop is not successful, return the content to the previous container
     public void dragDropEnd(DragSourceDropEvent dsde) {
-//        if (!dsde.getDropSuccess()) {
-//            this.content = null;
-//        }
-        this.content = null;
+        if (!dsde.getDropSuccess()) {
+            this.content = null;
+        }
     }
 }

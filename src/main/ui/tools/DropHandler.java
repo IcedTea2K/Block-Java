@@ -84,7 +84,7 @@ public class DropHandler implements DropTargetListener, Serializable {
     // MODIFIES: component
     // EFFECTS: update the given JComponent
     private void updateComponent(Container component) {
-        component.invalidate();
+        component.revalidate();
         component.repaint();
     }
 }

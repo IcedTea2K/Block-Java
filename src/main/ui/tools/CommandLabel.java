@@ -12,7 +12,7 @@ import java.awt.dnd.DragSource;
 public class CommandLabel extends JPanel {
     protected CommandType commandType;
     protected String label;
-    protected GraphicalApplication gui;
+    protected static GraphicalApplication gui;
     protected DragGestureRecognizer dragRecognizer;
     protected DragGestureHandler dragHandler;
 
@@ -36,7 +36,7 @@ public class CommandLabel extends JPanel {
 
     // EFFECTS: generate a similar label but it's movable
     public MovableCommandLabel generateMovableLabel() {
-        return new MovableCommandLabel(this.label, this.commandType, this.gui);
+        return new MovableCommandLabel(this.label, this.commandType);
     }
 
     @Override
