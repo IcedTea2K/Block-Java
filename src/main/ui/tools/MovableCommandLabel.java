@@ -1,6 +1,8 @@
 package ui.tools;
 
 import except.InvalidArgumentException;
+import except.MissingArgumentException;
+import except.MissingCommandsException;
 import model.Command;
 import model.DataType;
 
@@ -19,9 +21,11 @@ public class MovableCommandLabel extends CommandLabel {
     private Command command;
     private DataType leftOperand;
     private DataType rightOperand;
+    private Integer index;
 
     public MovableCommandLabel(String label, CommandType commandType) {
         super(label, commandType, CommandLabel.gui);
+        this.index = null;
     }
 
     // MODIFIES: this
@@ -92,17 +96,40 @@ public class MovableCommandLabel extends CommandLabel {
     // EFFECTS: check the new input and print the error message to the terminal view if necessary
     private void notifyNewInput(boolean isLeft) {
         try {
-            if (isLeft) {
-                this.leftOperand = new DataType(Integer.parseInt(leftTextField.getText()));
-            } else {
-                this.rightOperand = new DataType(Integer.parseInt(rightTextField.getText()));
-            }
-            command.input(leftOperand, rightOperand);
+            parseTextFields(isLeft);
+            giveInputToCommand();
+            gui.printToTerminal("Input added successfully\n");
         } catch (NumberFormatException e) {
             gui.printToTerminal("WrongArgumentTypeException: Given input is not a number\n");
-        } catch (InvalidArgumentException e) {
+        } catch (InvalidArgumentException | MissingArgumentException e) {
             gui.printToTerminal(e.toString().replaceAll("except.", "") + "\n");
         }
+    }
+
+    // EFFECTS: check and parse text fields and assign to appropriate operand
+    //          If the text is not integer, throws NumberFormatException
+    private void parseTextFields(boolean isLeft) throws NumberFormatException {
+        if (isLeft) {
+            this.leftOperand =  leftTextField.getText().isEmpty()
+                    ? null : new DataType(Integer.parseInt(leftTextField.getText()));
+        } else {
+            this.rightOperand =  rightTextField.getText().isEmpty()
+                    ? null : new DataType(Integer.parseInt(rightTextField.getText()));
+        }
+    }
+
+    // EFFECTS: add the inputs to the command
+    //          If the input type does not match, InvalidArgumentException will be thrown
+    //          Otherwise if either left or right operand is null, throw MissingArgumentEcception
+    private void giveInputToCommand() throws InvalidArgumentException, MissingArgumentException {
+        if (leftOperand == null && rightOperand == null) {
+            command.input();
+        } else if (leftOperand == null) {
+            command.input(rightOperand);
+        } else if (rightOperand == null) {
+            command.input(leftOperand);
+        }
+        command.input(this.leftOperand, this.rightOperand);
     }
 
     // EFFECTS: custom class for mouse listener

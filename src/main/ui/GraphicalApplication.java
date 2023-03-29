@@ -1,5 +1,6 @@
 package ui;
 
+import model.Command;
 import model.Translator;
 import ui.tools.*;
 
@@ -31,8 +32,9 @@ public class GraphicalApplication extends JFrame {
 
     // MODIFIES: this
     // EFFECTS: add the corresponding Command to translator
-    public void addCommandToTranslator(CommandType commandType) {
-        translator.addCommand(CommandType.createCommand(commandType));
+    public int addCommandToTranslator(Command command) {
+        translator.addCommand(command);
+        return translator.getStream().size() - 1;
     }
 
     // EFFECTS: print log message to terminal
