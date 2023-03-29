@@ -2,7 +2,6 @@ package ui.tools;
 
 import except.InvalidArgumentException;
 import except.MissingArgumentException;
-import except.MissingCommandsException;
 import model.Command;
 import model.DataType;
 
@@ -28,6 +27,22 @@ public class MovableCommandLabel extends CommandLabel {
         this.index = null;
     }
 
+    public MovableCommandLabel(Command command) {
+        super(command.getHeader().split(" ")[0],
+               CommandType.valueOf(command.getHeader().split(" ")[0]), CommandLabel.gui);
+        this.command = command;
+        fillTextFields();
+        activateLabel();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: fill the text fields with command's existing input
+    private void fillTextFields() {
+        String[] javaStr =  this.command.getJava(1).split(" ");
+        this.leftTextField.setText(javaStr[3]);
+        this.rightTextField.setText(javaStr[5].replaceAll(";", ""));
+    }
+
     // MODIFIES: this
     // EFFECTS: remove the command and the mouse listener
     public void deactivateLabel() {
@@ -39,7 +54,9 @@ public class MovableCommandLabel extends CommandLabel {
     // EFFECTS: activate the label
     public void activateLabel() {
         this.mouseListener = new CommandLabelListener();
-        this.command = CommandType.createCommand(this.commandType);
+        if (this.command == null) {
+            this.command = CommandType.createCommand(this.commandType);
+        }
         this.leftTextField.getDocument().addDocumentListener(new InputListener(true));
         this.rightTextField.getDocument().addDocumentListener(new InputListener(false));
         addMouseListener(this.mouseListener);

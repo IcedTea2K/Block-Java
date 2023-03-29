@@ -215,6 +215,7 @@ public class GraphicalApplication extends JFrame {
         buttonPane.add(new ExecuteTool(this));
         buttonPane.add(new JavaTool(this));
         buttonPane.add(new SaveTool(this));
+        buttonPane.add(new LoadTool(this));
 
         container.add(buttonPane, BorderLayout.NORTH);
     }
@@ -235,5 +236,10 @@ public class GraphicalApplication extends JFrame {
     // EFFECTS: return the file name that contains saved data
     public String getSavedFileName() {
         return this.fileName;
+    }
+
+    // EFFECTS: return the translator view in the program
+    public TranslatorView getTranslatorView() {
+        return this.translatorView;
     }
 }
