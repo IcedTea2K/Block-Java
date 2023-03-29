@@ -99,13 +99,39 @@ public class GraphicalApplication extends JFrame {
     private void initializeGraphics() {
         setLayout(new BorderLayout());
         setSize(WIDTH, HEIGHT);
+        splashScreen();
         setResizable(false);
-        centerOnScreen();
+        centerOnScreen(this);
 
         setPanes();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+    }
+
+    // EFFECTS: show a splash screen at the start of the program
+    private void splashScreen() {
+        JWindow window = new JWindow();
+        window.setSize(WIDTH, HEIGHT);
+        centerOnScreen(window);
+
+        ImageIcon logo = new ImageIcon("data/Block_java_splash_screen.png");
+        window.getContentPane().add(new JLabel(scaleImage(logo, WIDTH, HEIGHT - 200)));
+        window.setVisible(true);
+        try {
+            Thread.sleep(3500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        window.setVisible(false);
+        window.dispose();
+    }
+
+    // EFFECTS: return a scale version of given imageIcon
+    private ImageIcon scaleImage(ImageIcon imageIcon, int width, int height) {
+        Image image = imageIcon.getImage();
+        Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        return new ImageIcon(scaledImage);
     }
 
     // MODIFIES: this
@@ -227,10 +253,11 @@ public class GraphicalApplication extends JFrame {
 
     // MODIFIES: this
     // EFFECTS: center the application on the screen
-    private void centerOnScreen() {
+    private void centerOnScreen(Window container) {
         int width = Toolkit.getDefaultToolkit().getScreenSize().width;
         int height = Toolkit.getDefaultToolkit().getScreenSize().height;
-        setLocation((width - getWidth()) / 2, (height - getHeight()) / 2);
+        container.setLocationRelativeTo(null);
+        container.setLocation((width - getWidth()) / 2, (height - getHeight()) / 2);
     }
 
     // EFFECTS: return the file name that contains saved data
