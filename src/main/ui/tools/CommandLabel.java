@@ -37,7 +37,8 @@ public class CommandLabel extends JPanel {
     // MODIFIES: this
     // EFFECTS: create all the necessary components
     private void initializeLabel() {
-        setPreferredSize(new Dimension(150, 50));
+//        setPreferredSize(new Dimension(150, 50));
+        setMaximumSize(new Dimension(150, 50));
         add(leftTextField, BorderLayout.WEST);
         add(new JLabel(this.label), BorderLayout.CENTER);
         add(rightTextField, BorderLayout.EAST);

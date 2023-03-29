@@ -49,7 +49,7 @@ public class DropHandler implements DropTargetListener, Serializable {
                 Component dropTarget = dropTargetContext.getComponent();
 
                 if (content instanceof CommandLabel && dropTarget instanceof Container) {
-                    swapParent((JPanel) content, (Container) dropTarget);
+                    addToDropSite((JPanel) content, (Container) dropTarget);
                     ((MovableCommandLabel) content).activateLabel();
 
                     success = true;
@@ -71,13 +71,9 @@ public class DropHandler implements DropTargetListener, Serializable {
 
     // MODIFIES: content and newContainer
     // EFFECTS: remove the content from the current container and add to the new container
-    private void swapParent(JPanel content, Container newContainer) {
-        Container oldContainer = content.getParent();
-        if (oldContainer != null) {
-            oldContainer.remove(content);
-            updateComponent(oldContainer);
-        }
+    private void addToDropSite(JPanel content, Container newContainer) {
         newContainer.add(content);
+        newContainer.add(Box.createRigidArea(new Dimension(10, 2)));
         updateComponent(newContainer);
     }
 

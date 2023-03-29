@@ -8,8 +8,10 @@ public class ViewPanel extends JPanel {
     public ViewPanel(Dimension size, Color color, String label) {
         setPreferredSize(size);
         setBackground(color);
-        setLayout(new FlowLayout());
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setOpaque(true);
-        add(new JLabel(label));
+        JLabel viewLabel = new JLabel(label);
+        viewLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(viewLabel);
     }
 }

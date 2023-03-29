@@ -167,9 +167,13 @@ public class GraphicalApplication extends JFrame {
                 "Commands");
 
         commandPane.add(new CommandLabel("ADD", CommandType.ADD, this));
+        commandPane.add(Box.createRigidArea(new Dimension(10, 2)));
         commandPane.add(new CommandLabel("SUB", CommandType.SUB, this));
+        commandPane.add(Box.createRigidArea(new Dimension(10, 2)));
         commandPane.add(new CommandLabel("DIV", CommandType.DIV, this));
+        commandPane.add(Box.createRigidArea(new Dimension(10, 2)));
         commandPane.add(new CommandLabel("MUL", CommandType.MUL, this));
+        commandPane.add(Box.createRigidArea(new Dimension(10, 2)));
 
         container.add(commandPane, BorderLayout.NORTH);
     }
