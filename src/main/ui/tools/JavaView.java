@@ -10,6 +10,9 @@ public class JavaView extends ViewPanel {
     public JavaView(Dimension size, Color color, String label) {
         super(size, color, label);
         textArea = new JTextArea();
+        textArea.setOpaque(true);
+        textArea.setEditable(false);
+        textArea.setBackground(color);
         add(textArea);
     }
 
