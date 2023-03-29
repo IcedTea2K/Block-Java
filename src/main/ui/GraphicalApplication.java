@@ -56,7 +56,8 @@ public class GraphicalApplication extends JFrame {
 
         try {
             javaView.printJava(translator.translateToJava());
-        } catch (MissingCommandsException e) {
+        } catch (MissingCommandsException | MissingArgumentException e) {
+            javaView.printJava("");
             reportException(e);
         }
     }
