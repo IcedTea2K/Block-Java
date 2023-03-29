@@ -15,22 +15,32 @@ public class CommandLabel extends JPanel {
     protected static GraphicalApplication gui;
     protected DragGestureRecognizer dragRecognizer;
     protected DragGestureHandler dragHandler;
+    protected JTextField leftTextField;
+    protected JTextField rightTextField;
 
     public CommandLabel(String label, CommandType commandType, GraphicalApplication gui) {
         this.commandType = commandType;
-        this.gui = gui;
+        CommandLabel.gui = gui;
         this.label = label;
 
+        initializeFields();
         initializeLabel();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: initialize the fields of the class
+    private void initializeFields() {
+        leftTextField = new JTextField(3);
+        rightTextField = new JTextField(3);
     }
 
     // MODIFIES: this
     // EFFECTS: create all the necessary components
     private void initializeLabel() {
         setPreferredSize(new Dimension(150, 50));
-        add(new JTextField(3), BorderLayout.WEST);
+        add(leftTextField, BorderLayout.WEST);
         add(new JLabel(this.label), BorderLayout.CENTER);
-        add(new JTextField(3), BorderLayout.EAST);
+        add(rightTextField, BorderLayout.EAST);
         setBackground(Color.gray);
     }
 

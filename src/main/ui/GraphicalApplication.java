@@ -5,13 +5,14 @@ import ui.tools.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.Serializable;
 
 // Main class for controlling the GUI
 public class GraphicalApplication extends JFrame {
     public static final int WIDTH = 980;
     public static final int HEIGHT = 750;
     private JPanel mainPane;
+    private TerminalView terminalView;
+    private TranslatorView translatorView;
 
     private Translator translator;
     private DeleteTool deleteTool;
@@ -19,13 +20,24 @@ public class GraphicalApplication extends JFrame {
     // EFFECTS: initialize the GUI
     public GraphicalApplication() {
         initializeGraphics();
-//        initializeFields();
+        initializeFields();
     }
 
     // MODIFIES: this
     // EFFECTS: initialize the necessary fields
     private void initializeFields() {
         translator = new Translator();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: add the corresponding Command to translator
+    public void addCommandToTranslator(CommandType commandType) {
+        translator.addCommand(CommandType.createCommand(commandType));
+    }
+
+    // EFFECTS: print log message to terminal
+    public void printToTerminal(String logMessage) {
+        terminalView.print(logMessage);
     }
 
     // MODIFIES: this
@@ -97,17 +109,17 @@ public class GraphicalApplication extends JFrame {
     // MODIFIES: this
     // EFFECTS: add the translator pane
     private void addTranslatorPane(JPanel container) {
-        JPanel translatorPane = new InteractivePanel(new Dimension(300, 300), new Color(16776439),
+        translatorView = new TranslatorView(new Dimension(300, 300), new Color(16776439),
                 "Translator");
-        container.add(translatorPane, BorderLayout.WEST);
+        container.add(translatorView, BorderLayout.WEST);
     }
 
     // MODIFIES: this
     // EFFECTS: add the terminal pane
     private void addTerminalPane(JPanel container) {
-        JPanel terminalPane = new ViewPanel(new Dimension(450, 380), new Color(4607316),
+        terminalView = new TerminalView(new Dimension(450, 380), new Color(4607316),
                 "Terminal");
-        container.add(terminalPane, BorderLayout.EAST);
+        container.add(terminalView, BorderLayout.EAST);
     }
 
     // MODIFIES: this
