@@ -11,6 +11,7 @@ public class TranslatorView extends ViewPanel {
 
     public TranslatorView(Dimension size, Color color, String label) {
         super(size, color, label);
+        setLayout(new FlowLayout());
     }
 
     @Override

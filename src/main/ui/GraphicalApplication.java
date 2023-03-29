@@ -166,6 +166,7 @@ public class GraphicalApplication extends JFrame {
     private void addCommandPane(JPanel container) {
         JPanel commandPane = new ViewPanel(new Dimension(300, 300), null,
                 "Commands");
+        commandPane.setLayout(new FlowLayout());
 
         commandPane.add(new CommandLabel("ADD", CommandType.ADD, this));
         commandPane.add(Box.createRigidArea(new Dimension(10, 2)));
@@ -184,6 +185,7 @@ public class GraphicalApplication extends JFrame {
     private void addButtonPane(JPanel container) {
         JPanel buttonPane = new ViewPanel(new Dimension(300, 300), null,
                 "Buttons");
+        buttonPane.setLayout(new FlowLayout());
         deleteTool = new DeleteTool();
         buttonPane.add(deleteTool);
         buttonPane.add(new ExecuteTool(this));
