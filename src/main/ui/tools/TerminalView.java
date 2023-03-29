@@ -12,8 +12,21 @@ public class TerminalView extends  ViewPanel {
         add(terminal);
     }
 
+    // MODIFIES: this
     // EFFECTS: add log message to the terminal
-    public void print(String msg) {
-        terminal.append(msg);
+    public void print(String msg, boolean withIndicator) {
+        if (withIndicator) {
+            for (String str : msg.split("\n")) {
+                terminal.append(">" + str + "\n");
+            }
+        } else {
+            terminal.append(msg);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: clear the terminal
+    public void clearTerminal() {
+        terminal.setText("");
     }
 }

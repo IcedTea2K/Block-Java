@@ -38,15 +38,16 @@ public class GraphicalApplication extends JFrame {
 
         try {
             translator.executeStream();
-            terminalView.print(translator.getResults());
+            terminalView.clearTerminal();
+            terminalView.print(translator.getResults(), false);
         } catch (MissingCommandsException | MissingArgumentException | NotYetExecutedException e) {
-            terminalView.print(e.toString().replaceAll("except.", "") + "\n");
+            terminalView.print(e.toString().replaceAll("except.", "") + "\n", true);
         }
     }
 
     // EFFECTS: print log message to terminal
     public void printToTerminal(String logMessage) {
-        terminalView.print(logMessage);
+        terminalView.print(logMessage, true);
     }
 
     // MODIFIES: this
