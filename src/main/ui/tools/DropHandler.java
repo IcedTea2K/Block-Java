@@ -6,9 +6,10 @@ import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.*;
 import java.io.IOException;
+import java.io.Serializable;
 
 // The class to handle the drop operation
-public class DropHandler implements DropTargetListener {
+public class DropHandler implements DropTargetListener, Serializable {
     @Override
     // EFFECTS: Called while a drag operation is ongoing, when the mouse pointer enters
     //          operable part of the drop site

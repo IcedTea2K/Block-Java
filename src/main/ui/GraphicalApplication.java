@@ -8,7 +8,7 @@ import java.awt.*;
 import java.io.Serializable;
 
 // Main class for controlling the GUI
-public class GraphicalApplication extends JFrame implements Serializable {
+public class GraphicalApplication extends JFrame {
     public static final int WIDTH = 980;
     public static final int HEIGHT = 750;
     private JPanel mainPane;
@@ -19,7 +19,7 @@ public class GraphicalApplication extends JFrame implements Serializable {
     // EFFECTS: initialize the GUI
     public GraphicalApplication() {
         initializeGraphics();
-        initializeFields();
+//        initializeFields();
     }
 
     // MODIFIES: this

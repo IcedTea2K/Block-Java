@@ -7,12 +7,13 @@ import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.Serializable;
 
 // Movable command label
 public class MovableCommandLabel extends CommandLabel {
     public static final DataFlavor MetaData = new DataFlavor(MovableCommandLabel.class,
             "Movable Commands");
-    protected Command command;
+//    protected Command command;
     private MouseListener mouseListener;
 
     public MovableCommandLabel(String label, CommandType commandType, GraphicalApplication gui) {
@@ -23,7 +24,7 @@ public class MovableCommandLabel extends CommandLabel {
     // EFFECTS: remove the command and the mouse listener
     public void deactivateLabel() {
         removeMouseListener(this.mouseListener);
-        this.command = null;
+//        this.command = null;
         this.mouseListener = null;
     }
 
@@ -32,20 +33,15 @@ public class MovableCommandLabel extends CommandLabel {
     public void activateLabel() {
         this.mouseListener = new CommandLabelListener();
         addMouseListener(this.mouseListener);
-        this.command = CommandType.createCommand(this.commandType);
-    }
-
-    // EFFECTS: return true if the label is currently holding a command
-    //          return false otherwise
-    public boolean hasCommand() {
-        return this.command != null;
+//        this.command = CommandType.createCommand(this.commandType);
     }
 
     // EFFECTS: custom class for mouse listener
-    private class CommandLabelListener implements MouseListener {
+    private class CommandLabelListener implements MouseListener, Serializable {
         @Override
         // EFFECTS: if the program is in delete mode, when clicked, the command will be removed
         public void mouseClicked(MouseEvent e) {
+            System.out.println("wohooo");
             if (gui.isInDeleteMode()) {
                 Container tempParent = getParent();
                 tempParent.remove(MovableCommandLabel.this);

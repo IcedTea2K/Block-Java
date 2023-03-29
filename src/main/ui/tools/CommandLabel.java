@@ -34,6 +34,7 @@ public class CommandLabel extends JPanel {
         setBackground(Color.gray);
     }
 
+    // EFFECTS: generate a similar label but it's movable
     public MovableCommandLabel generateMovableLabel() {
         return new MovableCommandLabel(this.label, this.commandType, this.gui);
     }
@@ -49,18 +50,5 @@ public class CommandLabel extends JPanel {
             dragRecognizer = DragSource.getDefaultDragSource().createDefaultDragGestureRecognizer(
                     this, DnDConstants.ACTION_MOVE, dragHandler);
         }
-    }
-
-    @Override
-    // MODIFIES: this
-    // EFFECTS: remove drag handlers when the panel is removed from a container
-    public void removeNotify() {
-        if (dragRecognizer != null) {
-            dragRecognizer.removeDragGestureListener(dragHandler);
-            dragHandler = null;
-        }
-        dragRecognizer = null;
-
-        super.removeNotify();
     }
 }
