@@ -1,5 +1,8 @@
 package ui;
 
+import except.MissingArgumentException;
+import except.MissingCommandsException;
+import except.NotYetExecutedException;
 import model.Command;
 import model.Translator;
 import ui.tools.*;
@@ -15,26 +18,30 @@ public class GraphicalApplication extends JFrame {
     private TerminalView terminalView;
     private TranslatorView translatorView;
 
-    private Translator translator;
     private DeleteTool deleteTool;
 
     // EFFECTS: initialize the GUI
     public GraphicalApplication() {
         initializeGraphics();
-        initializeFields();
     }
 
     // MODIFIES: this
-    // EFFECTS: initialize the necessary fields
-    private void initializeFields() {
-        translator = new Translator();
-    }
+    // EFFECTS: execute the commands in the translator
+    public void executeTranslator() {
+        Translator translator = new Translator();
+        Component[] components = translatorView.getComponents();
+        for (Component component : components) {
+            if (component instanceof MovableCommandLabel) {
+                translator.addCommand(((MovableCommandLabel) component).getCommand());
+            }
+        }
 
-    // MODIFIES: this
-    // EFFECTS: add the corresponding Command to translator
-    public int addCommandToTranslator(Command command) {
-        translator.addCommand(command);
-        return translator.getStream().size() - 1;
+        try {
+            translator.executeStream();
+            terminalView.print(translator.getResults());
+        } catch (MissingCommandsException | MissingArgumentException | NotYetExecutedException e) {
+            terminalView.print(e.toString().replaceAll("except.", "") + "\n");
+        }
     }
 
     // EFFECTS: print log message to terminal
@@ -153,6 +160,7 @@ public class GraphicalApplication extends JFrame {
                 "Buttons");
         deleteTool = new DeleteTool();
         buttonPane.add(deleteTool);
+        buttonPane.add(new ExecuteTool(this));
         container.add(buttonPane, BorderLayout.NORTH);
     }
 

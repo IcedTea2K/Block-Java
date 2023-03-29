@@ -42,8 +42,6 @@ public class MovableCommandLabel extends CommandLabel {
         this.command = CommandType.createCommand(this.commandType);
         this.leftTextField.getDocument().addDocumentListener(new InputListener(true));
         this.rightTextField.getDocument().addDocumentListener(new InputListener(false));
-        leftOperand = new DataType(0);
-        rightOperand = new DataType(0);
         addMouseListener(this.mouseListener);
     }
 
