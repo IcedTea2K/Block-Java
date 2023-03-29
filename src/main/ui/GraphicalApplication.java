@@ -30,13 +30,7 @@ public class GraphicalApplication extends JFrame {
     // MODIFIES: this
     // EFFECTS: execute the commands in the translator
     public void executeTranslator() {
-        translator = new Translator();
-        Component[] components = translatorView.getComponents();
-        for (Component component : components) {
-            if (component instanceof MovableCommandLabel) {
-                translator.addCommand(((MovableCommandLabel) component).getCommand());
-            }
-        }
+        addCommandsToTranslator();
 
         try {
             translator.executeStream();
@@ -47,8 +41,22 @@ public class GraphicalApplication extends JFrame {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: add on-screen commands to the translator
+    private void addCommandsToTranslator() {
+        translator = new Translator();
+        Component[] components = translatorView.getComponents();
+        for (Component component : components) {
+            if (component instanceof MovableCommandLabel) {
+                translator.addCommand(((MovableCommandLabel) component).getCommand());
+            }
+        }
+    }
+
     // EFFECTS: add the java representation to the Java view
     public void javify() {
+        addCommandsToTranslator();
+
         if (translator == null) {
             javaView.printJava("");
             return;
@@ -159,6 +167,7 @@ public class GraphicalApplication extends JFrame {
         javaView = new JavaView(new Dimension(300, 300), new Color(7570064),
                 "Java View");
         container.add(javaView, BorderLayout.EAST);
+        javify();
     }
 
     // MODIFIES: this
