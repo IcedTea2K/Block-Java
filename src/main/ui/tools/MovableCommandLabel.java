@@ -27,7 +27,7 @@ public class MovableCommandLabel extends CommandLabel {
 
     public MovableCommandLabel(Command command) {
         super(command.getHeader().split(" ")[0],
-               CommandType.valueOf(command.getHeader().split(" ")[0]), CommandLabel.gui);
+                CommandType.valueOf(command.getHeader().split(" ")[0]), CommandLabel.gui);
         this.command = command;
         fillTextFields();
         activateLabel();
@@ -36,7 +36,7 @@ public class MovableCommandLabel extends CommandLabel {
     // MODIFIES: this
     // EFFECTS: fill the text fields with command's existing input
     private void fillTextFields() {
-        String[] javaStr =  this.command.getJava(1).split(" ");
+        String[] javaStr = this.command.getJava(1).split(" ");
         this.leftTextField.setText(javaStr[3]);
         this.rightTextField.setText(javaStr[5].replaceAll(";", ""));
     }
@@ -112,10 +112,10 @@ public class MovableCommandLabel extends CommandLabel {
     //          If the text is not integer, throws NumberFormatException
     private void parseTextFields(boolean isLeft) throws NumberFormatException {
         if (isLeft) {
-            this.leftOperand =  leftTextField.getText().isEmpty()
+            this.leftOperand = leftTextField.getText().isEmpty()
                     ? null : new DataType(Integer.parseInt(leftTextField.getText()));
         } else {
-            this.rightOperand =  rightTextField.getText().isEmpty()
+            this.rightOperand = rightTextField.getText().isEmpty()
                     ? null : new DataType(Integer.parseInt(rightTextField.getText()));
         }
     }
