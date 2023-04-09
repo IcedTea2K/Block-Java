@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 
 // button to get the java version
 public class JavaTool extends Tool {
-    private GraphicalApplication gui;
 
     public JavaTool(GraphicalApplication gui) {
         super("Java");

@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 
 // Execute button and its functionality
 public class ExecuteTool extends Tool {
-    private GraphicalApplication gui;
 
     public ExecuteTool(GraphicalApplication gui) {
         super("Execute");

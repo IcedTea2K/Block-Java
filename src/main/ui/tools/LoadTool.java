@@ -12,7 +12,6 @@ import java.util.List;
 
 // Button for loading the saved file
 public class LoadTool extends Tool {
-    private GraphicalApplication gui;
     private Loader loader;
     private TranslatorView translatorView;
 

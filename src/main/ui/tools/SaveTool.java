@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 
 // Button for saving the application
 public class SaveTool extends Tool {
-    private GraphicalApplication gui;
     private Saver saver;
 
     public SaveTool(GraphicalApplication gui) {
