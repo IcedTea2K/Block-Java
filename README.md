@@ -21,7 +21,7 @@ There are multiple factors that inspire the project. Firstly, scratch helped me 
 - As a user, I want to have the option to save my program or not when I quit the Block Java
 - As a user, I want to have the option to load my saved program or create a new one when I start Block Java
 - As a user, I want to have the option to manually fix my saved program when the file is corrupted or discard it completely and create a new one. 
-### Phase 3 - Instructions for Grader
+### Phase 3: Instructions for Grader
 - The visual component is the splash screen. It can be seen when the program first starts
 - To add a new Command to the Translator, drag one of the command label into the translator view.
 - To remove a command label, press the delete button to enter delete mode (indicated by the red color). Then, click on any label in the translator view to delete them. Press the delete button again to exit the delete mode. 
@@ -30,6 +30,66 @@ There are multiple factors that inspire the project. Firstly, scratch helped me 
 - `Java` button will translate the commands into Java. It can be viewed in the Java view. Note that if any of the input is not valid, it will not run successfully.
 - `Save` button will save the current program. Note that if any of the input is not valid, it will not save successfully. Also, the saved progress will be lost **without warning**.
 - `Load` button will load the saved program. Note that any commands in the current program will be lost **without warning**.
+### Phase 4: Task 2
+Here is a sample of the logged events in the application: 
+```text
+Sat Apr 08 21:18:03 PDT 2023
+New translator is ready.
+Sat Apr 08 21:18:08 PDT 2023
+3 and 2 have been added to SUB Command
+Sat Apr 08 21:18:08 PDT 2023
+4 and 3 have been added to ADD Command
+Sat Apr 08 21:18:08 PDT 2023
+52 and 1 have been added to DIV Command
+Sat Apr 08 21:18:08 PDT 2023
+1010 and 10 have been added to MUL Command
+Sat Apr 08 21:18:08 PDT 2023
+4 and 2 have been added to DIV Command
+Sat Apr 08 21:18:11 PDT 2023
+New translator is ready.
+Sat Apr 08 21:18:11 PDT 2023
+SUB Command has been added to the translator.
+Sat Apr 08 21:18:11 PDT 2023
+ADD Command has been added to the translator.
+Sat Apr 08 21:18:11 PDT 2023
+DIV Command has been added to the translator.
+Sat Apr 08 21:18:11 PDT 2023
+MUL Command has been added to the translator.
+Sat Apr 08 21:18:11 PDT 2023
+DIV Command has been added to the translator.
+Sat Apr 08 21:18:11 PDT 2023
+The stream has been translated to Java.
+Sat Apr 08 21:18:13 PDT 2023
+New translator is ready.
+Sat Apr 08 21:18:13 PDT 2023
+SUB Command has been added to the translator.
+Sat Apr 08 21:18:13 PDT 2023
+ADD Command has been added to the translator.
+Sat Apr 08 21:18:13 PDT 2023
+DIV Command has been added to the translator.
+Sat Apr 08 21:18:13 PDT 2023
+MUL Command has been added to the translator.
+Sat Apr 08 21:18:13 PDT 2023
+DIV Command has been added to the translator.
+Sat Apr 08 21:18:13 PDT 2023
+The stream has been executed.
+Sat Apr 08 21:18:16 PDT 2023
+New translator is ready.
+Sat Apr 08 21:18:16 PDT 2023
+SUB Command has been added to the translator.
+Sat Apr 08 21:18:16 PDT 2023
+ADD Command has been added to the translator.
+Sat Apr 08 21:18:16 PDT 2023
+DIV Command has been added to the translator.
+Sat Apr 08 21:18:16 PDT 2023
+MUL Command has been added to the translator.
+Sat Apr 08 21:18:16 PDT 2023
+DIV Command has been added to the translator.
+Sat Apr 08 21:18:16 PDT 2023
+The stream has been executed.
+Sat Apr 08 21:18:16 PDT 2023
+The result from the translator has been returned.
+```
 ## Credits
 - To check whether the empty is empty, I took inspiration from a similar question asked on Stack Overflow
   - source: https://stackoverflow.com/questions/7190618/most-efficient-way-to-check-if-a-file-is-empty-in-java-on-windows
