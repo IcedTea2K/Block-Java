@@ -11,10 +11,13 @@ import java.util.List;
 // Translate commands to Java as well as execute them
 public class Translator {
     private List<Command> stream;
+    private EventLog eventLogger;
 
     // EFFECTS: create a translator with empty (command) stream
     public Translator() {
         stream = new LinkedList<>();
+        eventLogger = EventLog.getInstance();
+        eventLogger.logEvent(new Event("New translator is ready."));
     }
 
     // REQUIRES: inputs are already stored in the commands
@@ -22,6 +25,7 @@ public class Translator {
     // EFFECTS: add the command to the translator
     public void addCommand(Command command) {
         stream.add(command);
+        eventLogger.logEvent(new Event(command.getHeader() + " has been added to the translator."));
     }
 
     // MODIFIES: this
@@ -31,6 +35,7 @@ public class Translator {
         for (Command c : stream) {
             c.execute();
         }
+        eventLogger.logEvent(new Event("The stream has been executed."));
     }
 
     // EFFECTS: provide help about a specific command
@@ -76,6 +81,7 @@ public class Translator {
         for (int i = 0; i < stream.size(); i++) {
             msg += "#" + (i + 1) + "| " + stream.get(i).getJava(i + 1) + "\n";
         }
+        eventLogger.logEvent(new Event("The stream has been translated to Java."));
         return msg;
     }
 
@@ -93,6 +99,7 @@ public class Translator {
             }
             msg += "\n";
         }
+        eventLogger.logEvent(new Event("The result from the translator has been returned."));
         return msg;
     }
 
@@ -120,6 +127,7 @@ public class Translator {
     public String deleteCommandAtIndex(int idx) throws CommandNotFoundException, MissingCommandsException {
         checkIndex(idx);
         stream.remove(idx - 1);
+        eventLogger.logEvent(new Event("Command at " + idx + " has been removed."));
         return getStringStream();
     }
 

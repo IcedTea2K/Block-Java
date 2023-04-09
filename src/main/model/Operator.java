@@ -12,6 +12,11 @@ public abstract class Operator implements Command {
     protected DataType operandOne;
     protected DataType operandTwo;
     protected DataType result;
+    protected EventLog eventLogger;
+
+    public Operator() {
+        eventLogger = EventLog.getInstance();
+    }
 
     @Override
     // EFFECTS: convert information the Operator holds to JSONarray
@@ -88,6 +93,8 @@ public abstract class Operator implements Command {
         checkInput(inputs);
         operandOne = inputs[0];
         operandTwo = inputs[1];
+        eventLogger.logEvent(new Event(operandOne + " and " + operandTwo + " have been added to "
+                + this.getHeader()));
     }
 
     // EFFECTS: If the number of inputs don't match the constraints, throw

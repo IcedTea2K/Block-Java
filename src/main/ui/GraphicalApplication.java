@@ -4,16 +4,20 @@ import except.MissingArgumentException;
 import except.MissingCommandsException;
 import except.NotYetExecutedException;
 import model.Command;
+import model.Event;
+import model.EventLog;
 import model.Translator;
 import ui.tools.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.List;
 
 // Main class for controlling the GUI
-public class GraphicalApplication extends JFrame {
+public class GraphicalApplication extends JFrame implements WindowListener {
     public static final int WIDTH = 980;
     public static final int HEIGHT = 750;
     private JPanel mainPane;
@@ -108,6 +112,7 @@ public class GraphicalApplication extends JFrame {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
+        addWindowListener(this);
     }
 
     // EFFECTS: show a splash screen at the start of the program
@@ -269,5 +274,43 @@ public class GraphicalApplication extends JFrame {
     // EFFECTS: return the translator view in the program
     public TranslatorView getTranslatorView() {
         return this.translatorView;
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    // EFFECTS: print the logged events when the window is closed
+    public void windowClosing(WindowEvent e) {
+        EventLog logger = EventLog.getInstance();
+        for (Event event : logger) {
+            System.out.println(event);
+        }
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
     }
 }
