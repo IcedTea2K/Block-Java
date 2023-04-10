@@ -51,7 +51,7 @@ public class MovableCommandLabel extends CommandLabel {
     // MODIFIES: this
     // EFFECTS: activate the label
     public void activateLabel() {
-        this.mouseListener = new CommandLabelListener();
+        this.mouseListener = new LabelListener();
         if (this.command == null) {
             this.command = CommandType.createCommand(this.commandType);
         }
@@ -135,7 +135,7 @@ public class MovableCommandLabel extends CommandLabel {
     }
 
     // EFFECTS: custom class for mouse listener
-    private class CommandLabelListener implements MouseListener {
+    private class LabelListener implements MouseListener {
         @Override
         // EFFECTS: if the program is in delete mode, when clicked, the command will be removed
         public void mouseClicked(MouseEvent e) {
