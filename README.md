@@ -90,6 +90,9 @@ The stream has been executed.
 Sat Apr 08 21:18:16 PDT 2023
 The result from the translator has been returned.
 ```
+### Phase 4: Task 3
+Having learned new design patterns in class, there are a few changes that I will make to the project if I had more time. Firstly, the structure of the commands and input. If I want to use the result of one command as input of another command, the current design will not work well because `Command` and `DataType` are two unrelated class. As such, I could refactor it into a Composite pattern where Command and DataType originate from the same class, say `Result` for example. This will allow the users to nest the commands together. <br>
+Some other changes I would make will occur in the `GraphicalApplication` class. Currently, there is a lot of coupling between the buttons and the GUI, as a result of passing `gui` around. Instead, I could implement Singleton design to have a single access point for all the different components of the program. Or, I could also refactor the code base into Observer pattern, which will allow the GUI to keep track of the state of its components (buttons) and act accordingly when the state changes. Moreover, the current implementation of the buttons is too messy and unnecessary. Instead of having a separate class for each button, I could have an anonymous class for each functionalities. These anonymous classes can also be grouped together to allow easier future modification. It will also make the code base much more organized and better to work with.
 ## Credits
 - To check whether the empty is empty, I took inspiration from a similar question asked on Stack Overflow
   - source: https://stackoverflow.com/questions/7190618/most-efficient-way-to-check-if-a-file-is-empty-in-java-on-windows
